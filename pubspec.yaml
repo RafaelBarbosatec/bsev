@@ -1,8 +1,8 @@
 name: bsev
-description: A new Flutter package.
+description: Util to work with BloC pattern and dependency injection.
 version: 0.0.1
-author:
-homepage:
+author: RafaelBarbosatec<rafaelbarbosatec@gmail.com>
+homepage: https://github.com/RafaelBarbosatec/tutorial_coach_mark
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

@@ -3,7 +3,6 @@ import 'package:bsev/bloc_provider.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:simple_injector/simple_injector.dart';
 
 abstract class BlocView<E extends EventsBase> {

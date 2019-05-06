@@ -24,6 +24,6 @@ class RepositoryModule extends ModuleInjector{
       case Flavor.HOMOLOG: url = "https://api.coinmarketcap.com/v1/ticker/"; break;
       case Flavor.DEBUG: url = "https://api.coinmarketcap.com/v1/ticker/"; break;
     }
-    return ConDioImpl(url);
+    return Api(url);
   }
 }

@@ -2,7 +2,6 @@ import 'package:bsev/bloc_view.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:bsev/stream_create.dart';
-import 'package:meta/meta.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
 
@@ -30,7 +29,6 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   void initView();
   void initState();
 
-  @protected
   void eventReceiver(E event);
 
   void dispose() {

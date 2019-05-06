@@ -1,7 +1,9 @@
-import 'di/RepositoryModule.dart';
-import 'di/BlocModule.dart';
-import 'package:simple_injector/simple_injector.dart';
+
 import 'home/HomeView.dart';
+
+import 'di/BlocModule.dart';
+import 'di/RepositoryModule.dart';
+import 'package:simple_injector/simple_injector.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

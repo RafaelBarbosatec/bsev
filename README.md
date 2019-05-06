@@ -1,4 +1,4 @@
-# bsev
+# BSEV (BloC,Streams,Events,View)
 
 A new Flutter package.
 
