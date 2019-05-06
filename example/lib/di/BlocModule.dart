@@ -9,6 +9,8 @@ class BlocModule extends ModuleInjector{
   }
 
   HomeBloc homeBlocCreate(){
-    return HomeBloc();
+    return HomeBloc(
+      inject()
+    );
   }
 }

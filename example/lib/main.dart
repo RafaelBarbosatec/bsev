@@ -1,3 +1,4 @@
+import 'di/RepositoryModule.dart';
 import 'di/BlocModule.dart';
 import 'package:simple_injector/simple_injector.dart';
 import 'home/HomeView.dart';
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
 
   MyApp(){
     SimpleInjector.configure(Flavor.PROD);
+    SimpleInjector().registerModule(RepositoryModule());
     SimpleInjector().registerModule(BlocModule());
   }
 
