@@ -69,7 +69,7 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
   }
 
   void _afterLayout(_) {
-    bloc.initView();
+    Future.delayed(Duration(milliseconds: 100),bloc.initView);
   }
 
 }
