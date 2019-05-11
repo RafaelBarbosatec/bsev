@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c9e073e-dd7c-4c9e-816c-678315f3382e" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/example/lib/support/conection/con2.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
@@ -13,6 +14,9 @@
       <change beforePath="$PROJECT_DIR$/lib/bloc_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc_base.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/bloc_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc_view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -25,6 +29,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/support/conection/con.dart">
@@ -59,6 +64,9 @@
         </entry>
       </file>
     </leaf>
+=======
+    <leaf />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -86,13 +94,23 @@
         <option value="$PROJECT_DIR$/example/lib/home/HomeBloc.dart" />
         <option value="$PROJECT_DIR$/example/lib/home/HomeView.dart" />
         <option value="$PROJECT_DIR$/example/bsev_demo/pubspec.yaml" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+=======
+        <option value="$PROJECT_DIR$/example/lib/main.dart" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
         <option value="$PROJECT_DIR$/lib/bloc_view.dart" />
         <option value="$PROJECT_DIR$/lib/bloc_base.dart" />
         <option value="$PROJECT_DIR$/example/lib/support/conection/con2.dart" />
         <option value="$PROJECT_DIR$/example/pubspec.yaml" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/LICENSE" />
+        <option value="$PROJECT_DIR$/README.md" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
       </list>
     </option>
   </component>
@@ -106,6 +124,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
+=======
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -113,6 +136,7 @@
               <item name="bsev" type="b2602c69:ProjectViewProjectNode" />
               <item name="bsev" type="462c0819:PsiDirectoryNode" />
             </path>
+<<<<<<< HEAD
             <path>
               <item name="bsev" type="b2602c69:ProjectViewProjectNode" />
               <item name="bsev" type="462c0819:PsiDirectoryNode" />
@@ -144,6 +168,8 @@
               <item name="bsev" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
+=======
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
           </expand>
           <select />
         </subPane>
@@ -209,10 +235,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-1" y="0" width="1368" height="769" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27121213" />
+=======
+    <frame x="0" y="0" width="1440" height="860" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.271223" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
       <window_info id="Structure" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -220,6 +252,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.32965517" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="1" weight="0.32866043" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
@@ -228,6 +261,16 @@
       <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.32866043" />
+=======
+      <window_info anchor="bottom" id="Run" order="1" weight="0.32732317" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="4" visible="true" weight="0.33009708" />
+      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32732317" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
       <window_info anchor="right" id="Flutter Inspector" order="2" />
@@ -334,6 +377,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/example/lib/home/HomeStreams.dart" />
     <entry file="file://$PROJECT_DIR$/example/lib/home/HomeEvents.dart" />
     <entry file="file://$PROJECT_DIR$/example/lib/home/HomeView.dart" />
@@ -345,12 +389,17 @@
         </state>
       </provider>
     </entry>
+=======
+    <entry file="file://$PROJECT_DIR$/example/lib/home/HomeEvents.dart" />
+    <entry file="file://$PROJECT_DIR$/example/bsev_demo/pubspec.yaml" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
     <entry file="file://$PROJECT_DIR$/bsev.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/example/README.md">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -379,9 +428,14 @@
           <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
           <folding>
             <element signature="e#1#29#0" expanded="true" />
-          </folding>
-        </state>
+=======
+    <entry file="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.1.6/lib/meta.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-360" />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/home/HomeBloc.dart">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/bloc_base.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -389,7 +443,46 @@
           <caret line="36" column="25" lean-forward="true" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
           </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/lib/bloc_base.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="36" column="25" lean-forward="true" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+=======
+    <entry file="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/dio-2.1.3/lib/dio.dart">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/support/conection/con2.dart" />
+    <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/bsev_demo.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/support/conection/con.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
         </state>
       </provider>
     </entry>
@@ -398,23 +491,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/bloc_view.dart">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="240">
           <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+=======
+        <state relative-caret-position="324">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/example/lib/support/conection/con.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-976">
           <folding>
             <element signature="e#0#20#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/example/lib/home/HomeStreams.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/bsev.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/bloc_view.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-246">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/example/lib/support/conection/con2.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1875">
@@ -429,6 +554,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+=======
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" selection-start-column="6" selection-end-column="10" />
+>>>>>>> 028188a0d82e6986df227bd031c50f5fd5a806a8
         </state>
       </provider>
     </entry>
