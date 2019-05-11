@@ -1,3 +1,7 @@
+## [0.0.5] - 11/05/2019
+
+* ADD injector
+
 ## [0.0.1] - TODO: Add release date.
 
 * TODO: Describe initial release.
