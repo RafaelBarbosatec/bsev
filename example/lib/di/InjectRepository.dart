@@ -1,6 +1,6 @@
 
 import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
-import 'package:bsev/Flavors.dart';
+import 'package:bsev/flavors.dart';
 import 'package:bsev_demo/support/conection/con.dart';
 import 'package:injector/injector.dart';
 
