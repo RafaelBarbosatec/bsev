@@ -1,7 +1,7 @@
 
 import 'package:bsev_demo/di/InjectBloc.dart';
 import 'package:bsev_demo/di/InjectRepository.dart';
-import 'package:bsev_demo/support/Flavors.dart';
+import 'package:bsev/Flavors.dart';
 import 'package:injector/injector.dart';
 
 import 'home/HomeView.dart';
