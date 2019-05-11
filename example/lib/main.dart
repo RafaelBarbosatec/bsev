@@ -1,9 +1,10 @@
 
-import 'home/HomeView.dart';
+import 'package:bsev_demo/di/InjectBloc.dart';
+import 'package:bsev_demo/di/InjectRepository.dart';
+import 'package:bsev_demo/support/Flavors.dart';
+import 'package:injector/injector.dart';
 
-import 'di/BlocModule.dart';
-import 'di/RepositoryModule.dart';
-import 'package:simple_injector/simple_injector.dart';
+import 'home/HomeView.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,9 +12,13 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
 
   MyApp(){
-    SimpleInjector.configure(Flavor.PROD);
-    SimpleInjector().registerModule(RepositoryModule());
-    SimpleInjector().registerModule(BlocModule());
+
+    Flavors.configure(Flavor.PROD);
+
+    var injector = Injector.appInstance;
+    injectBloc(injector);
+    injectRepository(injector);
+
   }
 
   @override

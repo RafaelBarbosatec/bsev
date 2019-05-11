@@ -3,7 +3,7 @@ import 'package:bsev/bloc_provider.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:flutter/widgets.dart';
-import 'package:simple_injector/simple_injector.dart';
+import 'package:injector/injector.dart';
 
 abstract class BlocView<E extends EventsBase> {
   void eventReceiver(E event);
@@ -45,7 +45,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
   Widget create({forceUpdateBloc = false}) {
     return BlocProvider<B>(
       child: this,
-      bloc: SimpleInjector().inject(),
+      bloc: Injector.appInstance.getDependency(),
       forceUpdateBloc: forceUpdateBloc,
     );
   }
