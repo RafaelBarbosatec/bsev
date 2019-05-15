@@ -86,6 +86,9 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   
   @override
   Widget buildView(BuildContext context) {
+  
+    Case precise obter um Bloc da ierarquia superior de widget você pode usar:
+    var otherBloc = getBloc<Bloc>(context)
 
     return Scaffold(
       key: scaffoldStateKey,
