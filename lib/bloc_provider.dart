@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:injector/injector.dart';
 import 'package:provider/provider.dart';
 
-class BlocProvider<T extends BlocBase, S extends StreamsBase> extends StatefulWidget {
+class BlocProvider<T extends BlocBase, S extends StreamsBase>
+    extends StatefulWidget {
   BlocProvider({
     Key key,
     @required this.child,
@@ -13,12 +14,11 @@ class BlocProvider<T extends BlocBase, S extends StreamsBase> extends StatefulWi
   final Widget child;
 
   @override
-  _BlocProviderState<T,S> createState() => _BlocProviderState<T,S>();
-
+  _BlocProviderState<T, S> createState() => _BlocProviderState<T, S>();
 }
 
-class _BlocProviderState<B extends BlocBase,S extends StreamsBase> extends State<BlocProvider<B,S>> {
-
+class _BlocProviderState<B extends BlocBase, S extends StreamsBase>
+    extends State<BlocProvider<B, S>> {
   B bloc;
 
   @override
@@ -37,16 +37,10 @@ class _BlocProviderState<B extends BlocBase,S extends StreamsBase> extends State
 
   @override
   Widget build(BuildContext context) {
-
-    return Provider<B>.value(
-        value: bloc,
-        child: widget.child
-    );
-
+    return Provider<B>.value(value: bloc, child: widget.child);
   }
 
   void _afterLayout(_) {
     bloc.initView();
   }
-
 }

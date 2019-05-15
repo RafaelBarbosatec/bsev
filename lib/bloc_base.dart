@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
-
   final typeStreams = T;
   var _eventToBloc = PublishSubjectCreate<E>();
   var _eventToView = PublishSubjectCreate<E>();
@@ -18,7 +17,7 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
     _eventToBloc.get.listen(eventReceiver);
   }
 
-  void registerView(BlocView view,BuildContext context) {
+  void registerView(BlocView view, BuildContext context) {
     _context = context;
     _eventToView.get.listen(view.eventReceiver);
   }
@@ -31,7 +30,7 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
     _eventToBloc.set(event);
   }
 
-  T getBloc<T>(){
+  T getBloc<T>() {
     return Provider.of<T>(_context);
   }
 

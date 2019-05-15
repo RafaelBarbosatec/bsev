@@ -10,7 +10,8 @@ abstract class BlocView<E extends EventsBase> {
 }
 
 // ignore: must_be_immutable
-abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase> extends StatelessWidget implements BlocView<EventsBase> {
+abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
+    extends StatelessWidget implements BlocView<EventsBase> {
   B _bloc;
 
   S get streams {
@@ -29,7 +30,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase> exte
   void _initBlocView(BuildContext context) {
     try {
       _bloc = getBloc<B>(context);
-      _bloc.registerView(this,context);
+      _bloc.registerView(this, context);
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
@@ -42,12 +43,12 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase> exte
   }
 
   Widget create({forceUpdateBloc = false}) {
-    return BlocProvider<B,S>(
+    return BlocProvider<B, S>(
       child: this,
     );
   }
 
-  T getBloc<T extends BlocBase>(BuildContext context){
+  T getBloc<T extends BlocBase>(BuildContext context) {
     return Provider.of<T>(context);
   }
 }
@@ -64,7 +65,8 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase> exte
     no StatefulWidget
  */
 
-mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase> implements BlocView<EventsBase> {
+mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
+    implements BlocView<EventsBase> {
   B _bloc;
 
   S get streams {
@@ -84,7 +86,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase> implements BlocVi
     try {
       if (_bloc == null) {
         _bloc = getBloc<B>(context);
-        _bloc.registerView(this,context);
+        _bloc.registerView(this, context);
       }
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
@@ -99,7 +101,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase> implements BlocVi
     _bloc.dispatch(event);
   }
 
-  T getBloc<T extends BlocBase>(BuildContext context){
+  T getBloc<T extends BlocBase>(BuildContext context) {
     return Provider.of<T>(context);
   }
 }
