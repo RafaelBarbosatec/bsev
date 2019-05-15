@@ -54,6 +54,10 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
   @override
   void initView() {
+    //Caso precise obter um Bloc da hierarquia superior de widget você pode usar:
+    //var otherBloc = getBloc<Bloc>();
+    //otherBloc.dispatch(Event());
+
   }
   
   @override
@@ -87,8 +91,9 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   @override
   Widget buildView(BuildContext context) {
   
-    Case precise obter um Bloc da ierarquia superior de widget você pode usar:
-    var otherBloc = getBloc<Bloc>(context)
+    //Caso precise obter um Bloc da hierarquia superior de widget você pode usar:
+    //var otherBloc = getBloc<Bloc>(context);
+    //otherBloc.dispatch(Event());
 
     return Scaffold(
       key: scaffoldStateKey,

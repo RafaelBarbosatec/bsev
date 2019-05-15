@@ -29,7 +29,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase> exte
   void _initBlocView(BuildContext context) {
     try {
       _bloc = getBloc<B>(context);
-      _bloc.registerView(this);
+      _bloc.registerView(this,context);
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
@@ -84,7 +84,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase> implements BlocVi
     try {
       if (_bloc == null) {
         _bloc = getBloc<B>(context);
-        _bloc.registerView(this);
+        _bloc.registerView(this,context);
       }
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
