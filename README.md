@@ -53,16 +53,11 @@ import 'package:bsev/bsev.dart';
 class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
   @override
-  void initState() {
-    streams = HomeStreams();
-  }
-  
-  @override
   void initView() {
   }
   
   @override
-  void eventReceiver(HomeEvents event) {
+  void eventReceiver(EventsBase event) {
     if(event is IncrementEvent){
       streams.count.set(streams.count.value + 1)
     }
@@ -71,9 +66,7 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
 ```
 
-Em nosso bloc temos 3 métodos obrigatórios: initState, initView e eventReceiver:
-
-**initState**: Invocado assim que inicia o estado da view;
+Em nosso bloc temos 2 métodos obrigatórios: initState e eventReceiver:
 
 **initView**: No primeiro buildView esse método é invocado;
 
@@ -84,7 +77,7 @@ Em nosso bloc temos 3 métodos obrigatórios: initState, initView e eventReceive
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
+class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
    @override
   void eventReceiver(HomeEvents event) {
@@ -129,13 +122,14 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
 
 ```
 
-Como nosso Bloc será injetado em nossa view automaticament, devemos configura-ló no Injector na main de nosso projeto:
+Como nosso Bloc e nosso StreamsBase será injetado em nossa view automaticamente, devemos configura-ló no Injector na main de nosso projeto:
 
 ``` dart
   MyApp(){
 
     var injector = Injector.appInstance;
     injector.registerDependency((i)=> HomeBloc());
+    injector.registerDependency((i)=> HomeStreams());
     
   }
 ```
@@ -153,3 +147,5 @@ Exemplo mais complexo é encontrado aqui: [exemplo](https://github.com/RafaelBar
 [rxdart](https://pub.dev/packages/rxdart): ^0.21.0
 
 [injector](https://pub.dev/packages/injector): ^1.0.8
+
+[provider](https://pub.dev/packages/provider): ^2.0.1
