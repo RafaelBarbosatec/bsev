@@ -16,11 +16,6 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   HomeBloc(this.api);
 
   @override
-  void initState() {
-    streams = HomeStreams();
-  }
-
-  @override
   void initView() {
     loadCripyto(false);
   }

@@ -5,6 +5,7 @@ import 'package:bsev/stream_create.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
 
+  final typeStreams = T;
   var _eventToBloc = PublishSubjectCreate<E>();
   var _eventToView = PublishSubjectCreate<E>();
 
@@ -27,7 +28,6 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   }
 
   void initView();
-  void initState();
 
   void eventReceiver(E event);
 

@@ -2,6 +2,8 @@
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:flutter/material.dart';
 
+import 'package:bsev_demo/detail/Detail.dart';
+
 class CriptoWidget extends StatefulWidget {
 
   final Cripto item;
@@ -34,14 +36,22 @@ class _CriptoWidgetState extends State<CriptoWidget> with SingleTickerProviderSt
   }
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animationSlide,
-      child: FadeTransition(
-        opacity: _controller,
-        child: Container(
-          margin: const EdgeInsets.all(5.0),
-          child: Card(
-            child: _getListTile(),
+    return InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Detail()),
+        );
+      },
+      child: SlideTransition(
+        position: _animationSlide,
+        child: FadeTransition(
+          opacity: _controller,
+          child: Container(
+            margin: const EdgeInsets.all(5.0),
+            child: Card(
+              child: _getListTile(),
+            ),
           ),
         ),
       ),

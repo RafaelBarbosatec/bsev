@@ -1,38 +1,30 @@
 import 'package:bsev/bloc_base.dart';
+import 'package:bsev/stream_base.dart';
 import 'package:flutter/material.dart';
+import 'package:injector/injector.dart';
+import 'package:provider/provider.dart';
 
-Type _typeOf<T>() => T;
-
-class BlocProvider<T extends BlocBase> extends StatefulWidget {
+class BlocProvider<T extends BlocBase, S extends StreamsBase> extends StatefulWidget {
   BlocProvider({
     Key key,
     @required this.child,
-    @required this.bloc,
-    this.forceUpdateBloc = false,
   }) : super(key: key);
 
   final Widget child;
-  final T bloc;
-  final bool forceUpdateBloc;
 
   @override
-  _BlocProviderState<T> createState() => _BlocProviderState<T>();
+  _BlocProviderState<T,S> createState() => _BlocProviderState<T,S>();
 
-  static T of<T extends BlocBase>(BuildContext context) {
-    final type = _typeOf<_BlocProviderInherited<T>>();
-    _BlocProviderInherited<T> provider =
-        context.ancestorInheritedElementForWidgetOfExactType(type)?.widget;
-    return provider?.bloc;
-  }
 }
 
-class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
+class _BlocProviderState<B extends BlocBase,S extends StreamsBase> extends State<BlocProvider<B,S>> {
 
-  T bloc;
+  B bloc;
 
   @override
   void initState() {
-    _initStateBloc();
+    bloc = Injector.appInstance.getDependency<B>();
+    bloc.streams = Injector.appInstance.getDependency<S>();
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();
   }
@@ -44,45 +36,17 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
   }
 
   @override
-  void didUpdateWidget(BlocProvider<T> oldWidget) {
-    if(oldWidget.bloc != widget.bloc && widget.forceUpdateBloc){
-      _initStateBloc();
-      _afterLayout(0);
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
 
-    return new _BlocProviderInherited<T>(
-      bloc: bloc,
-      child: widget.child,
+    return Provider<B>.value(
+        value: bloc,
+        child: widget.child
     );
 
-  }
-
-  void _initStateBloc() {
-    bloc?.dispose();
-    bloc = widget.bloc;
-    bloc.initState();
   }
 
   void _afterLayout(_) {
     bloc.initView();
   }
 
-}
-
-class _BlocProviderInherited<T> extends InheritedWidget {
-  _BlocProviderInherited({
-    Key key,
-    @required Widget child,
-    @required this.bloc,
-  }) : super(key: key, child: child);
-
-  final T bloc;
-
-  @override
-  bool updateShouldNotify(_BlocProviderInherited oldWidget) => false;
 }

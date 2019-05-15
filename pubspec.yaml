@@ -13,6 +13,7 @@ dependencies:
 
   rxdart: ^0.21.0
   injector: ^1.0.8
+  provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:
