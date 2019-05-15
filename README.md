@@ -134,7 +134,7 @@ Como nosso Bloc e nosso StreamsBase será injetado em nossa view automaticamente
   }
 ```
 
-Por fim instanciamos nossa HomeView executamos:
+Por fim instanciamos nossa HomeView executando:
 
 ``` dart
 HomeView().create()
