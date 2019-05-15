@@ -3,15 +3,15 @@ import 'package:bsev/bloc_provider.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
+import 'package:provider/provider.dart';
 
 abstract class BlocView<E extends EventsBase> {
   void eventReceiver(E event);
 }
 
 // ignore: must_be_immutable
-abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
-    E extends EventsBase> extends StatelessWidget implements BlocView<E> {
+abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
+    extends StatelessWidget implements BlocView<EventsBase> {
   B _bloc;
 
   S get streams {
@@ -30,7 +30,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
   void _initBlocView(BuildContext context) {
     try {
       _bloc = getBloc<B>(context);
-      _bloc.registerView(this);
+      _bloc.registerView(this, context);
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
@@ -38,20 +38,18 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
     }
   }
 
-  void dispatch(E event) {
+  void dispatch(EventsBase event) {
     _bloc.dispatch(event);
   }
 
   Widget create({forceUpdateBloc = false}) {
-    return BlocProvider<B>(
+    return BlocProvider<B, S>(
       child: this,
-      bloc: Injector.appInstance.getDependency(),
-      forceUpdateBloc: forceUpdateBloc,
     );
   }
 
-  T getBloc<T extends BlocBase>(BuildContext context){
-    return BlocProvider.of<T>(context);
+  T getBloc<T extends BlocBase>(BuildContext context) {
+    return Provider.of<T>(context);
   }
 }
 
@@ -59,17 +57,16 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase,
  * nesessario criar method:
  *
  * static Widget create(){
-      return BlocProvider<HomeBloc>(
-        child: HomeView(),
-        bloc: SimpleInjector().inject(),
+      return BlocProvider<BlocBase,StreamsBase>(
+        child: Widget(),
       );
     }
 
     no StatefulWidget
  */
 
-mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase,
-    E extends EventsBase> implements BlocView<E> {
+mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
+    implements BlocView<EventsBase> {
   B _bloc;
 
   S get streams {
@@ -89,23 +86,22 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase,
     try {
       if (_bloc == null) {
         _bloc = getBloc<B>(context);
-        _bloc.registerView(this);
+        _bloc.registerView(this, context);
       }
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
-          "return BlocProvider<$B>(\n"
+          "return BlocProvider<$B,$S>(\n"
           "  child: Widget(),\n"
-          "  bloc: SimpleInjector().inject(),\n"
           ");");
     }
   }
 
-  void dispatch(E event) {
+  void dispatch(EventsBase event) {
     _bloc.dispatch(event);
   }
 
-  T getBloc<T extends BlocBase>(BuildContext context){
-    return BlocProvider.of<T>(context);
+  T getBloc<T extends BlocBase>(BuildContext context) {
+    return Provider.of<T>(context);
   }
 }

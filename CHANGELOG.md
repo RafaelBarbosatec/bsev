@@ -1,3 +1,8 @@
+## [0.1.0] - 15/05/2019
+
+* ADD provider
+* Optimizations
+
 ## [0.0.5] - 11/05/2019
 
 * ADD injector

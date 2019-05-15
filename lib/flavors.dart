@@ -1,8 +1,6 @@
-
 enum Flavor { DEBUG, HOMOLOG, PROD }
 
-class Flavors{
-
+class Flavors {
   static final Flavors _singleton = Flavors._internal();
   static Flavor _flavor;
 
@@ -17,5 +15,4 @@ class Flavors{
   }
 
   Flavor getFlavor() => _flavor;
-
 }

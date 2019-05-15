@@ -40,7 +40,6 @@ class BehaviorSubjectCreate<T> {
 }
 
 class ReplaySubjectCreate<T> {
-
   final _controller = ReplaySubject<T>();
   Stream<T> get get => _controller.stream;
   Function(T) get set => _controller.add;

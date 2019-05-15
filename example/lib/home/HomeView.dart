@@ -6,7 +6,7 @@ import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:bsev_demo/widget/CriptoWidget.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
+class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
 
@@ -83,7 +83,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
   }
 
   @override
-  void eventReceiver(HomeEvents event) {
+  void eventReceiver(EventsBase event) {
     if(event is ShowError){
       showSnackBar(event.data);
     }

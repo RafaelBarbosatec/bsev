@@ -9,7 +9,7 @@ Useful to aid in the use of BloC pattern with dependency injection
 # Usage
 To use this plugin, add `bsev` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-Devemos inicialmente criar a classe que representa nossos Streams e Events:
+We should initially create the class that represents our Streams and Events:
 
 #### Streams
 
@@ -43,7 +43,7 @@ class IncrementEvent extends HomeEvents{}
 
 ```
 
-Agora podemos criar nosso BloC, classe que será centralizada a regra de negócio.
+Now we can create our Bloc, class that will be centralized the business rule.
 
 #### Bloc
 
@@ -53,16 +53,16 @@ import 'package:bsev/bsev.dart';
 class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
   @override
-  void initState() {
-    streams = HomeStreams();
-  }
-  
-  @override
   void initView() {
+    //If you need to get a Bloc from the top widget hierarchy you can use:
+    //ATTENTION: Do not call this method (getBloc) in the block constructor. Only in the initView or after the initView is called at least once.
+    //var otherBloc = getBloc<Bloc>();
+    //otherBloc.dispatch(Event());
+
   }
   
   @override
-  void eventReceiver(HomeEvents event) {
+  void eventReceiver(EventsBase event) {
     if(event is IncrementEvent){
       streams.count.set(streams.count.value + 1)
     }
@@ -71,20 +71,18 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
 ```
 
-Em nosso bloc temos 3 métodos obrigatórios: initState, initView e eventReceiver:
+In our bloc we have 2 mandatory methods: initState and eventReceiver:
 
-**initState**: Invocado assim que inicia o estado da view;
+**initView**: In the first buildView this method is invoked;
 
-**initView**: No primeiro buildView esse método é invocado;
-
-**eventReceiver**: invocado tava ves que o bloc recebe um evento;
+**eventReceiver**: Invoked whenever the pad receives an event;
 
 #### View
 
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
+class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
    @override
   void eventReceiver(HomeEvents event) {
@@ -93,6 +91,10 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
   
   @override
   Widget buildView(BuildContext context) {
+  
+    //If you need to get a Bloc from the top widget hierarchy you can use:
+    //var otherBloc = getBloc<Bloc>(context);
+    //otherBloc.dispatch(Event());
 
     return Scaffold(
       key: scaffoldStateKey,
@@ -129,27 +131,30 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams,HomeEvents> {
 
 ```
 
-Como nosso Bloc será injetado em nossa view automaticament, devemos configura-ló no Injector na main de nosso projeto:
+As our Bloc and our StreamsBase will be injected automatically, we should configure it in the Injector in the main of our application:
 
 ``` dart
   MyApp(){
 
     var injector = Injector.appInstance;
     injector.registerDependency((i)=> HomeBloc());
+    injector.registerDependency((i)=> HomeStreams());
     
   }
 ```
 
-Por fim instanciamos nossa HomeView executamos:
+Finally we instantiate our HomeView running:
 
 ``` dart
 HomeView().create()
 ```
 
-Exemplo mais complexo é encontrado aqui: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
 
 ### Used packages
 
 [rxdart](https://pub.dev/packages/rxdart): ^0.21.0
 
 [injector](https://pub.dev/packages/injector): ^1.0.8
+
+[provider](https://pub.dev/packages/provider): ^2.0.1
