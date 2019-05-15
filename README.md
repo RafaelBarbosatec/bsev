@@ -73,9 +73,11 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
 Em nosso bloc temos 3 métodos obrigatórios: initState, initView e eventReceiver:
 
-initState: Invocado assim que inicia o estado da view;
-initView: No primeiro buildView esse método é invocado;
-eventReceiver: invocado tava ves que o bloc recebe um evento;
+**initState**: Invocado assim que inicia o estado da view;
+
+**initView**: No primeiro buildView esse método é invocado;
+
+**eventReceiver**: invocado tava ves que o bloc recebe um evento;
 
 #### View
 
@@ -138,7 +140,7 @@ Como nosso Bloc será injetado em nossa view automaticament, devemos configura-l
   }
 ```
 
-Por fim para chamar nossa HomeView executamos:
+Por fim instanciamos nossa HomeView executamos:
 
 ``` dart
 HomeView().create()
