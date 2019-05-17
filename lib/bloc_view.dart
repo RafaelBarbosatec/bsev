@@ -30,7 +30,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
 
   void _initBlocView(BuildContext context) {
     try {
-      _bloc = getBloc<B>(context);
+      _bloc = _getBloc<B>(context);
       Dispatcher().registerView(_bloc, this);
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
@@ -49,7 +49,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     );
   }
 
-  T getBloc<T extends BlocBase>(BuildContext context) {
+  T _getBloc<T extends BlocBase>(BuildContext context) {
     return Provider.of<T>(context);
   }
 }
@@ -86,7 +86,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
   void _initBlocView(BuildContext context) {
     try {
       if (_bloc == null) {
-        _bloc = getBloc<B>(context);
+        _bloc = _getBloc<B>(context);
         Dispatcher().registerView(_bloc, this);
       }
     } catch (e) {
@@ -102,7 +102,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
     Dispatcher().dispatch<B>(event);
   }
 
-  T getBloc<T extends BlocBase>(BuildContext context) {
+  T _getBloc<T extends BlocBase>(BuildContext context) {
     return Provider.of<T>(context);
   }
 }
