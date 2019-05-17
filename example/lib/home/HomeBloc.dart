@@ -2,6 +2,8 @@
 import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/home/HomeEvents.dart';
 import 'package:bsev_demo/home/HomeStreams.dart';
+import 'package:bsev_demo/home_second/SecondBloc.dart';
+import 'package:bsev_demo/home_second/SecondEvents.dart';
 import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 
