@@ -30,6 +30,7 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
     if(event is HomeLoadMore){
       loadCripyto(true);
     }
+
   }
 
   void loadCripyto(bool isMore) {

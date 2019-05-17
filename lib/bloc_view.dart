@@ -1,5 +1,6 @@
 import 'package:bsev/bloc_base.dart';
 import 'package:bsev/bloc_provider.dart';
+import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:flutter/widgets.dart';
@@ -30,7 +31,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
   void _initBlocView(BuildContext context) {
     try {
       _bloc = getBloc<B>(context);
-      _bloc.registerView(this, context);
+      Dispatcher().registerView(_bloc, this);
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
@@ -39,7 +40,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
   }
 
   void dispatch(EventsBase event) {
-    _bloc.dispatch(event);
+    Dispatcher().dispatch<B>(event);
   }
 
   Widget create({forceUpdateBloc = false}) {
@@ -86,7 +87,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
     try {
       if (_bloc == null) {
         _bloc = getBloc<B>(context);
-        _bloc.registerView(this, context);
+        Dispatcher().registerView(_bloc, this);
       }
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
@@ -98,7 +99,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
   }
 
   void dispatch(EventsBase event) {
-    _bloc.dispatch(event);
+    Dispatcher().dispatch<B>(event);
   }
 
   T getBloc<T extends BlocBase>(BuildContext context) {
