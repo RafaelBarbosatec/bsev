@@ -9,7 +9,7 @@ Useful to aid in the use of BloC pattern with dependency injection
 # Usage
 To use this plugin, add `bsev` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-Devemos inicialmente criar a classe que representa nossos Streams e Events:
+We should initially create the class that represents our Streams and Events:
 
 #### Streams
 
@@ -43,7 +43,7 @@ class IncrementEvent extends HomeEvents{}
 
 ```
 
-Agora podemos criar nosso BloC, classe que será centralizada a regra de negócio.
+Now we can create our Bloc, class that will be centralized the business rule.
 
 #### Bloc
 
@@ -54,7 +54,8 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
   @override
   void initView() {
-    //Caso precise obter um Bloc da hierarquia superior de widget você pode usar:
+    //If you need to get a Bloc from the top widget hierarchy you can use:
+    //ATTENTION: Do not call this method (getBloc) in the block constructor. Only in the initView or after the initView is called at least once.
     //var otherBloc = getBloc<Bloc>();
     //otherBloc.dispatch(Event());
 
@@ -70,11 +71,11 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
 ```
 
-Em nosso bloc temos 2 métodos obrigatórios: initState e eventReceiver:
+In our bloc we have 2 mandatory methods: initState and eventReceiver:
 
-**initView**: No primeiro buildView esse método é invocado;
+**initView**: In the first buildView this method is invoked;
 
-**eventReceiver**: invocado tava ves que o bloc recebe um evento;
+**eventReceiver**: Invoked whenever the pad receives an event;
 
 #### View
 
@@ -91,7 +92,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   @override
   Widget buildView(BuildContext context) {
   
-    //Caso precise obter um Bloc da hierarquia superior de widget você pode usar:
+    //If you need to get a Bloc from the top widget hierarchy you can use:
     //var otherBloc = getBloc<Bloc>(context);
     //otherBloc.dispatch(Event());
 
@@ -130,7 +131,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
 ```
 
-Como nosso Bloc e nosso StreamsBase será injetado em nossa view automaticamente, devemos configura-ló no Injector na main de nosso projeto:
+As our Bloc and our StreamsBase will be injected automatically, we should configure it in the Injector in the main of our application:
 
 ``` dart
   MyApp(){
@@ -142,13 +143,13 @@ Como nosso Bloc e nosso StreamsBase será injetado em nossa view automaticamente
   }
 ```
 
-Por fim instanciamos nossa HomeView executando:
+Finally we instantiate our HomeView running:
 
 ``` dart
 HomeView().create()
 ```
 
-Exemplo mais complexo é encontrado aqui: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
 
 ### Used packages
 
