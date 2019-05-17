@@ -52,13 +52,14 @@ import 'package:bsev/bsev.dart';
 
 class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
+  //If you need to communicate with some instantiated Bloc depending on whether or not your widget tree you can do using:
+  //dispatchToBloc<OtherBloc>(MsgEvent());
+  
+  //If you need to send an event to the view:
+  //dispatchView(MyEvent());
+  
   @override
   void initView() {
-    //If you need to get a Bloc from the top widget hierarchy you can use:
-    //ATTENTION: Do not call this method (getBloc) in the block constructor. Only in the initView or after the initView is called at least once.
-    //var otherBloc = getBloc<Bloc>();
-    //otherBloc.dispatch(Event());
-
   }
   
   @override
@@ -91,10 +92,6 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   
   @override
   Widget buildView(BuildContext context) {
-  
-    //If you need to get a Bloc from the top widget hierarchy you can use:
-    //var otherBloc = getBloc<Bloc>(context);
-    //otherBloc.dispatch(Event());
 
     return Scaffold(
       key: scaffoldStateKey,
