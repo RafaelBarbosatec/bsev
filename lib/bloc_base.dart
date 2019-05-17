@@ -1,11 +1,6 @@
-import 'package:bsev/bloc_view.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
-import 'package:bsev/stream_create.dart';
-import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   final typeStreams = T;
@@ -13,7 +8,7 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   T streams;
 
   void dispatchView(E event) {
-    Dispatcher().dispatchToView(this,event);
+    Dispatcher().dispatchToView(this, event);
   }
 
   void dispatchToBloc<T extends BlocBase>(EventsBase event) {

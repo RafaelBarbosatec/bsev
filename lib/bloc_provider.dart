@@ -20,14 +20,13 @@ class BlocProvider<T extends BlocBase, S extends StreamsBase>
 
 class _BlocProviderState<B extends BlocBase, S extends StreamsBase>
     extends State<BlocProvider<B, S>> {
-
   B bloc;
 
   @override
   void initState() {
     bloc = Injector.appInstance.getDependency<B>();
     bloc.streams = Injector.appInstance.getDependency<S>();
-    Dispatcher().registerBloc(bloc,bloc.eventReceiver);
+    Dispatcher().registerBloc(bloc, bloc.eventReceiver);
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();
   }
