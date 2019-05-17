@@ -94,7 +94,6 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   Widget buildView(BuildContext context) {
 
     return Scaffold(
-      key: scaffoldStateKey,
       appBar: AppBar(),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
