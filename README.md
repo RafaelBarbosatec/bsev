@@ -147,7 +147,7 @@ HomeView().create()
 
 More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
 
-###Send Events other blocs
+### Send Events other blocs
 
 With BSEV you can send messages to another bloc without needing to be in the same hierarchy in the widget tree:
 
