@@ -52,13 +52,14 @@ import 'package:bsev/bsev.dart';
 
 class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
+  //If you need to communicate with some instantiated Bloc depending on whether or not your widget tree you can do using:
+  //dispatchToBloc<OtherBloc>(MsgEvent());
+  
+  //If you need to send an event to the view:
+  //dispatchView(MyEvent());
+  
   @override
   void initView() {
-    //If you need to get a Bloc from the top widget hierarchy you can use:
-    //ATTENTION: Do not call this method (getBloc) in the block constructor. Only in the initView or after the initView is called at least once.
-    //var otherBloc = getBloc<Bloc>();
-    //otherBloc.dispatch(Event());
-
   }
   
   @override
@@ -84,20 +85,15 @@ import 'package:bsev/bsev.dart';
 
 class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
-   @override
+  @override
   void eventReceiver(HomeEvents event) {
     // performs action received by the bloc
   }
   
   @override
   Widget buildView(BuildContext context) {
-  
-    //If you need to get a Bloc from the top widget hierarchy you can use:
-    //var otherBloc = getBloc<Bloc>(context);
-    //otherBloc.dispatch(Event());
 
     return Scaffold(
-      key: scaffoldStateKey,
       appBar: AppBar(),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
@@ -107,25 +103,27 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
       ),
     );
     
-    Widget _buildBody() {
+  }
     
-      return StreamBuilder(
-        stream: streams.count.get,
-        initialData: 0,
-        builder: (_,snapshot){
-          
-          int count = 0;
-          if(snapshot.hasData){
-            count = snapshot.data;
-          }
-          
-          return Center(
-            child: Text(count)
-          )
+  Widget _buildBody() {
+
+    return StreamBuilder(
+      stream: streams.count.get,
+      initialData: 0,
+      builder: (_,snapshot){
+
+        int count = 0;
+        if(snapshot.hasData){
+          count = snapshot.data;
         }
-      );
-      
-    }
+
+        return Center(
+          child: Text(count)
+        )
+      }
+    );
+
+  }
   
 }
 
@@ -150,6 +148,67 @@ HomeView().create()
 ```
 
 More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+
+### Using Stateful Widget
+
+To stateful widget is necessary use mixin and add "create":
+
+``` dart
+class HomeView extends StatefulWidget {
+
+  Widget create(){
+    return BlocProvider<BlocBase,StreamsBase>(
+      child: this,
+    );
+  }
+  
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> with BlocViewMixin<HomeBloc,HomeStreams>{
+
+  @override
+  void eventReceiver(HomeEvents event) {
+    // performs action received by the bloc
+  }
+  
+  @override
+  Widget buildView(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: _buildBody(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            dispatch(IncrementEvent());
+          }
+      ),
+    );
+  }
+  
+  Widget _buildBody() {
+    
+      return StreamBuilder(
+        stream: streams.count.get,
+        initialData: 0,
+        builder: (_,snapshot){
+          
+          int count = 0;
+          if(snapshot.hasData){
+            count = snapshot.data;
+          }
+          
+          return Center(
+            child: Text(count)
+          )
+        }
+      );
+      
+  }
+  
+}
+```
+
 
 ### Used packages
 

@@ -87,6 +87,8 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     if(event is ShowError){
       showSnackBar(event.data);
     }
+
+    print("view: $event");
   }
 
   void showSnackBar(String msg) {
