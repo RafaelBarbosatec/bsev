@@ -85,7 +85,7 @@ import 'package:bsev/bsev.dart';
 
 class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
-   @override
+  @override
   void eventReceiver(HomeEvents event) {
     // performs action received by the bloc
   }
@@ -103,25 +103,27 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
       ),
     );
     
-    Widget _buildBody() {
+  }
     
-      return StreamBuilder(
-        stream: streams.count.get,
-        initialData: 0,
-        builder: (_,snapshot){
-          
-          int count = 0;
-          if(snapshot.hasData){
-            count = snapshot.data;
-          }
-          
-          return Center(
-            child: Text(count)
-          )
+  Widget _buildBody() {
+
+    return StreamBuilder(
+      stream: streams.count.get,
+      initialData: 0,
+      builder: (_,snapshot){
+
+        int count = 0;
+        if(snapshot.hasData){
+          count = snapshot.data;
         }
-      );
-      
-    }
+
+        return Center(
+          child: Text(count)
+        )
+      }
+    );
+
+  }
   
 }
 
@@ -146,6 +148,67 @@ HomeView().create()
 ```
 
 More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+
+### Using Stateful Widget
+
+To stateful widget is necessary use mixin:
+
+``` dart
+class HomeView extends StatefulWidget {
+
+  Widget create(){
+    return BlocProvider<BlocBase,StreamsBase>(
+      child: this,
+    );
+  }
+  
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> with BlocViewMixin<HomeBloc,HomeStreams>{
+
+  @override
+  void eventReceiver(HomeEvents event) {
+    // performs action received by the bloc
+  }
+  
+  @override
+  Widget buildView(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: _buildBody(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            dispatch(IncrementEvent());
+          }
+      ),
+    );
+  }
+  
+  Widget _buildBody() {
+    
+      return StreamBuilder(
+        stream: streams.count.get,
+        initialData: 0,
+        builder: (_,snapshot){
+          
+          int count = 0;
+          if(snapshot.hasData){
+            count = snapshot.data;
+          }
+          
+          return Center(
+            child: Text(count)
+          )
+        }
+      );
+      
+  }
+  
+}
+```
+
 
 ### Used packages
 
