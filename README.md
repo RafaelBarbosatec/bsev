@@ -151,7 +151,7 @@ More complex example is found here: [exemplo](https://github.com/RafaelBarbosate
 
 ### Using Stateful Widget
 
-To stateful widget is necessary use mixin:
+To stateful widget is necessary use mixin and add "create":
 
 ``` dart
 class HomeView extends StatefulWidget {
