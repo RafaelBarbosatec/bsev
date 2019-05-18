@@ -20,7 +20,7 @@ abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   void eventReceiver(E event);
 
   void dispose() {
-    streams.dispose();
     Dispatcher().unRegisterBloc(this);
+    streams.dispose();
   }
 }
