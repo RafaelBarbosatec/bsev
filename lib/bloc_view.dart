@@ -13,29 +13,26 @@ abstract class BlocView<E extends EventsBase> {
 // ignore: must_be_immutable
 abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     extends StatelessWidget implements BlocView<EventsBase> {
-  B _bloc;
-
-  S get streams {
-    return _bloc.streams;
-  }
 
   @protected
-  Widget buildView(BuildContext context);
+  Widget buildView(BuildContext context, S streams);
 
   @override
   Widget build(BuildContext context) {
-    _initBlocView(context);
-    return buildView(context);
+    var streams = _initBlocView(context);
+    return buildView(context,streams);
   }
 
-  void _initBlocView(BuildContext context) {
+  S _initBlocView(BuildContext context) {
     try {
-      _bloc = _getBloc<B>(context);
+      var _bloc = getBloc<B>(context);
       Dispatcher().registerView(_bloc, this);
+      return _bloc.streams;
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
           "$this().create()");
+      return null;
     }
   }
 
@@ -49,7 +46,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     );
   }
 
-  T _getBloc<T extends BlocBase>(BuildContext context) {
+  T getBloc<T extends BlocBase>(BuildContext context) {
     return Provider.of<T>(context);
   }
 }
@@ -75,26 +72,26 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
   }
 
   @protected
-  Widget buildView(BuildContext context);
+  Widget buildView(BuildContext context, S streams);
 
   @override
   Widget build(BuildContext context) {
-    _initBlocView(context);
-    return buildView(context);
+    var streams = _initBlocView(context);
+    return buildView(context,streams);
   }
 
-  void _initBlocView(BuildContext context) {
+  S _initBlocView(BuildContext context) {
     try {
-      if (_bloc == null) {
-        _bloc = _getBloc<B>(context);
-        Dispatcher().registerView(_bloc, this);
-      }
+      var _bloc = getBloc<B>(context);
+      Dispatcher().registerView(_bloc, this);
+      return _bloc.streams;
     } catch (e) {
       debugPrint("Error: Não encontrado BloC para ser registrado.\n"
           "Crie widget usando:\n"
           "return BlocProvider<$B,$S>(\n"
           "  child: Widget(),\n"
           ");");
+      return null;
     }
   }
 
@@ -102,7 +99,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
     Dispatcher().dispatch<B>(event);
   }
 
-  T _getBloc<T extends BlocBase>(BuildContext context) {
+  T getBloc<T extends BlocBase>(BuildContext context) {
     return Provider.of<T>(context);
   }
 }
