@@ -91,11 +91,11 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   }
   
   @override
-  Widget buildView(BuildContext context) {
+  Widget buildView(BuildContext context, HomeStreams streams) {
 
     return Scaffold(
       appBar: AppBar(),
-      body: _buildBody(),
+      body: _buildBody(streams),
       floatingActionButton: FloatingActionButton(
           onPressed: (){
             dispatch(IncrementEvent());
@@ -105,7 +105,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     
   }
     
-  Widget _buildBody() {
+  Widget _buildBody(HomeStreams streams) {
 
     return StreamBuilder(
       stream: streams.count.get,
