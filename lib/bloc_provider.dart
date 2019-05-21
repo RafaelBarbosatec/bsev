@@ -39,6 +39,7 @@ class _BlocProviderState<B extends BlocBase, S extends StreamsBase>
 
   @override
   Widget build(BuildContext context) {
+    bloc.context = context;
     return Provider<B>.value(value: bloc, child: widget.child);
   }
 
