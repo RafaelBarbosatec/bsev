@@ -11,7 +11,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
 
   @override
-  Widget buildView(BuildContext context) {
+  Widget buildView(BuildContext context, HomeStreams streams) {
 
     return Scaffold(
       key: scaffoldStateKey,
@@ -19,15 +19,16 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
       body: Container(
         child: Stack(
           children: <Widget>[
-            _buildListStream(),
-            _buildProgressStream()
+            _buildListStream(streams),
+            _buildProgressStream(streams)
           ],
         ),
       ),
     );
+
   }
 
-  Widget _buildListStream() {
+  Widget _buildListStream(HomeStreams streams) {
     return StreamBuilder(
         stream: streams.criptos.get,
         builder: (_,snapshot){
@@ -53,7 +54,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     );
   }
 
-  Widget _buildProgressStream() {
+  Widget _buildProgressStream(HomeStreams streams) {
     return StreamBuilder(
         stream: streams.showProgress.get,
         builder: (_,snapshot){
@@ -105,4 +106,5 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
         )
     );
   }
+
 }
