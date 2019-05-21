@@ -174,10 +174,10 @@ class _HomeViewState extends State<HomeView> with BlocViewMixin<HomeBloc,HomeStr
   }
   
   @override
-  Widget buildView(BuildContext context) {
+  Widget buildView(BuildContext context, HomeStreams streams) {
     return Scaffold(
       appBar: AppBar(),
-      body: _buildBody(),
+      body: _buildBody(streams),
       floatingActionButton: FloatingActionButton(
           onPressed: (){
             dispatch(IncrementEvent());
@@ -186,7 +186,7 @@ class _HomeViewState extends State<HomeView> with BlocViewMixin<HomeBloc,HomeStr
     );
   }
   
-  Widget _buildBody() {
+  Widget _buildBody(HomeStreams streams) {
     
       return StreamBuilder(
         stream: streams.count.get,
