@@ -11,7 +11,7 @@ With bsev you will use the Bloc pattern in a simple, reactive and organized way.
 # Usage
 To use this plugin, add `bsev` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-We should initially create the class that represents our Streams and Events:
+We should initially create the class that represents our `Streams` and `Events`:
 
 #### Streams
 
@@ -45,7 +45,7 @@ class IncrementEvent extends HomeEvents{}
 
 ```
 
-Now we can create our Bloc, class that will be centralized the business rule.
+Now we can create our `Bloc`, class that will be centralized the business rule.
 
 #### Bloc
 
@@ -137,7 +137,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
 
 ```
 
-As our Bloc and our StreamsBase will be injected automatically, we should configure it in the Injector in the main of our application:
+As our `Bloc` and our `StreamsBase` will be injected automatically, we should configure it in the Injector in the main of our application:
 
 ``` dart
   MyApp(){
@@ -150,7 +150,7 @@ As our Bloc and our StreamsBase will be injected automatically, we should config
 ```
 Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
 
-Finally we instantiate our HomeView running:
+Finally we instantiate our `HomeView` running:
 
 ``` dart
 HomeView().create()
