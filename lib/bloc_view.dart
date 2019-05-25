@@ -12,14 +12,13 @@ abstract class BlocView<E extends EventsBase> {
 
 abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     extends StatelessWidget implements BlocView<EventsBase> {
-
   @protected
   Widget buildView(BuildContext context, S streams);
 
   @override
   Widget build(BuildContext context) {
     var streams = _initBlocView(context);
-    return buildView(context,streams);
+    return buildView(context, streams);
   }
 
   S _initBlocView(BuildContext context) {
@@ -28,8 +27,8 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
       Dispatcher().registerView(_bloc, this);
       return _bloc.streams;
     } catch (e) {
-      debugPrint("Error: Não encontrado BloC para ser registrado.\n"
-          "Crie widget usando:\n"
+      debugPrint("Error: Not found BloC to be registered.\n"
+          "Create widget using:\n"
           "$this().create()");
       return null;
     }
@@ -64,13 +63,12 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
 
 mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
     implements BlocView<EventsBase> {
-
   @protected
   Widget buildView(BuildContext context, S streams);
 
   Widget build(BuildContext context) {
     var streams = _initBlocView(context);
-    return buildView(context,streams);
+    return buildView(context, streams);
   }
 
   S _initBlocView(BuildContext context) {
@@ -79,8 +77,8 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
       Dispatcher().registerView(_bloc, this);
       return _bloc.streams;
     } catch (e) {
-      debugPrint("Error: Não encontrado BloC para ser registrado.\n"
-          "Crie widget usando:\n"
+      debugPrint("Error: Not found BloC to be registeredo.\n"
+          "Create widget using:\n"
           "return BlocProvider<$B,$S>(\n"
           "  child: Widget(),\n"
           ");");

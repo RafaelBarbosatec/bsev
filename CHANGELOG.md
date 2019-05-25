@@ -1,3 +1,7 @@
+## [0.6.5] - 15/05/2019
+
+* Remove context from view in bloc
+
 ## [0.6.1] - 15/05/2019
 
 * Fixin warns pub
