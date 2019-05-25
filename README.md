@@ -54,7 +54,7 @@ import 'package:bsev/bsev.dart';
 
 class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
-  //If you need to communicate with some instantiated Bloc depending on whether or not your widget tree you can do using:
+  //If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
   //dispatchToBloc<OtherBloc>(MsgEvent());
   
   //If you need to send an event to the view:
