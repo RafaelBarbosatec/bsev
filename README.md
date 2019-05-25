@@ -2,7 +2,8 @@
 
 # BSEV (BloC,Streams,Events,View)
 
-Set of packages and utilitarian functions that help in the use of BloC pattern with dependency injection
+Set of packages and utilitarian functions that help in the use of BloC pattern with dependency injection.
+With bsev you will use the Bloc pattern in a simple, reactive and organized way. Communication between the business logic and the view occurs entirely through two-way streams.
 
 ![fluxo_bsev](https://github.com/RafaelBarbosatec/bsev/blob/master/imgs/fluxo_bsev.png)
 
@@ -60,7 +61,6 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   
   @override
   void initView() {
-  // Called as soon as the first widget build occurs
   }
   
   @override
@@ -76,6 +76,8 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 }
 
 ```
+
+Note: If you do not want to use events (for a screen that only starts, loads and displays data) you can use `EventsBase` as an event. Ex: BlocBase <HomeStreams, EventsBase>
 
 In our bloc we have 2 mandatory methods: initState and eventReceiver:
 
