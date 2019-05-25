@@ -10,7 +10,6 @@ abstract class BlocView<E extends EventsBase> {
   void eventReceiver(E event);
 }
 
-// ignore: must_be_immutable
 abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     extends StatelessWidget implements BlocView<EventsBase> {
 
@@ -65,11 +64,6 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
 
 mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
     implements BlocView<EventsBase> {
-  B _bloc;
-
-  S get streams {
-    return _bloc.streams;
-  }
 
   @protected
   Widget buildView(BuildContext context, S streams);
