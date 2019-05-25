@@ -2,7 +2,7 @@
 
 # BSEV (BloC,Streams,Events,View)
 
-Useful to aid in the use of BloC pattern with dependency injection
+Set of packages and utilitarian functions that help in the use of BloC pattern with dependency injection
 
 ![fluxo_bsev](https://github.com/RafaelBarbosatec/bsev/blob/master/imgs/fluxo_bsev.png)
 
@@ -60,13 +60,18 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   
   @override
   void initView() {
+  // Called as soon as the first widget build occurs
   }
   
   @override
   void eventReceiver(EventsBase event) {
+  
+  // called when the Bloc receives an event
+  
     if(event is IncrementEvent){
       streams.count.set(streams.count.value + 1)
     }
+    
   }
 }
 
@@ -140,6 +145,7 @@ As our Bloc and our StreamsBase will be injected automatically, we should config
     
   }
 ```
+Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
 
 Finally we instantiate our HomeView running:
 
@@ -212,8 +218,16 @@ class _HomeViewState extends State<HomeView> with BlocViewMixin<HomeBloc,HomeStr
 
 ### Used packages
 
-[rxdart](https://pub.dev/packages/rxdart): ^0.21.0
+Packages | pub
+--------- | ------
+rxdart     | [![Pub](https://img.shields.io/pub/v/rxdart.svg)](https://pub.dartlang.org/packages/rxdart)
+injector    | [![Pub](https://img.shields.io/pub/v/injector.svg)](https://pub.dartlang.org/packages/injector)
+provider    | [![Pub](https://img.shields.io/pub/v/provider.svg)](https://pub.dartlang.org/packages/provider)
 
-[injector](https://pub.dev/packages/injector): ^1.0.8
+### User cases
 
-[provider](https://pub.dev/packages/provider): ^2.0.1
+Apps | 
+--------- |
+[FlutterNews](https://github.com/RafaelBarbosatec/flutter_news)     | 
+[DartLangBr](https://github.com/dartlangbr/dart_lang_br_flutter_app)     | 
+
