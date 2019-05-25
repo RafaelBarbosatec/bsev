@@ -60,6 +60,8 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   //If you need to send an event to the view:
   //dispatchView(MyEvent());
   
+  //here you will also have access to the context of the view
+
   @override
   void initView() {
   }
