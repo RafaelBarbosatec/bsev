@@ -11,6 +11,13 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
 
   @override
+  void eventReceiver(EventsBase event) {
+    if(event is ShowError){
+      showSnackBar(event.data);
+    }
+  }
+
+  @override
   Widget buildView(BuildContext context, HomeStreams streams) {
 
     return Scaffold(
@@ -81,15 +88,6 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
       dispatch(HomeLoad());
     }
 
-  }
-
-  @override
-  void eventReceiver(EventsBase event) {
-    if(event is ShowError){
-      showSnackBar(event.data);
-    }
-
-    print("view: $event");
   }
 
   void showSnackBar(String msg) {

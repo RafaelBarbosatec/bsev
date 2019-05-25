@@ -53,9 +53,9 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
 /**
  * nesessario criar method:
  *
- * static Widget create(){
+ *  Widget create(){
       return BlocProvider<BlocBase,StreamsBase>(
-        child: Widget(),
+        child: this,
       );
     }
 
@@ -68,7 +68,6 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
   @protected
   Widget buildView(BuildContext context, S streams);
 
-  @override
   Widget build(BuildContext context) {
     var streams = _initBlocView(context);
     return buildView(context,streams);

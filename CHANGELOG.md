@@ -1,3 +1,7 @@
+## [0.6.1] - 15/05/2019
+
+* Fixin warns pub
+
 ## [0.6.0] - 15/05/2019
 
 * Optimizations BlocViewMixin

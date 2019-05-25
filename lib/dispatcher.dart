@@ -4,7 +4,7 @@ import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_create.dart';
 
 class Dispatcher {
-  static var LOG = "(Dispatcher)";
+  static const LOG = "(Dispatcher)";
   static final Dispatcher _singleton = Dispatcher._internal();
 
   Map _blocCollection = Map<Type, PublishSubjectCreate>();
