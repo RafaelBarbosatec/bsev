@@ -3,6 +3,7 @@
 # BSEV (BloC,Streams,Events,View)
 
 Set of packages and utilitarian functions that help in the use of BloC pattern with dependency injection.
+
 With bsev you will use the Bloc pattern in a simple, reactive and organized way. Communication between the business logic and the view occurs entirely through two-way streams.
 
 ![fluxo_bsev](https://github.com/RafaelBarbosatec/bsev/blob/master/imgs/fluxo_bsev.png)
