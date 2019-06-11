@@ -3,16 +3,20 @@ import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
-  final typeStreams = T;
 
   T streams;
+  String uuid;
+
+  BlocBase(){
+     uuid = "${DateTime.now().millisecondsSinceEpoch.toString()}-bloc";
+   }
 
   void dispatchView(E event) {
     Dispatcher().dispatchToView(this, event);
   }
 
   void dispatchToBloc<T extends BlocBase>(EventsBase event) {
-    Dispatcher().dispatch<T>(event);
+    Dispatcher().dispatchToBlocs<T>(event);
   }
 
   void initView();

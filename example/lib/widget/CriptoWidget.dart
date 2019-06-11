@@ -36,22 +36,14 @@ class _CriptoWidgetState extends State<CriptoWidget> with SingleTickerProviderSt
   }
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Detail()),
-        );
-      },
-      child: SlideTransition(
-        position: _animationSlide,
-        child: FadeTransition(
-          opacity: _controller,
-          child: Container(
-            margin: const EdgeInsets.all(5.0),
-            child: Card(
-              child: _getListTile(),
-            ),
+    return SlideTransition(
+      position: _animationSlide,
+      child: FadeTransition(
+        opacity: _controller,
+        child: Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Card(
+            child: _getListTile(),
           ),
         ),
       ),

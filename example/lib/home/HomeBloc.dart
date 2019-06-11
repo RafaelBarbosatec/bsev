@@ -26,11 +26,17 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   void eventReceiver(HomeEvents event) {
 
     if(event is HomeLoad){
+      print("HomeLoad");
       loadCripyto(false);
     }
 
     if(event is HomeLoadMore){
       loadCripyto(true);
+    }
+
+    if(event is EventTest){
+      print("EventTest");
+      dispatchToBloc<HomeBloc>(HomeLoad());
     }
 
   }

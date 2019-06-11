@@ -52,7 +52,12 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
                   if(index >= data.length - 4){
                     _callLoad(true);
                   }
-                  return CriptoWidget(item: data[index]);
+                  return InkWell(
+                    onTap: (){
+                      dispatch(EventTest());
+                    },
+                      child: CriptoWidget(item: data[index])
+                  );
 
                 }
             ),

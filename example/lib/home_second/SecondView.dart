@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class SecondView extends BlocStatelessView<SecondBloc,SecondStreams> {
 
-
   @override
   void eventReceiver(EventsBase event) {
     // TODO: implement eventReceiver
