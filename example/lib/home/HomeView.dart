@@ -47,14 +47,17 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
             onRefresh: _refresh,
             child: ListView.builder(
                 itemCount: length,
-                itemBuilder: (_,index){
+                itemBuilder: (context,index){
 
                   if(index >= data.length - 4){
                     _callLoad(true);
                   }
                   return InkWell(
                     onTap: (){
-                      dispatch(EventTest());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeView().create()),
+                      );
                     },
                       child: CriptoWidget(item: data[index])
                   );
