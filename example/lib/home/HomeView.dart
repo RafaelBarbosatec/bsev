@@ -2,6 +2,7 @@ import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/home/HomeBloc.dart';
 import 'package:bsev_demo/home/HomeEvents.dart';
 import 'package:bsev_demo/home/HomeStreams.dart';
+import 'package:bsev_demo/home_second/SecondView.dart';
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:bsev_demo/widget/CriptoWidget.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomeView().create()),
+                        MaterialPageRoute(builder: (context) => SecondView().create()),
                       );
                     },
                       child: CriptoWidget(item: data[index])

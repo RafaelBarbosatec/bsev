@@ -3,7 +3,19 @@ import 'package:bsev_demo/home_second/SecondBloc.dart';
 import 'package:bsev_demo/home_second/SecondStreams.dart';
 import 'package:flutter/material.dart';
 
-class SecondView extends BlocStatelessView<SecondBloc,SecondStreams> {
+class SecondView extends StatefulWidget {
+
+  Widget create(){
+    return BlocProvider<SecondBloc,SecondStreams>(
+      child: this,
+    );
+  }
+
+  @override
+  _SecondViewState createState() => _SecondViewState();
+}
+
+class _SecondViewState extends State<SecondView> with BlocViewMixin<SecondBloc,SecondStreams>{
 
   @override
   void eventReceiver(EventsBase event) {
@@ -27,5 +39,4 @@ class SecondView extends BlocStatelessView<SecondBloc,SecondStreams> {
     );
 
   }
-  
 }

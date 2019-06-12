@@ -7,12 +7,10 @@ class Dispatcher {
   static const LOG = "(Dispatcher)";
   static final Dispatcher _singleton = Dispatcher._internal();
 
-  Map<String, PublishSubjectCreate> _blocCollection =
-      Map<String, PublishSubjectCreate>();
+  Map _blocCollection = Map<String, PublishSubjectCreate>();
   Map<Type, List<String>> _blocsToUuids = Map<Type, List<String>>();
   Map<String, String> _viewToBloc = Map<String, String>();
-  Map<String, PublishSubjectCreate> _viewCollection =
-      Map<String, PublishSubjectCreate>();
+  Map _viewCollection = Map<String, PublishSubjectCreate>();
 
   factory Dispatcher() {
     return _singleton;
@@ -29,11 +27,15 @@ class Dispatcher {
   }
 
   void registerView(BlocBase bloc, BlocView view) {
-    if (_viewCollection[bloc.uuid] == null) {
-      _viewCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
-      _viewCollection[bloc.uuid].get.listen(view.eventReceiver);
+    try {
+      if (_viewCollection[bloc.uuid] == null) {
+        _viewCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
+        _viewCollection[bloc.uuid].get.listen(view.eventReceiver);
+      }
+      _addViewToBloc(bloc, view);
+    } catch (e) {
+      print("$LOG ERROR: $e");
     }
-    _addViewToBloc(bloc, view);
   }
 
   void unRegisterBloc(BlocBase bloc) {
