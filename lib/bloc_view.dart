@@ -7,11 +7,21 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 abstract class BlocView<E extends EventsBase> {
+  String uuid = "";
   void eventReceiver(E event);
 }
 
 abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     extends StatelessWidget implements BlocView<EventsBase> {
+
+  final String _uuidView = "${DateTime.now().millisecondsSinceEpoch.toString()}-view";
+
+  @override
+  set uuid(String _uuid) {}
+
+  @override
+  String get uuid => _uuidView;
+
   @protected
   Widget buildView(BuildContext context, S streams);
 
@@ -35,7 +45,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
   }
 
   void dispatch(EventsBase event) {
-    Dispatcher().dispatch<B>(event);
+    Dispatcher().dispatch(this,event);
   }
 
   Widget create({forceUpdateBloc = false}) {
@@ -87,7 +97,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
   }
 
   void dispatch(EventsBase event) {
-    Dispatcher().dispatch<B>(event);
+    Dispatcher().dispatch(this,event);
   }
 
   T getBloc<T extends BlocBase>(BuildContext context) {
