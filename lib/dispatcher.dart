@@ -7,10 +7,12 @@ class Dispatcher {
   static const LOG = "(Dispatcher)";
   static final Dispatcher _singleton = Dispatcher._internal();
 
-  Map<String, PublishSubjectCreate> _blocCollection = Map<String, PublishSubjectCreate>();
+  Map<String, PublishSubjectCreate> _blocCollection =
+      Map<String, PublishSubjectCreate>();
   Map<Type, List<String>> _blocsToUuids = Map<Type, List<String>>();
   Map<String, String> _viewToBloc = Map<String, String>();
-  Map<String, PublishSubjectCreate> _viewCollection = Map<String, PublishSubjectCreate>();
+  Map<String, PublishSubjectCreate> _viewCollection =
+      Map<String, PublishSubjectCreate>();
 
   factory Dispatcher() {
     return _singleton;
@@ -31,7 +33,7 @@ class Dispatcher {
       _viewCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
       _viewCollection[bloc.uuid].get.listen(view.eventReceiver);
     }
-    _addViewToBloc(bloc,view);
+    _addViewToBloc(bloc, view);
   }
 
   void unRegisterBloc(BlocBase bloc) {
@@ -49,7 +51,6 @@ class Dispatcher {
   }
 
   void dispatch(BlocView view, EventsBase event) {
-
     var uuidBloc = _viewToBloc[view.uuid];
 
     if (uuidBloc != null) {
@@ -60,16 +61,14 @@ class Dispatcher {
   }
 
   void dispatchToBlocs<T extends BlocBase>(EventsBase event) {
-
     var uuids = _blocsToUuids[T];
-    if(uuids != null && uuids.length > 0){
-      uuids.forEach((uuid){
+    if (uuids != null && uuids.length > 0) {
+      uuids.forEach((uuid) {
         _blocCollection[uuid].set(event);
       });
-    }else{
+    } else {
       print("$LOG ERROR: $T not found.");
     }
-
   }
 
   void dispatchToView(BlocBase bloc, EventsBase event) {
@@ -78,15 +77,16 @@ class Dispatcher {
     if (publish != null) {
       _viewCollection[bloc.uuid].set(event);
     } else {
-      print("$LOG ERROR: View of the ${bloc.runtimeType}/${bloc.uuid} not found.");
+      print(
+          "$LOG ERROR: View of the ${bloc.runtimeType}/${bloc.uuid} not found.");
     }
   }
 
   void _addUuidListBloc(BlocBase bloc) {
-    if(_blocsToUuids[bloc.runtimeType] == null){
+    if (_blocsToUuids[bloc.runtimeType] == null) {
       _blocsToUuids[bloc.runtimeType] = List();
       _blocsToUuids[bloc.runtimeType].add(bloc.uuid);
-    }else{
+    } else {
       _blocsToUuids[bloc.runtimeType].add(bloc.uuid);
     }
   }
@@ -96,13 +96,13 @@ class Dispatcher {
   }
 
   void _addViewToBloc(BlocBase bloc, BlocView view) {
-    if(_viewToBloc.containsValue(bloc.uuid)){
-      _viewToBloc.removeWhere((key,value)=> value == bloc.uuid);
+    if (_viewToBloc.containsValue(bloc.uuid)) {
+      _viewToBloc.removeWhere((key, value) => value == bloc.uuid);
     }
     _viewToBloc[view.uuid] = bloc.uuid;
   }
 
   void _removeViewToBloc(BlocBase bloc) {
-    _viewToBloc.removeWhere((key,value)=> value == bloc.uuid);
+    _viewToBloc.removeWhere((key, value) => value == bloc.uuid);
   }
 }

@@ -13,8 +13,8 @@ abstract class BlocView<E extends EventsBase> {
 
 abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
     extends StatelessWidget implements BlocView<EventsBase> {
-
-  final String _uuidView = "${DateTime.now().millisecondsSinceEpoch.toString()}-view";
+  final String _uuidView =
+      "${DateTime.now().millisecondsSinceEpoch.toString()}-view";
 
   @override
   set uuid(String _uuid) {}
@@ -45,7 +45,7 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
   }
 
   void dispatch(EventsBase event) {
-    Dispatcher().dispatch(this,event);
+    Dispatcher().dispatch(this, event);
   }
 
   Widget create({forceUpdateBloc = false}) {
@@ -97,7 +97,7 @@ mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
   }
 
   void dispatch(EventsBase event) {
-    Dispatcher().dispatch(this,event);
+    Dispatcher().dispatch(this, event);
   }
 
   T getBloc<T extends BlocBase>(BuildContext context) {

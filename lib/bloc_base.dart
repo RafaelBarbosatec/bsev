@@ -4,14 +4,13 @@ import 'package:bsev/stream_base.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
-
   T streams;
   String uuid;
   BuildContext context;
 
-  BlocBase(){
-     uuid = "${DateTime.now().millisecondsSinceEpoch.toString()}-bloc";
-   }
+  BlocBase() {
+    uuid = "${DateTime.now().millisecondsSinceEpoch.toString()}-bloc";
+  }
 
   void dispatchView(E event) {
     Dispatcher().dispatchToView(this, event);
