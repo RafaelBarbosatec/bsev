@@ -1,16 +1,7 @@
 import 'package:bsev/bloc_base.dart';
 import 'package:bsev/bloc_view.dart';
 import 'package:bsev/events_base.dart';
-import 'package:bsev/stream_base.dart';
 import 'package:bsev/stream_create.dart';
-
-class LinkUuidBloc{
-  String uuid;
-  Type type;
-
-  LinkUuidBloc(this.uuid, this.type);
-
-}
 
 class Dispatcher {
   static const LOG = "(Dispatcher)";
@@ -46,6 +37,7 @@ class Dispatcher {
   void unRegisterBloc(BlocBase bloc) {
     if (_blocCollection[bloc.uuid] != null) {
       _removeUuidListBloc(bloc);
+      _removeViewToBloc(bloc);
       _blocCollection[bloc.uuid].close();
       _blocCollection.remove(bloc.uuid);
     }
@@ -108,5 +100,9 @@ class Dispatcher {
       _viewToBloc.removeWhere((key,value)=> value == bloc.uuid);
     }
     _viewToBloc[view.uuid] = bloc.uuid;
+  }
+
+  void _removeViewToBloc(BlocBase bloc) {
+    _viewToBloc.removeWhere((key,value)=> value == bloc.uuid);
   }
 }

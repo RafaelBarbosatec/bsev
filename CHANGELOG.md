@@ -1,3 +1,7 @@
+## [0.7.1] - 15/05/2019
+
+* Fix bug dispatcher multiple instance same bloc
+
 ## [0.6.5] - 15/05/2019
 
 * Remove context from view in bloc
