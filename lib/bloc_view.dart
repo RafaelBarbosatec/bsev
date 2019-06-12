@@ -73,6 +73,16 @@ abstract class BlocStatelessView<B extends BlocBase, S extends StreamsBase>
 
 mixin BlocViewMixin<B extends BlocBase, S extends StreamsBase>
     implements BlocView<EventsBase> {
+
+  final String _uuidView =
+      "${DateTime.now().millisecondsSinceEpoch.toString()}-view";
+
+  @override
+  set uuid(String _uuid) {}
+
+  @override
+  String get uuid => _uuidView;
+
   @protected
   Widget buildView(BuildContext context, S streams);
 
