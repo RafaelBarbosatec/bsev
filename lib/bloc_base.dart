@@ -7,16 +7,20 @@ import 'package:flutter/widgets.dart';
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   T streams;
   dynamic data;
-  Dispatcher dispatcher;
+  Dispatcher _dispatcher;
   BuildContext context;
   final String uuid = "${generateId()}-bloc";
 
   void dispatchView(E event) {
-    dispatcher?.dispatchToView(this, event);
+    _dispatcher?.dispatchToView(this, event);
   }
 
   void dispatchToBloc<T extends BlocBase>(EventsBase event) {
-    dispatcher?.dispatchToBlocs<T>(event);
+    _dispatcher?.dispatchToBlocs<T>(event);
+  }
+
+  void setDispatcher(Dispatcher dispatcher) {
+    _dispatcher = dispatcher;
   }
 
   void initView();

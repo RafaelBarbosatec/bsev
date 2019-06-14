@@ -16,14 +16,14 @@ class HomeView extends StatelessWidget {
 
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data",
-      eventReceiver: (event,dispather){
+      eventReceiver: (event,dispatcher){
 
         if(event is ShowError){
-          showSnackBar(event.data,dispather);
+          showSnackBar(event.data,dispatcher);
         }
 
       },
-      builder: (context,dispather,streams){
+      builder: (context,dispatcher,streams){
 
         return Scaffold(
           key: scaffoldStateKey,
@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
           body: Container(
             child: Stack(
               children: <Widget>[
-                _buildListStream(streams,dispather),
+                _buildListStream(streams,dispatcher),
                 _buildProgressStream(streams)
               ],
             ),
@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildListStream(HomeStreams streams,dispather) {
+  Widget _buildListStream(HomeStreams streams,dispatcher) {
     return StreamBuilder(
         stream: streams.criptos.get,
         builder: (_,snapshot){
@@ -52,14 +52,14 @@ class HomeView extends StatelessWidget {
 
           return RefreshIndicator(
             onRefresh: (){
-              return _refresh(dispather);
+              return _refresh(dispatcher);
             },
             child: ListView.builder(
                 itemCount: length,
                 itemBuilder: (context,index){
 
                   if(index >= data.length - 4){
-                    _callLoad(true,dispather);
+                    _callLoad(true,dispatcher);
                   }
                   return InkWell(
                       onTap: (){
@@ -93,16 +93,16 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Future<Null> _refresh(dispather) async {
-    _callLoad(false,dispather);
+  Future<Null> _refresh(dispatcher) async {
+    _callLoad(false,dispatcher);
   }
 
-  void _callLoad(bool isMore,dispather) {
+  void _callLoad(bool isMore,dispatcher) {
 
     if(isMore){
-      dispather(HomeLoadMore());
+      dispatcher(HomeLoadMore());
     }else{
-      dispather(HomeLoad());
+      dispatcher(HomeLoad());
     }
 
   }

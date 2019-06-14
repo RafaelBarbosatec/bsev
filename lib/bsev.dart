@@ -40,12 +40,12 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
 
 class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
     implements BlocView<EventsBase> {
-  B _bloc;
-
   @override
   String uuid = "${generateId()}-view";
 
+  B _bloc;
   Function(EventsBase event) dispatcher;
+  final Dispatcher _myDispatcher = DispatcherStream();
 
   @override
   void eventReceiver(EventsBase event) {
@@ -59,10 +59,10 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
     _bloc = Injector.appInstance.getDependency<B>();
     _bloc.data = widget.dataToBloc;
     _bloc.streams = Injector.appInstance.getDependency<S>();
-    _bloc.dispatcher = DispatcherStream();
-    DispatcherStream().registerBSEV(_bloc, this);
+    _bloc.setDispatcher(_myDispatcher);
+    _myDispatcher.registerBSEV(_bloc, this);
     dispatcher = (event) {
-      DispatcherStream().dispatch(this, event);
+      _myDispatcher.dispatch(this, event);
     };
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();

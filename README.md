@@ -104,14 +104,14 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
       eventReceiver: (event,dispather){ //optional
         // performs action received by the bloc
       },
-      builder: (context,dispather,streams){
+      builder: (context,dispatcher,streams){
       
           return Scaffold(
             appBar: AppBar(),
             body: _buildBody(streams),
             floatingActionButton: FloatingActionButton(
                 onPressed: (){
-                  dispather(IncrementEvent());
+                  dispatcher(IncrementEvent());
                 }
             ),
           );
