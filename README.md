@@ -97,8 +97,8 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   Widget build(BuildContext context) {
 
     return Bsev<HomeBloc,HomeStreams>(
-      dataToBloc: "any data",
-      eventReceiver: (event,dispather){
+      dataToBloc: "any data", //optional initial data to bloc
+      eventReceiver: (event,dispather){ //optional
         // performs action received by the bloc
       },
       builder: (context,dispather,streams){
