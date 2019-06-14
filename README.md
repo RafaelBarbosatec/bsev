@@ -95,9 +95,6 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   
   @override
   Widget build(BuildContext context) {
-  
-    // if you need to obtain a BLOC of the ierarchy
-    // var otherBloc = Provider.of<OtherBloc>(context);
     
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data", //optional initial data to bloc
@@ -166,7 +163,6 @@ Packages | pub
 --------- | ------
 rxdart     | [![Pub](https://img.shields.io/pub/v/rxdart.svg)](https://pub.dartlang.org/packages/rxdart)
 injector    | [![Pub](https://img.shields.io/pub/v/injector.svg)](https://pub.dartlang.org/packages/injector)
-provider    | [![Pub](https://img.shields.io/pub/v/provider.svg)](https://pub.dartlang.org/packages/provider)
 
 ### User cases
 

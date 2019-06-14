@@ -1,3 +1,7 @@
+## [0.8.2] - 14/06/2019
+
+* remove need from package provider
+
 ## [0.8.1] - 14/06/2019
 
 * Otimizations

@@ -6,13 +6,11 @@ export 'package:bsev/events_base.dart';
 export 'package:bsev/stream_base.dart';
 export 'package:bsev/stream_create.dart';
 export 'package:injector/injector.dart';
-
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:bsev/util.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
-import 'package:provider/provider.dart';
 
 import 'bsev.dart';
 
@@ -71,9 +69,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
   @override
   Widget build(BuildContext context) {
     _bloc.context = context;
-    return Provider<B>.value(
-        value: _bloc,
-        child: widget.builderInner(context, dispatcher, _bloc.streams));
+    return widget.builderInner(context, dispatcher, _bloc.streams);
   }
 
   void _afterLayout(_) {
