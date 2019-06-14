@@ -1,3 +1,7 @@
+## [0.8.0] - 12/06/2019
+
+* Version with Widget
+
 ## [0.7.1] - 12/06/2019
 
 * Remove context from view in bloc
