@@ -92,23 +92,31 @@ In our bloc we have 2 mandatory methods: initState and eventReceiver:
 import 'package:bsev/bsev.dart';
 
 class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
-
-  @override
-  void eventReceiver(HomeEvents event) {
-    // performs action received by the bloc
-  }
   
   @override
-  Widget buildView(BuildContext context, HomeStreams streams) {
-
-    return Scaffold(
-      appBar: AppBar(),
-      body: _buildBody(streams),
-      floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            dispatch(IncrementEvent());
-          }
-      ),
+  Widget build(BuildContext context) {
+  
+    // if you need to obtain a BLOC of the ierarchy
+    // var otherBloc = Provider.of<OtherBloc>(context);
+    
+    return Bsev<HomeBloc,HomeStreams>(
+      dataToBloc: "any data", //optional initial data to bloc
+      eventReceiver: (event,dispather){ //optional
+        // performs action received by the bloc
+      },
+      builder: (context,dispather,streams){
+      
+          return Scaffold(
+            appBar: AppBar(),
+            body: _buildBody(streams),
+            floatingActionButton: FloatingActionButton(
+                onPressed: (){
+                  dispather(IncrementEvent());
+                }
+            ),
+          );
+      
+      }
     );
     
   }
@@ -126,7 +134,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
         }
 
         return Center(
-          child: Text(count)
+          child: Text(count.toString())
         )
       }
     );
@@ -150,74 +158,7 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ```
 Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
 
-Finally we instantiate our `HomeView` running:
-
-``` dart
-HomeView().create()
-```
-
 More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
-
-### Using Stateful Widget
-
-To stateful widget is necessary use mixin and add "create":
-
-``` dart
-class HomeView extends StatefulWidget {
-
-  Widget create(){
-    return BlocProvider<BlocBase,StreamsBase>(
-      child: this,
-    );
-  }
-  
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> with BlocViewMixin<HomeBloc,HomeStreams>{
-
-  @override
-  void eventReceiver(HomeEvents event) {
-    // performs action received by the bloc
-  }
-  
-  @override
-  Widget buildView(BuildContext context, HomeStreams streams) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: _buildBody(streams),
-      floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            dispatch(IncrementEvent());
-          }
-      ),
-    );
-  }
-  
-  Widget _buildBody(HomeStreams streams) {
-    
-      return StreamBuilder(
-        stream: streams.count.get,
-        initialData: 0,
-        builder: (_,snapshot){
-          
-          int count = 0;
-          if(snapshot.hasData){
-            count = snapshot.data;
-          }
-          
-          return Center(
-            child: Text(count)
-          )
-        }
-      );
-      
-  }
-  
-}
-```
-
 
 ### Used packages
 

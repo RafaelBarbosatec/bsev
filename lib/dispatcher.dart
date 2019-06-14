@@ -3,30 +3,38 @@ import 'package:bsev/bloc_view.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_create.dart';
 
-class Dispatcher {
+abstract class Dispatcher {
+  void registerBSEV(BlocBase bloc, BlocView view);
+  void unRegisterBloc(BlocBase bloc);
+  void dispatch(BlocView view, EventsBase event);
+  void dispatchToBlocs<T extends BlocBase>(EventsBase event);
+  void dispatchToView(BlocBase bloc, EventsBase event);
+}
+
+class DispatcherStream implements Dispatcher {
   static const LOG = "(Dispatcher)";
-  static final Dispatcher _singleton = Dispatcher._internal();
+  static final DispatcherStream _singleton = DispatcherStream._internal();
 
   Map _blocCollection = Map<String, PublishSubjectCreate>();
   Map<Type, List<String>> _blocsToUuids = Map<Type, List<String>>();
   Map<String, String> _viewToBloc = Map<String, String>();
   Map _viewCollection = Map<String, PublishSubjectCreate>();
 
-  factory Dispatcher() {
+  factory DispatcherStream() {
     return _singleton;
   }
 
-  Dispatcher._internal();
+  DispatcherStream._internal();
 
-  void registerBloc(BlocBase bloc, Function(EventsBase) reciver) {
+  void registerBSEV(BlocBase bloc, BlocView view) {
+    //RegisterBloc
     if (_blocCollection[bloc.uuid] == null) {
       _addUuidListBloc(bloc);
       _blocCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
-      _blocCollection[bloc.uuid].get.listen(reciver);
+      _blocCollection[bloc.uuid].get.listen(bloc.eventReceiver);
     }
-  }
 
-  void registerView(BlocBase bloc, BlocView view) {
+    //registerView
     try {
       if (_viewCollection[bloc.uuid] == null) {
         _viewCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
