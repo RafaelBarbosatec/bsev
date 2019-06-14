@@ -1,6 +1,6 @@
-import 'dart:math';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/stream_base.dart';
+import 'package:bsev/util.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injector/injector.dart';
 import 'package:provider/provider.dart';
@@ -11,22 +11,22 @@ typedef AsyncWidgetBuilder<S> = Widget Function(
     BuildContext context, Function(EventsBase) dispatcher, S streams);
 
 class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
-
+  final dynamic dataToBloc;
   final AsyncWidgetBuilder<S> builder;
   final Function(EventsBase, Function(EventsBase) dispatcher) eventReceiver;
 
   AsyncWidgetBuilder<StreamsBase> builderInner;
 
-  Bsev({Key key, @required this.builder, this.eventReceiver})
-      : super(key: key){
-    builderInner = (BuildContext context, Function(EventsBase) dispatcher, StreamsBase streams){
-      return builder(context,dispatcher,streams);
+  Bsev({Key key, @required this.builder, this.eventReceiver, this.dataToBloc})
+      : super(key: key) {
+    builderInner = (BuildContext context, Function(EventsBase) dispatcher,
+        StreamsBase streams) {
+      return builder(context, dispatcher, streams);
     };
   }
 
   @override
   _BsevState<B, S> createState() => _BsevState<B, S>();
-
 }
 
 class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
@@ -34,25 +34,26 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
   B _bloc;
 
   @override
-  String uuid =
-      "${DateTime.now().millisecondsSinceEpoch.toString()}${Random().nextInt(1000)}-view";
+  String uuid = "${generateId()}-view";
 
   Function(EventsBase event) dispatcher;
 
   @override
   void eventReceiver(EventsBase event) {
     if (widget.eventReceiver != null) {
-      widget.eventReceiver(event,dispatcher);
+      widget.eventReceiver(event, dispatcher);
     }
   }
 
   @override
   void initState() {
     _bloc = Injector.appInstance.getDependency<B>();
+    _bloc.data = widget.dataToBloc;
     _bloc.streams = Injector.appInstance.getDependency<S>();
-    Dispatcher().registerBSEV(_bloc, this);
+    _bloc.dispatcher = DispatcherStream();
+    DispatcherStream().registerBSEV(_bloc, this);
     dispatcher = (event) {
-      Dispatcher().dispatch(this, event);
+      DispatcherStream().dispatch(this, event);
     };
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();
@@ -72,7 +73,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   @override
   void dispose() {
-    Dispatcher().unRegisterBloc(_bloc);
+    DispatcherStream().unRegisterBloc(_bloc);
     _bloc.dispose();
     super.dispose();
   }

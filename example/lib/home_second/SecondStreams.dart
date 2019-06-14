@@ -3,11 +3,11 @@ import 'package:bsev/stream_base.dart';
 
 class SecondStreams extends StreamsBase{
 
-  var msg = BehaviorSubjectCreate<String>();
+  var count = BehaviorSubjectCreate<int>();
 
   @override
   void dispose() {
-    msg.close();
+    count.close();
   }
 
 }

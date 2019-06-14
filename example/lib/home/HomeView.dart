@@ -15,12 +15,16 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bsev<HomeBloc,HomeStreams>(
+      dataToBloc: "any data",
       eventReceiver: (event,dispather){
+
         if(event is ShowError){
           showSnackBar(event.data,dispather);
         }
+
       },
       builder: (context,dispather,streams){
+
         return Scaffold(
           key: scaffoldStateKey,
           appBar: AppBar(),
@@ -33,6 +37,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
         );
+
       },
     );
   }
@@ -60,7 +65,7 @@ class HomeView extends StatelessWidget {
                       onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomeView()),
+                          MaterialPageRoute(builder: (context) => SecondView()),
                         );
                       },
                       child: CriptoWidget(item: data[index])

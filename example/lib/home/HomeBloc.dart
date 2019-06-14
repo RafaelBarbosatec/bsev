@@ -19,6 +19,7 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
 
   @override
   void initView() {
+    print("data: $data");
     loadCripyto(false);
   }
 

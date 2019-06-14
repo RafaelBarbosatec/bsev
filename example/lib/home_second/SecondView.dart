@@ -1,42 +1,42 @@
 import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/home_second/SecondBloc.dart';
+import 'package:bsev_demo/home_second/SecondEvents.dart';
 import 'package:bsev_demo/home_second/SecondStreams.dart';
 import 'package:flutter/material.dart';
 
-class SecondView extends StatefulWidget {
-
-  Widget create(){
-    return BlocProvider<SecondBloc,SecondStreams>(
-      child: this,
-    );
-  }
+class SecondView extends StatelessWidget {
 
   @override
-  _SecondViewState createState() => _SecondViewState();
-}
+  Widget build(BuildContext context) {
 
-class _SecondViewState extends State<SecondView> with BlocViewMixin<SecondBloc,SecondStreams>{
+    return Bsev<SecondBloc,SecondStreams>(
+      builder: (_,dispatcher,streams){
 
-  @override
-  void eventReceiver(EventsBase event) {
-    // TODO: implement eventReceiver
-  }
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Second example"),
+          ),
+          body: Center(
+            child: StreamBuilder(
+                stream: streams.count.get,
+                builder: (_,snapshot){
+                  var msg = snapshot.hasData ? snapshot.data.toString() : "0";
+                  return Text(msg);
+                }
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: (){
+                dispatcher(Increment());
+              }
+          ),
+        );
 
-  @override
-  Widget buildView(BuildContext context, SecondStreams streams) {
-
-    return Material(
-      child: Center(
-        child: StreamBuilder(
-            stream: streams.msg.get,
-            initialData: "",
-            builder: (_,snapshot){
-              var msg = snapshot.hasData ? snapshot.data : "not msg";
-              return Text(msg);
-            }
-        ),
-      ),
+      },
     );
 
   }
+
 }
+
