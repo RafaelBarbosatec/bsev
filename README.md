@@ -95,7 +95,10 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
   
   @override
   Widget build(BuildContext context) {
-
+  
+    // if you need to obtain a BLOC of the ierarchy
+    // var otherBloc = Provider.of<OtherBloc>(context);
+    
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data", //optional initial data to bloc
       eventReceiver: (event,dispather){ //optional
