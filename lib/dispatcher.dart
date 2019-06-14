@@ -18,11 +18,34 @@ class Dispatcher {
 
   Dispatcher._internal();
 
-  void registerBloc(BlocBase bloc, Function(EventsBase) reciver) {
+
+  void registerBSEV(BlocBase bloc,BlocView view) {
+
+    //RegisterBloc
     if (_blocCollection[bloc.uuid] == null) {
       _addUuidListBloc(bloc);
       _blocCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
-      _blocCollection[bloc.uuid].get.listen(reciver);
+      _blocCollection[bloc.uuid].get.listen(bloc.eventReceiver);
+    }
+
+    //registerView
+    try {
+      if (_viewCollection[bloc.uuid] == null) {
+        _viewCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
+        _viewCollection[bloc.uuid].get.listen(view.eventReceiver);
+      }
+      _addViewToBloc(bloc, view);
+    } catch (e) {
+      print("$LOG ERROR: $e");
+    }
+
+  }
+
+  void registerBloc(BlocBase bloc) {
+    if (_blocCollection[bloc.uuid] == null) {
+      _addUuidListBloc(bloc);
+      _blocCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
+      _blocCollection[bloc.uuid].get.listen(bloc.eventReceiver);
     }
   }
 
@@ -39,6 +62,7 @@ class Dispatcher {
   }
 
   void unRegisterBloc(BlocBase bloc) {
+
     if (_blocCollection[bloc.uuid] != null) {
       _removeUuidListBloc(bloc);
       _removeViewToBloc(bloc);

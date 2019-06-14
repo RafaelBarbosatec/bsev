@@ -7,36 +7,37 @@ import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:bsev_demo/widget/CriptoWidget.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
+class HomeView extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
 
   @override
-  void eventReceiver(EventsBase event) {
-    if(event is ShowError){
-      showSnackBar(event.data);
-    }
-  }
+  Widget build(BuildContext context) {
 
-  @override
-  Widget buildView(BuildContext context, HomeStreams streams) {
-
-    return Scaffold(
-      key: scaffoldStateKey,
-      appBar: AppBar(),
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            _buildListStream(streams),
-            _buildProgressStream(streams)
-          ],
-        ),
-      ),
+    return Bsev<HomeBloc,HomeStreams>(
+      eventReceiver: (event,dispather){
+        if(event is ShowError){
+          showSnackBar(event.data,dispather);
+        }
+      },
+      builder: (context,dispather,streams){
+        return Scaffold(
+          key: scaffoldStateKey,
+          appBar: AppBar(),
+          body: Container(
+            child: Stack(
+              children: <Widget>[
+                _buildListStream(streams,dispather),
+                _buildProgressStream(streams)
+              ],
+            ),
+          ),
+        );
+      },
     );
-
   }
 
-  Widget _buildListStream(HomeStreams streams) {
+  Widget _buildListStream(HomeStreams streams,dispather) {
     return StreamBuilder(
         stream: streams.criptos.get,
         builder: (_,snapshot){
@@ -45,21 +46,23 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
           var length = data == null ? 0 : data.length;
 
           return RefreshIndicator(
-            onRefresh: _refresh,
+            onRefresh: (){
+              return _refresh(dispather);
+            },
             child: ListView.builder(
                 itemCount: length,
                 itemBuilder: (context,index){
 
                   if(index >= data.length - 4){
-                    _callLoad(true);
+                    _callLoad(true,dispather);
                   }
                   return InkWell(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SecondView().create()),
-                      );
-                    },
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeView()),
+                        );
+                      },
                       child: CriptoWidget(item: data[index])
                   );
 
@@ -85,21 +88,21 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
     );
   }
 
-  Future<Null> _refresh() async {
-    _callLoad(false);
+  Future<Null> _refresh(dispather) async {
+    _callLoad(false,dispather);
   }
 
-  void _callLoad(bool isMore) {
+  void _callLoad(bool isMore,dispather) {
 
     if(isMore){
-      dispatch(HomeLoadMore());
+      dispather(HomeLoadMore());
     }else{
-      dispatch(HomeLoad());
+      dispather(HomeLoad());
     }
 
   }
 
-  void showSnackBar(String msg) {
+  void showSnackBar(String msg,dispather) {
     scaffoldStateKey.currentState.showSnackBar(
         SnackBar(
           content: Text(msg),
@@ -107,7 +110,7 @@ class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
           action: SnackBarAction(
             label: 'Try Again',
             onPressed: () {
-              _callLoad(false);
+              _callLoad(false,dispather);
             },
           ),
         )

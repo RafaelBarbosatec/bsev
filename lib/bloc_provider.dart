@@ -26,7 +26,7 @@ class _BlocProviderState<B extends BlocBase, S extends StreamsBase>
   void initState() {
     bloc = Injector.appInstance.getDependency<B>();
     bloc.streams = Injector.appInstance.getDependency<S>();
-    Dispatcher().registerBloc(bloc, bloc.eventReceiver);
+    Dispatcher().registerBloc(bloc);
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     super.initState();
   }
