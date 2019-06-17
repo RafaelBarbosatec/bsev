@@ -1,3 +1,7 @@
+## [0.8.3] - 17/06/2019
+
+* add context in eventReceiver
+
 ## [0.8.2] - 14/06/2019
 
 * remove need from package provider
