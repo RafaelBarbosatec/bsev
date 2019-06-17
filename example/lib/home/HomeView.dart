@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
 
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data",
-      eventReceiver: (event,dispatcher){
+      eventReceiver: (context,event,dispatcher){
 
         if(event is ShowError){
           showSnackBar(event.data,dispatcher);
