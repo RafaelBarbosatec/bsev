@@ -91,7 +91,7 @@ In our bloc we have 2 mandatory methods: initState and eventReceiver:
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeView extends BlocStatelessView<HomeBloc,HomeStreams> {
+class HomeView extends StatelessWidget{
   
   @override
   Widget build(BuildContext context) {
