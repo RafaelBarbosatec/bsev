@@ -20,7 +20,8 @@ typedef AsyncWidgetBuilder<S> = Widget Function(
 class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
   final dynamic dataToBloc;
   final AsyncWidgetBuilder<S> builder;
-  final Function(EventsBase, Function(EventsBase) dispatcher) eventReceiver;
+  final Function(BuildContext context, EventsBase event,
+      Function(EventsBase) dispatcher) eventReceiver;
 
   AsyncWidgetBuilder<StreamsBase> builderInner;
 
@@ -48,7 +49,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
   @override
   void eventReceiver(EventsBase event) {
     if (widget.eventReceiver != null) {
-      widget.eventReceiver(event, dispatcher);
+      widget.eventReceiver(context, event, dispatcher);
     }
   }
 
@@ -77,7 +78,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   @override
   void dispose() {
-    DispatcherStream().unRegisterBloc(_bloc);
+    _myDispatcher.unRegisterBloc(_bloc);
     _bloc.dispose();
     super.dispose();
   }

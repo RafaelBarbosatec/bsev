@@ -1,7 +1,12 @@
-## [0.8.3] - 14/06/2019
+
+## [0.8.4] - 14/06/2019
 
 * update example
 * remove access context in bloc
+
+## [0.8.3] - 17/06/2019
+
+* add context in eventReceiver
 
 ## [0.8.2] - 14/06/2019
 
