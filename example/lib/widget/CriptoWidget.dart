@@ -2,8 +2,6 @@
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bsev_demo/detail/Detail.dart';
-
 class CriptoWidget extends StatefulWidget {
 
   final Cripto item;
