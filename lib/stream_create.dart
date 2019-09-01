@@ -2,49 +2,60 @@ import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
 class StreamCreate<T> {
-  final StreamController<T> _controller = StreamController<T>();
-  Stream<T> get get => _controller.stream;
-  Function(T) get set => _controller.sink.add;
+  final StreamController<T> controller = StreamController<T>();
+
+  Stream<T> get get => controller.stream;
+
+  Function(T) get set => controller.sink.add;
 
   void close() {
-    _controller.close();
+    controller.close();
   }
 }
 
 class PublishSubjectCreate<T> {
-  final _controller = PublishSubject<T>();
-  Stream<T> get get => _controller.stream;
-  Function(T) get set => _controller.add;
+  final subject = PublishSubject<T>();
+
+  Stream<T> get get => subject.stream;
+
+  Function(T) get set => subject.add;
+
   void close() {
-    _controller.close();
+    subject.close();
   }
 }
 
 class BehaviorSubjectCreate<T> {
-  BehaviorSubject<T> _controller;
+  BehaviorSubject<T> subject;
 
   BehaviorSubjectCreate({T initValue}) {
     initValue == null
-        ? _controller = BehaviorSubject<T>()
-        : _controller = BehaviorSubject<T>()
+        ? subject = BehaviorSubject<T>()
+        : subject = BehaviorSubject<T>()
       ..value = initValue;
   }
 
-  Stream<T> get get => _controller.stream;
-  Function(T) get set => _controller.add;
-  T get value => _controller.value;
+  Stream<T> get get => subject.stream;
+
+  Function(T) get set => subject.add;
+
+  T get value => subject.value;
 
   void close() {
-    _controller.close();
+    subject.close();
   }
 }
 
 class ReplaySubjectCreate<T> {
-  final _controller = ReplaySubject<T>();
-  Stream<T> get get => _controller.stream;
-  Function(T) get set => _controller.add;
-  List<T> get values => _controller.values;
+  final subject = ReplaySubject<T>();
+
+  Stream<T> get get => subject.stream;
+
+  Function(T) get set => subject.add;
+
+  List<T> get values => subject.values;
+
   void close() {
-    _controller.close();
+    subject.close();
   }
 }
