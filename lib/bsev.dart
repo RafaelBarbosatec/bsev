@@ -69,7 +69,6 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   @override
   Widget build(BuildContext context) {
-    _bloc.context = context;
     return widget.builderInner(context, dispatcher, _bloc.streams);
   }
 

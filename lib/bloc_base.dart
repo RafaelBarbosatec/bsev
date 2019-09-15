@@ -2,12 +2,10 @@ import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:bsev/util.dart';
-import 'package:flutter/widgets.dart';
 
 abstract class BlocBase<T extends StreamsBase, E extends EventsBase> {
   T streams;
   dynamic data;
-  BuildContext context;
   Dispatcher _dispatcher;
   final String uuid = "${generateId()}-bloc";
 
