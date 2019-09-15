@@ -1,3 +1,7 @@
+## [0.8.5] - 14/06/2019
+
+* update rxdart
+* version with context in Bloc
 
 ## [0.8.4] - 14/06/2019
 
