@@ -10,7 +10,7 @@ class SecondView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bsev<SecondBloc,SecondStreams>(
-      builder: (_,dispatcher,streams){
+      builder: (_,dispatcher, SecondStreams streams){
 
         return Scaffold(
           appBar: AppBar(
@@ -28,7 +28,7 @@ class SecondView extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: (){
-                dispatcher(Increment());
+                dispatcher(SecondEventIncrement());
               }
           ),
         );

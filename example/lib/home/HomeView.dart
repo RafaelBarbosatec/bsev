@@ -18,12 +18,12 @@ class HomeView extends StatelessWidget {
       dataToBloc: "any data",
       eventReceiver: (context,event,dispatcher){
 
-        if(event is ShowError){
+        if(event is HomeEventShowError){
           showSnackBar(event.data,dispatcher);
         }
 
       },
-      builder: (context,dispatcher,streams){
+      builder: (context,dispatcher,HomeStreams streams){
 
         return Scaffold(
           key: scaffoldStateKey,
@@ -61,6 +61,7 @@ class HomeView extends StatelessWidget {
                   if(index >= data.length - 4){
                     _callLoad(true,dispatcher);
                   }
+
                   return InkWell(
                       onTap: (){
                         Navigator.push(
@@ -100,9 +101,9 @@ class HomeView extends StatelessWidget {
   void _callLoad(bool isMore,dispatcher) {
 
     if(isMore){
-      dispatcher(HomeLoadMore());
+      dispatcher(HomeEventLoadMore());
     }else{
-      dispatcher(HomeLoad());
+      dispatcher(HomeEventLoad());
     }
 
   }
