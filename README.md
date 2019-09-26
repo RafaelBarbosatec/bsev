@@ -170,4 +170,5 @@ Apps |
 --------- |
 [FlutterNews](https://github.com/RafaelBarbosatec/flutter_news)     | 
 [DartLangBr](https://github.com/dartlangbr/dart_lang_br_flutter_app)     | 
+[Boleiro](http://boleiroapp.com.br/)     | 
 
