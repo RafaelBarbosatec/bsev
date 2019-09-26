@@ -5,7 +5,7 @@ import 'package:bsev_demo/home/HomeStreams.dart';
 import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 
-class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
+class HomeBloc extends BlocBase<HomeStreams>{
 
   final CriptoRepository api;
 
@@ -22,13 +22,13 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
   }
 
   @override
-  void eventReceiver(HomeEvents event) {
+  void eventReceiver(EventsBase event) {
 
-    if(event is HomeLoad){
+    if(event is HomeEventLoad){
       loadCripyto(false);
     }
 
-    if(event is HomeLoadMore){
+    if(event is HomeEventLoadMore){
       loadCripyto(true);
     }
 
@@ -62,7 +62,7 @@ class HomeBloc extends BlocBase<HomeStreams,HomeEvents>{
     }).catchError((error) {
 
       streams.showProgress.set(false);
-      dispatchView(ShowError()
+      dispatchView(HomeEventShowError()
         ..data = "Unable to load information");
 
     });
