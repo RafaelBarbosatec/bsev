@@ -50,7 +50,7 @@ Now we can create our `Bloc`, class that will be centralized the business rule.
 ``` dart
 import 'package:bsev/bsev.dart';
 
-    class HomeBloc extends BlocBase<HomeStreams>{
+class HomeBloc extends BlocBase<HomeStreams>{
 
   //If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
   //dispatchToBloc<OtherBloc>(MsgEvent());
