@@ -76,8 +76,6 @@ import 'package:bsev/bsev.dart';
 
 ```
 
-Note: If you do not want to use events (for a screen that only starts, loads and displays data) you can use `EventsBase` as an event. Ex: BlocBase <HomeStreams, EventsBase>
-
 In our bloc we have 2 mandatory methods: initState and eventReceiver:
 
 **initView**: In the first buildView this method is invoked;
