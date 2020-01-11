@@ -50,7 +50,7 @@ Now we can create our `Bloc`, class that will be centralized the business rule.
 ``` dart
 import 'package:bsev/bsev.dart';
 
-    class HomeBloc extends BlocBase<HomeStreams>{
+class HomeBloc extends BlocBase<HomeStreams>{
 
   //If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
   //dispatchToBloc<OtherBloc>(MsgEvent());
@@ -75,8 +75,6 @@ import 'package:bsev/bsev.dart';
 }
 
 ```
-
-Note: If you do not want to use events (for a screen that only starts, loads and displays data) you can use `EventsBase` as an event. Ex: BlocBase <HomeStreams, EventsBase>
 
 In our bloc we have 2 mandatory methods: initState and eventReceiver:
 
@@ -168,4 +166,5 @@ Apps |
 --------- |
 [FlutterNews](https://github.com/RafaelBarbosatec/flutter_news)     | 
 [DartLangBr](https://github.com/dartlangbr/dart_lang_br_flutter_app)     | 
+[Boleiro](http://boleiroapp.com.br/)     | 
 

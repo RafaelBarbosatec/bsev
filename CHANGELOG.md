@@ -1,3 +1,7 @@
+## [0.8.7] - 26/09/2019
+
+* removes need for custom EventBase
+
 ## [0.8.6] - 15/09/2019
 
 * version without context in Bloc
