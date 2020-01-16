@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class CriptoWidget extends StatefulWidget {
 
   final Cripto item;
+  final Function(Cripto) onClick;
 
-  const CriptoWidget({Key key, this.item}) : super(key: key);
+  const CriptoWidget({Key key, this.item, this.onClick}) : super(key: key);
 
   @override
   _CriptoWidgetState createState() => _CriptoWidgetState();
@@ -34,14 +35,21 @@ class _CriptoWidgetState extends State<CriptoWidget> with SingleTickerProviderSt
   }
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animationSlide,
-      child: FadeTransition(
-        opacity: _controller,
-        child: Container(
-          margin: const EdgeInsets.all(5.0),
-          child: Card(
-            child: _getListTile(),
+    return InkWell(
+      onTap: (){
+        if(widget.onClick != null){
+          widget.onClick(widget.item);
+        }
+      },
+      child: SlideTransition(
+        position: _animationSlide,
+        child: FadeTransition(
+          opacity: _controller,
+          child: Container(
+            margin: const EdgeInsets.all(5.0),
+            child: Card(
+              child: _getListTile(),
+            ),
           ),
         ),
       ),

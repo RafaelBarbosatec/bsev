@@ -17,7 +17,6 @@ class HomeBloc extends BlocBase<HomeStreams>{
 
   @override
   void initView() {
-    print("data: $data");
     loadCripyto(false);
   }
 
@@ -58,6 +57,7 @@ class HomeBloc extends BlocBase<HomeStreams>{
 
       streams.criptos.set(_list);
       streams.showProgress.set(false);
+      print("done");
 
     }).catchError((error) {
 

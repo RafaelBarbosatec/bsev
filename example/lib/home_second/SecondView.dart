@@ -17,10 +17,11 @@ class SecondView extends StatelessWidget {
             title: Text("Second example"),
           ),
           body: Center(
-            child: StreamBuilder(
+            child: StreamListener<int>(
                 stream: streams.count.get,
+                contentEmpty: Center(child: Text("Empty",style: TextStyle(color: Colors.black),),),
                 builder: (_,snapshot){
-                  var msg = snapshot.hasData ? snapshot.data.toString() : "0";
+                  var msg = snapshot.data.toString();
                   return Text(msg);
                 }
             ),

@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    print("build");
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data",
       eventReceiver: (context,event,dispatcher){
@@ -24,7 +24,6 @@ class HomeView extends StatelessWidget {
 
       },
       builder: (context,dispatcher,HomeStreams streams){
-
         return Scaffold(
           key: scaffoldStateKey,
           appBar: AppBar(),
@@ -43,47 +42,45 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _buildListStream(HomeStreams streams,dispatcher) {
-    return StreamBuilder(
+
+    return RefreshIndicator(
+      onRefresh: (){
+        return _refresh(dispatcher);
+      },
+      child: StreamListener<List<Cripto>>(
         stream: streams.criptos.get,
-        builder: (_,snapshot){
+        builder: (context,value){
 
-          List<Cripto> data = snapshot.data;
-          var length = data == null ? 0 : data.length;
+          return ListView.builder(
+              itemCount: value.data.length,
+              itemBuilder: (context,index){
 
-          return RefreshIndicator(
-            onRefresh: (){
-              return _refresh(dispatcher);
-            },
-            child: ListView.builder(
-                itemCount: length,
-                itemBuilder: (context,index){
-
-                  if(index >= data.length - 4){
-                    _callLoad(true,dispatcher);
-                  }
-
-                  return InkWell(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SecondView()),
-                        );
-                      },
-                      child: CriptoWidget(item: data[index])
-                  );
-
+                if(index >= value.data.length - 1){
+                  _callLoad(true,dispatcher);
                 }
-            ),
+
+                return CriptoWidget(
+                  item: value.data[index],
+                  onClick: (item){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SecondView()),
+                    );
+                  },
+                );
+
+              }
           );
-        }
+        },
+      ),
     );
   }
 
   Widget _buildProgressStream(HomeStreams streams) {
-    return StreamBuilder(
+    return StreamListener(
         stream: streams.showProgress.get,
-        builder: (_,snapshot){
-          if(snapshot.hasData && snapshot.data){
+        builder: (_,value){
+          if(value.data){
             return Center(
               child: CircularProgressIndicator(),
             );

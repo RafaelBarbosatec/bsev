@@ -5,6 +5,7 @@ export 'package:bsev/bloc_view.dart';
 export 'package:bsev/events_base.dart';
 export 'package:bsev/stream_base.dart';
 export 'package:bsev/stream_create.dart';
+export 'package:bsev/stream_listener.dart';
 export 'package:injector/injector.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/stream_base.dart';

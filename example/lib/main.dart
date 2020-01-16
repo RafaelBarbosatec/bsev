@@ -13,6 +13,8 @@ class MyApp extends StatelessWidget {
 
   MyApp(){
 
+    WidgetsFlutterBinding.ensureInitialized();
+
     Flavors.configure(Flavor.PROD);
 
     var injector = Injector.appInstance;
