@@ -8,116 +8,99 @@ import 'package:bsev_demo/widget/CriptoWidget.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
-
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
-    return Bsev<HomeBloc,HomeStreams>(
-      dataToBloc: "any data",
-      eventReceiver: (context,event,dispatcher){
-
-        if(event is HomeEventShowError){
-          showSnackBar(event.data,dispatcher);
+    return Bsev<HomeBloc, HomeStreams>(
+      eventReceiver: (context, event, dispatcher) {
+        if (event is HomeEventShowError) {
+          showSnackBar(event.data, dispatcher);
         }
-
       },
-      builder: (context,dispatcher,HomeStreams streams){
+      builder: (context, dispatcher, HomeStreams streams) {
         return Scaffold(
           key: scaffoldStateKey,
           appBar: AppBar(),
           body: Container(
             child: Stack(
               children: <Widget>[
-                _buildListStream(streams,dispatcher),
+                _buildListStream(streams, dispatcher),
                 _buildProgressStream(streams)
               ],
             ),
           ),
         );
-
       },
     );
   }
 
-  Widget _buildListStream(HomeStreams streams,dispatcher) {
-
+  Widget _buildListStream(HomeStreams streams, dispatcher) {
     return RefreshIndicator(
-      onRefresh: (){
+      onRefresh: () {
         return _refresh(dispatcher);
       },
       child: StreamListener<List<Cripto>>(
-        stream: streams.criptos.get,
-        builder: (context,value){
-
+        stream: streams.cryptoCoins.get,
+        builder: (BuildContext context, ValueSnapshot<List<Cripto>> snapshot) {
           return ListView.builder(
-              itemCount: value.data.length,
-              itemBuilder: (context,index){
-
-                if(index >= value.data.length - 1){
-                  _callLoad(true,dispatcher);
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                if (index >= snapshot.data.length - 1) {
+                  _callLoad(true, dispatcher);
                 }
 
-                return CriptoWidget(
-                  item: value.data[index],
-                  onClick: (item){
+                return CryptoWidget(
+                  item: snapshot.data[index],
+                  onClick: (item) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SecondView()),
                     );
                   },
                 );
-
-              }
-          );
+              });
         },
       ),
     );
   }
 
   Widget _buildProgressStream(HomeStreams streams) {
-    return StreamListener(
+    return StreamListener<bool>(
         stream: streams.showProgress.get,
-        builder: (_,value){
-          if(value.data){
+        builder: (_, ValueSnapshot<bool> snapshot) {
+          if (snapshot.data) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          }else{
+          } else {
             return Container();
           }
-        }
-    );
+        });
   }
 
   Future<Null> _refresh(dispatcher) async {
-    _callLoad(false,dispatcher);
+    _callLoad(false, dispatcher);
   }
 
-  void _callLoad(bool isMore,dispatcher) {
-
-    if(isMore){
+  void _callLoad(bool isMore, dispatcher) {
+    if (isMore) {
       dispatcher(HomeEventLoadMore());
-    }else{
+    } else {
       dispatcher(HomeEventLoad());
     }
-
   }
 
-  void showSnackBar(String msg,dispather) {
-    scaffoldStateKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text(msg),
-          duration: Duration(seconds: 10),
-          action: SnackBarAction(
-            label: 'Try Again',
-            onPressed: () {
-              _callLoad(false,dispather);
-            },
-          ),
-        )
-    );
+  void showSnackBar(String msg, dispatcher) {
+    scaffoldStateKey.currentState.showSnackBar(SnackBar(
+      content: Text(msg),
+      duration: Duration(seconds: 10),
+      action: SnackBarAction(
+        label: 'Try Again',
+        onPressed: () {
+          _callLoad(false, dispatcher);
+        },
+      ),
+    ));
   }
-
 }
