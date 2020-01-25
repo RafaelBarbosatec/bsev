@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("build");
+
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data",
       eventReceiver: (context,event,dispatcher){
