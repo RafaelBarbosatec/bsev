@@ -70,6 +70,12 @@ class DispatcherStream implements Dispatcher {
     }
   }
 
+  void dispatchAll(EventsBase event) {
+    _blocCollection.forEach((id, stream) {
+      stream.set(event);
+    });
+  }
+
   void dispatchToBlocs<T extends BlocBase>(EventsBase event) {
     var uuids = _blocsToUuids[T];
     if (uuids != null && uuids.length > 0) {

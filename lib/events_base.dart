@@ -1,3 +1,1 @@
-abstract class EventsBase {
-  dynamic data;
-}
+abstract class EventsBase {}

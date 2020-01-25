@@ -54,7 +54,7 @@ class HomeBloc extends BlocBase<HomeStreams> {
     }).catchError((error) {
       streams.showProgress.set(false);
       dispatchView(
-          HomeEventShowError()..data = "Unable conection to load information");
+          HomeEventShowError()..msg = "Unable conection to load information");
     });
   }
 }

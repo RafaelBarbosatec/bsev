@@ -30,7 +30,7 @@ injectRepository(Injector injector) {
       case Flavor.PROD:
         url = "https://api.coinmarketcap.com/v1/ticker/";
         break;
-      case Flavor.HOMOLOG:
+      case Flavor.HML:
         url = "https://api.coinmarketcap.com/v1/ticker/";
         break;
       case Flavor.DEBUG:
