@@ -1,5 +1,5 @@
 import 'package:bsev/flavors.dart';
-import 'package:bsev_demo/di/InjectBloc.dart';
+import 'package:bsev_demo/di/initDependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:injector/injector.dart';
 
