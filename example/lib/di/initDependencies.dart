@@ -6,21 +6,20 @@ import 'package:bsev_demo/home_second/SecondBloc.dart';
 import 'package:bsev_demo/home_second/SecondStreams.dart';
 import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
 import 'package:bsev_demo/support/conection/con.dart';
-import 'package:injector/injector.dart';
 
-initDependencies(Injector injector) {
-  injectBloc(injector);
-  injectRepository(injector);
+initDependencies() {
+  injectRepository();
+  injectBloc();
 }
 
-injectBloc(Injector injector) {
+injectBloc() {
   registerBlocSingleton<HomeBloc, HomeStreams>(
-      () => HomeStreams(), (i) => HomeBloc(i.getDependency()));
+      (i) => HomeBloc(i.getDependency()), () => HomeStreams());
   registerBlocFactory<SecondBloc, SecondStreams>(
-      () => SecondStreams(), (i) => SecondBloc());
+      (i) => SecondBloc(), () => SecondStreams());
 }
 
-injectRepository(Injector injector) {
+injectRepository() {
   registerDependency((i) => CryptoRepository(i.getDependency()));
 
   registerDependency<Con>((i) {

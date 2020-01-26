@@ -1,7 +1,6 @@
 import 'package:bsev/flavors.dart';
 import 'package:bsev_demo/di/initDependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:injector/injector.dart';
 
 import 'home/HomeView.dart';
 
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
   MyApp() {
     WidgetsFlutterBinding.ensureInitialized();
     Flavors.configure(Flavor.PROD);
-    initDependencies(Injector.appInstance);
+    initDependencies();
   }
 
   @override
