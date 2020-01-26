@@ -1,3 +1,4 @@
+import 'package:bsev/bsev.dart';
 import 'package:bsev/flavors.dart';
 import 'package:bsev_demo/home/HomeBloc.dart';
 import 'package:bsev_demo/home/HomeStreams.dart';
@@ -13,17 +14,16 @@ initDependencies(Injector injector) {
 }
 
 injectBloc(Injector injector) {
-  injector.registerDependency((i) => HomeBloc(i.getDependency()));
-  injector.registerDependency((i) => HomeStreams());
-
-  injector.registerDependency((i) => SecondBloc());
-  injector.registerDependency((i) => SecondStreams());
+  registerBlocSingleton<HomeBloc, HomeStreams>(
+      () => HomeStreams(), (i) => HomeBloc(i.getDependency()));
+  registerBlocFactory<SecondBloc, SecondStreams>(
+      () => SecondStreams(), (i) => SecondBloc());
 }
 
 injectRepository(Injector injector) {
-  injector.registerDependency((i) => CryptoRepository(i.getDependency()));
+  registerDependency((i) => CryptoRepository(i.getDependency()));
 
-  injector.registerDependency<Con>((i) {
+  registerDependency<Con>((i) {
     String url;
 
     switch (Flavors().getFlavor()) {
