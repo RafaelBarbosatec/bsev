@@ -1,4 +1,4 @@
-enum Flavor { DEBUG, HOMOLOG, PROD }
+enum Flavor { DEBUG, HML, PROD }
 
 class Flavors {
   static final Flavors _singleton = Flavors._internal();

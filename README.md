@@ -57,6 +57,9 @@ class HomeBloc extends BlocBase<HomeStreams>{
   
   //If you need to send an event to the view:
   //dispatchView(MyEvent());
+  
+  // If you need send event to all BloCs
+  //dispatchAll(MyEvent());
 
   @override
   void initView() {
@@ -116,18 +119,11 @@ class HomeView extends StatelessWidget{
     
   Widget _buildBody(HomeStreams streams) {
 
-    return StreamBuilder(
+    return StreamListener<int>(
       stream: streams.count.get,
-      initialData: 0,
       builder: (_,snapshot){
-
-        int count = 0;
-        if(snapshot.hasData){
-          count = snapshot.data;
-        }
-
         return Center(
-          child: Text(count.toString())
+          child: Text(snapshot.data.toString())
         )
       }
     );
@@ -143,9 +139,13 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ``` dart
   MyApp(){
 
-    var injector = Injector.appInstance;
-    injector.registerDependency((i)=> HomeBloc());
-    injector.registerDependency((i)=> HomeStreams());
+    registerBlocFactory<HomeBloc, HomeStreams>((i) => HomeBloc(), () => HomeStreams());
+      
+    //Example of the register bloc singleton.
+    //registerBlocSingleton<HomeBloc, HomeStreams>((i) => HomeBloc(), () => HomeStreams());
+
+    //Example of the register any things.
+    //registerDependency((i) => CryptoRepository(i.getDependency()));
     
   }
 ```

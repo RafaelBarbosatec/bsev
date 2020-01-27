@@ -1,11 +1,5 @@
 library bsev;
 
-export 'package:bsev/bloc_base.dart';
-export 'package:bsev/bloc_view.dart';
-export 'package:bsev/events_base.dart';
-export 'package:bsev/stream_base.dart';
-export 'package:bsev/stream_create.dart';
-export 'package:injector/injector.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:bsev/util.dart';
@@ -14,9 +8,19 @@ import 'package:injector/injector.dart';
 
 import 'bsev.dart';
 
+export 'package:bsev/bloc_base.dart';
+export 'package:bsev/bloc_view.dart';
+export 'package:bsev/events_base.dart';
+export 'package:bsev/injector.dart';
+export 'package:bsev/stream_base.dart';
+export 'package:bsev/stream_create.dart';
+export 'package:bsev/stream_listener.dart';
+export 'package:injector/injector.dart';
+
 typedef AsyncWidgetBuilder<S> = Widget Function(
     BuildContext context, Function(EventsBase) dispatcher, S streams);
 
+// ignore: must_be_immutable
 class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
   final dynamic dataToBloc;
   final AsyncWidgetBuilder<S> builder;

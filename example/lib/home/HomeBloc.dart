@@ -1,13 +1,11 @@
-
 import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/home/HomeEvents.dart';
 import 'package:bsev_demo/home/HomeStreams.dart';
 import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 
-class HomeBloc extends BlocBase<HomeStreams>{
-
-  final CriptoRepository api;
+class HomeBloc extends BlocBase<HomeStreams> {
+  final CryptoRepository api;
 
   int _page = 0;
   List<Cripto> _list;
@@ -17,57 +15,46 @@ class HomeBloc extends BlocBase<HomeStreams>{
 
   @override
   void initView() {
-    print("data: $data");
-    loadCripyto(false);
+    loadCrypto(false);
   }
 
   @override
   void eventReceiver(EventsBase event) {
-
-    if(event is HomeEventLoad){
-      loadCripyto(false);
+    if (event is HomeEventLoad) {
+      loadCrypto(false);
     }
 
-    if(event is HomeEventLoadMore){
-      loadCripyto(true);
+    if (event is HomeEventLoadMore) {
+      loadCrypto(true);
     }
-
   }
 
-  void loadCripyto(bool isMore) {
-
-    if(streams.showProgress.value) {
+  void loadCrypto(bool isMore) {
+    if (streams.showProgress.value) {
       return;
     }
 
-    if(isMore){
-      _page ++;
-    }else{
+    if (isMore) {
+      _page++;
+    } else {
       _page = 0;
     }
 
     streams.showProgress.set(true);
 
-    api.load(_page, limit).then((cripto) {
-
+    api.load(_page, limit).then((crypto) {
       if (isMore) {
-        _list.addAll(cripto);
+        _list.addAll(crypto);
       } else {
-        _list = cripto;
+        _list = crypto;
       }
 
-      streams.criptos.set(_list);
+      streams.cryptoCoins.set(_list);
       streams.showProgress.set(false);
-
     }).catchError((error) {
-
       streams.showProgress.set(false);
-      dispatchView(HomeEventShowError()
-        ..data = "Unable to load information");
-
+      dispatchView(
+          HomeEventShowError()..msg = "Unable conection to load information");
     });
-
   }
-
-
 }

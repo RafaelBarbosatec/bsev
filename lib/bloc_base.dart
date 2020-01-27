@@ -26,6 +26,8 @@ abstract class BlocBase<T extends StreamsBase> {
   void eventReceiver(EventsBase event);
 
   void dispose() {
-    streams.dispose();
+    if (streams.disposable) {
+      streams.dispose();
+    }
   }
 }

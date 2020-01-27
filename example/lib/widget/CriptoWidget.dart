@@ -1,71 +1,68 @@
-
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:flutter/material.dart';
 
-class CriptoWidget extends StatefulWidget {
-
+class CryptoWidget extends StatefulWidget {
   final Cripto item;
+  final Function(Cripto) onClick;
 
-  const CriptoWidget({Key key, this.item}) : super(key: key);
+  const CryptoWidget({Key key, this.item, this.onClick}) : super(key: key);
 
   @override
   _CriptoWidgetState createState() => _CriptoWidgetState();
 }
 
-class _CriptoWidgetState extends State<CriptoWidget> with SingleTickerProviderStateMixin{
-
+class _CriptoWidgetState extends State<CryptoWidget>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<Offset> _animationSlide;
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _animationSlide = Tween(
-        begin: Offset(2.0,0.0)
-        , end: Offset(0.0,0.0)
-    ).animate(
-        CurvedAnimation(
-            parent: _controller,
-            curve: Curves.decelerate
-        )
-    );
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animationSlide = Tween(begin: Offset(2.0, 0.0), end: Offset(0.0, 0.0))
+        .animate(
+            CurvedAnimation(parent: _controller, curve: Curves.decelerate));
     _controller.forward(from: 0.0);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animationSlide,
-      child: FadeTransition(
-        opacity: _controller,
-        child: Container(
-          margin: const EdgeInsets.all(5.0),
-          child: Card(
-            child: _getListTile(),
+    return InkWell(
+      onTap: () {
+        if (widget.onClick != null) {
+          widget.onClick(widget.item);
+        }
+      },
+      child: SlideTransition(
+        position: _animationSlide,
+        child: FadeTransition(
+          opacity: _controller,
+          child: Container(
+            margin: const EdgeInsets.all(5.0),
+            child: Card(
+              child: _getListTile(),
+            ),
           ),
         ),
       ),
     );
   }
 
-  ListTile _getListTile(){
-
+  ListTile _getListTile() {
     return new ListTile(
-      leading: _getLeadingWidget(widget.item.name,widget.item.symbol),
+      leading: _getLeadingWidget(widget.item.name, widget.item.symbol),
       title: _getTittleWidget(widget.item.name),
       subtitle: _getSubtitleWidget(widget.item.priceUsd),
       trailing: _getTrailingWidget(widget.item.percentChange24h),
       onTap: onTapTile(),
     );
-
   }
 
-  onTapTile(){
+  onTapTile() {}
 
-  }
-
-  Widget _getLeadingWidget(String currencyName,String symbol){
-
+  Widget _getLeadingWidget(String currencyName, String symbol) {
     return Container(
       width: 50,
       height: 50,
@@ -73,58 +70,49 @@ class _CriptoWidgetState extends State<CriptoWidget> with SingleTickerProviderSt
     );
   }
 
-  Widget _getImageNetwork(symbol){
-
+  Widget _getImageNetwork(symbol) {
     var imageUrl = "https://res.cloudinary.com/dxi90ksom/image/upload/$symbol";
 
-    try{
+    try {
       return Image.network(imageUrl);
-    }catch(e){
+    } catch (e) {
       return Text("EMPTY");
     }
-
   }
 
-  Text _getTittleWidget(String curencyName){
+  Text _getTittleWidget(String curencyName) {
     return Text(
       curencyName,
       style: TextStyle(fontWeight: FontWeight.bold),
     );
   }
 
-  Text _getSubtitleWidget(String priceUsd){
+  Text _getSubtitleWidget(String priceUsd) {
     return Text('R\$ $priceUsd');
   }
 
-  Widget _getTrailingWidget(String percentChange1h){
-
+  Widget _getTrailingWidget(String percentChange1h) {
     return Column(
       children: <Widget>[
         _getTextPeriodoTrailig(),
-        _getTextPorcentTrailing(percentChange1h)],
+        _getTextPorcentTrailing(percentChange1h)
+      ],
     );
-
   }
 
-  Widget _getTextPeriodoTrailig(){
-
-    return Text("24h",
-      style: TextStyle(
-          fontSize: 8.0
-      ),
+  Widget _getTextPeriodoTrailig() {
+    return Text(
+      "24h",
+      style: TextStyle(fontSize: 8.0),
     );
-
   }
 
-  Widget _getTextPorcentTrailing(String percentChange1h){
-
+  Widget _getTextPorcentTrailing(String percentChange1h) {
     var percent = double.parse(percentChange1h);
 
     return Text(
       '$percentChange1h%',
-      style: TextStyle(
-          color: (percent > 0) ?  Colors.green : Colors.red
-      ),
+      style: TextStyle(color: (percent > 0) ? Colors.green : Colors.red),
     );
   }
 
