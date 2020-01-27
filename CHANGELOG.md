@@ -1,3 +1,9 @@
+## [0.9.0] - 27/01/2020
+
+* add dispatcherAll
+* add methods to inject BloCs and dependencies
+* add StreamListener
+
 ## [0.8.7] - 26/09/2019
 
 * removes need for custom EventBase
