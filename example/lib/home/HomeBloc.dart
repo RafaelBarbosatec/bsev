@@ -42,11 +42,11 @@ class HomeBloc extends BlocBase<HomeStreams> {
 
     streams.showProgress.set(true);
 
-    api.load(_page, limit).then((cripto) {
+    api.load(_page, limit).then((crypto) {
       if (isMore) {
-        _list.addAll(cripto);
+        _list.addAll(crypto);
       } else {
-        _list = cripto;
+        _list = crypto;
       }
 
       streams.cryptoCoins.set(_list);
