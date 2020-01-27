@@ -21,3 +21,7 @@ registerBlocSingleton<T extends BlocBase, S extends StreamsBase>(
 registerDependency<T>(DependencyBuilder<T> builder) {
   Injector.appInstance.registerDependency(builder);
 }
+
+registerSingleton<T>(DependencyBuilder<T> builder) {
+  Injector.appInstance.registerSingleton(builder);
+}
