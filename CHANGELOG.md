@@ -1,3 +1,7 @@
+## [0.9.1] - 27/01/2020
+
+* add registerSingleton
+
 ## [0.9.0] - 27/01/2020
 
 * add dispatcherAll
