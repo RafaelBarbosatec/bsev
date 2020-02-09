@@ -1,5 +1,9 @@
 ## [0.9.1] - 27/01/2020
 
+* fix conflict imports streamBuilder
+
+## [0.9.1] - 27/01/2020
+
 * add registerSingleton
 
 ## [0.9.0] - 27/01/2020

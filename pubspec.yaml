@@ -1,6 +1,6 @@
 name: bsev
 description: Useful to aid in the use of BloC pattern with dependency injection
-version: 0.9.1
+version: 0.9.2
 homepage: https://github.com/RafaelBarbosatec/bsev
 
 environment:

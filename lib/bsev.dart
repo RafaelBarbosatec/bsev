@@ -15,7 +15,6 @@ export 'package:bsev/injector.dart';
 export 'package:bsev/stream_base.dart';
 export 'package:bsev/stream_create.dart';
 export 'package:bsev/stream_listener.dart';
-export 'package:injector/injector.dart';
 
 typedef AsyncWidgetBuilder<S> = Widget Function(
     BuildContext context, Function(EventsBase) dispatcher, S streams);
