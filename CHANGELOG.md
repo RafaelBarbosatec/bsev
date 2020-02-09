@@ -1,4 +1,4 @@
-## [0.9.1] - 27/01/2020
+## [0.9.2] - 27/01/2020
 
 * fix conflict imports streamBuilder
 
