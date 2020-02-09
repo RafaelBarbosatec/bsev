@@ -1,4 +1,8 @@
-## [0.9.2] - 27/01/2020
+## [0.9.3] - 8/02/2020
+
+* add getDependency
+
+## [0.9.2] - 8/02/2020
 
 * fix conflict imports streamBuilder
 
