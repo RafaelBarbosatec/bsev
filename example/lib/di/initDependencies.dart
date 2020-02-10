@@ -13,9 +13,9 @@ initDependencies() {
 }
 
 injectBloc() {
-  registerBlocSingleton<HomeBloc, HomeStreams>(
+  registerBloc<HomeBloc, HomeStreams>(
       (i) => HomeBloc(i.getDependency()), () => HomeStreams());
-  registerBlocFactory<SecondBloc, SecondStreams>(
+  registerBloc<SecondBloc, SecondStreams>(
       (i) => SecondBloc(), () => SecondStreams());
 }
 

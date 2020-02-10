@@ -12,9 +12,9 @@ typedef ValueWidgetBuilder<T> = Widget Function(
 class StreamListener<T> extends StatelessWidget {
   final Stream stream;
   final ValueWidgetBuilder<T> builder;
-  final Widget contentEmpty;
+  final Widget Function(BuildContext) contentEmptyBuilder;
 
-  StreamListener({Key key, this.stream, this.builder, this.contentEmpty})
+  StreamListener({Key key, this.stream, this.builder, this.contentEmptyBuilder})
       : assert(stream != null, builder != null),
         super(key: key);
 
@@ -26,12 +26,17 @@ class StreamListener<T> extends StatelessWidget {
         if (snapshot.hasData) {
           return builder(context, ValueSnapshot(snapshot.data));
         }
-        return _buildEmpty();
+        return _buildEmpty(context);
       },
     );
   }
 
-  Widget _buildEmpty() {
-    return contentEmpty ?? Container();
+  Widget _buildEmpty(BuildContext context) {
+    return contentEmptyBuilder != null
+        ? contentEmptyBuilder(context)
+        : Container(
+            width: 0.0,
+            height: 0.0,
+          );
   }
 }

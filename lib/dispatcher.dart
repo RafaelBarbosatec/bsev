@@ -27,6 +27,7 @@ class DispatcherStream implements Dispatcher {
   DispatcherStream._internal();
 
   void registerBSEV(BlocBase bloc, BlocView view) {
+    bloc.setDispatcher(this);
     //RegisterBloc
     if (_blocCollection[bloc.uuid] == null) {
       _addUuidListBloc(bloc);
@@ -91,7 +92,7 @@ class DispatcherStream implements Dispatcher {
     var publish = _viewCollection[bloc.uuid];
 
     if (publish != null) {
-      _viewCollection[bloc.uuid].set(event);
+      publish.set(event);
     } else {
       print(
           "$LOG ERROR: View of the ${bloc.runtimeType}/${bloc.uuid} not found.");

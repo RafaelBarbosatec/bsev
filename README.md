@@ -139,13 +139,16 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ``` dart
   MyApp(){
 
-    registerBlocFactory<HomeBloc, HomeStreams>((i) => HomeBloc(), () => HomeStreams());
-      
-    //Example of the register bloc singleton.
-    //registerBlocSingleton<HomeBloc, HomeStreams>((i) => HomeBloc(), () => HomeStreams());
+    registerBloc<HomeBloc, HomeStreams>((i) => HomeBloc(), () => HomeStreams());
 
     //Example of the register any things.
     //registerDependency((i) => CryptoRepository(i.getDependency()));
+
+    //Example of the register any things Singleton.
+    //registerSingleton((i) => CryptoRepository(i.getDependency()));
+
+    //Example get dependency anywhere
+    var dependency = getDependency<CryptoRepository>();
     
   }
 ```

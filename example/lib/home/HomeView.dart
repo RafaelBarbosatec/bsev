@@ -13,20 +13,20 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bsev<HomeBloc, HomeStreams>(
-      eventReceiver: (context, event, dispatcher) {
+      eventReceiver: (event, communication) {
         if (event is HomeEventShowError) {
-          showSnackBar(event.msg, dispatcher);
+          showSnackBar(event.msg, communication.dispatcher);
         }
       },
-      builder: (context, dispatcher, HomeStreams streams) {
+      builder: (context, communication) {
         return Scaffold(
           key: scaffoldStateKey,
           appBar: AppBar(),
           body: Container(
             child: Stack(
               children: <Widget>[
-                _buildListStream(streams, dispatcher),
-                _buildProgressStream(streams)
+                _buildListStream(communication),
+                _buildProgressStream(communication)
               ],
             ),
           ),
@@ -35,19 +35,19 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildListStream(HomeStreams streams, dispatcher) {
+  Widget _buildListStream(BlocCommunication<HomeStreams> communication) {
     return RefreshIndicator(
       onRefresh: () {
-        return _refresh(dispatcher);
+        return _refresh(communication.dispatcher);
       },
       child: StreamListener<List<Cripto>>(
-        stream: streams.cryptoCoins.get,
+        stream: communication.streams.cryptoCoins.get,
         builder: (BuildContext context, ValueSnapshot<List<Cripto>> snapshot) {
           return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
                 if (index >= snapshot.data.length - 1) {
-                  _callLoad(true, dispatcher);
+                  _callLoad(true, communication.dispatcher);
                 }
 
                 return CryptoWidget(
@@ -65,9 +65,9 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildProgressStream(HomeStreams streams) {
+  Widget _buildProgressStream(BlocCommunication<HomeStreams> communication) {
     return StreamListener<bool>(
-        stream: streams.showProgress.get,
+        stream: communication.streams.showProgress.get,
         builder: (_, ValueSnapshot<bool> snapshot) {
           if (snapshot.data) {
             return Center(

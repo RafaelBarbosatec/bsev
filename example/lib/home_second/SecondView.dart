@@ -8,20 +8,22 @@ class SecondView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bsev<SecondBloc, SecondStreams>(
-      builder: (_, dispatcher, SecondStreams streams) {
+      builder: (_, communication) {
         return Scaffold(
           appBar: AppBar(
             title: Text("Second example"),
           ),
           body: Center(
             child: StreamListener<int>(
-                stream: streams.count.get,
-                contentEmpty: Center(
-                  child: Text(
-                    "Empty",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
+                stream: communication.streams.count.get,
+                contentEmptyBuilder: (context) {
+                  return Center(
+                    child: Text(
+                      "Empty",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                },
                 builder: (_, snapshot) {
                   var msg = snapshot.data.toString();
                   return Text(msg);
@@ -30,7 +32,7 @@ class SecondView extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
-                dispatcher(SecondEventIncrement());
+                communication.dispatcher(SecondEventIncrement());
               }),
         );
       },
