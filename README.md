@@ -97,7 +97,7 @@ class HomeView extends StatelessWidget{
     
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data", //optional initial data to bloc
-      eventReceiver: (context, event, dispatcher){ //optional
+      eventReceiver: (event, communication){ //optional
         // performs action received by the bloc
       },
       builder: (context,communication){
