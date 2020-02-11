@@ -100,14 +100,14 @@ class HomeView extends StatelessWidget{
       eventReceiver: (context, event, dispatcher){ //optional
         // performs action received by the bloc
       },
-      builder: (context, dispatcher, streams){
+      builder: (context,communication){
       
           return Scaffold(
             appBar: AppBar(),
-            body: _buildBody(streams),
+            body: _buildBody(communication),
             floatingActionButton: FloatingActionButton(
                 onPressed: (){
-                  dispatcher(IncrementEvent());
+                  communication.dispatcher(IncrementEvent());
                 }
             ),
           );
@@ -117,10 +117,10 @@ class HomeView extends StatelessWidget{
     
   }
     
-  Widget _buildBody(HomeStreams streams) {
+  Widget _buildBody(BlocCommunication<HomeStreams> communication) {
 
     return StreamListener<int>(
-      stream: streams.count.get,
+      stream: communication.streams.count,
       builder: (_,snapshot){
         return Center(
           child: Text(snapshot.data.toString())
