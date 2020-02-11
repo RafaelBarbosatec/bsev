@@ -148,7 +148,7 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
     //registerSingleton((i) => CryptoRepository(i.getDependency()));
 
     //Example get dependency anywhere
-    var dependency = getDependency<CryptoRepository>();
+    //var dependency = getDependency<CryptoRepository>();
     
   }
 ```
