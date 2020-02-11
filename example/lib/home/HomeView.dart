@@ -41,7 +41,7 @@ class HomeView extends StatelessWidget {
         return _refresh(communication.dispatcher);
       },
       child: StreamListener<List<Cripto>>(
-        stream: communication.streams.cryptoCoins.get,
+        stream: communication.streams.cryptoCoins,
         builder: (BuildContext context, ValueSnapshot<List<Cripto>> snapshot) {
           return ListView.builder(
               itemCount: snapshot.data.length,
@@ -67,7 +67,7 @@ class HomeView extends StatelessWidget {
 
   Widget _buildProgressStream(BlocCommunication<HomeStreams> communication) {
     return StreamListener<bool>(
-        stream: communication.streams.showProgress.get,
+        stream: communication.streams.showProgress,
         builder: (_, ValueSnapshot<bool> snapshot) {
           if (snapshot.data) {
             return Center(

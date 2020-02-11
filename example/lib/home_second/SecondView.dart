@@ -15,7 +15,7 @@ class SecondView extends StatelessWidget {
           ),
           body: Center(
             child: StreamListener<int>(
-                stream: communication.streams.count.get,
+                stream: communication.streams.count,
                 contentEmptyBuilder: (context) {
                   return Center(
                     child: Text(

@@ -1,3 +1,4 @@
+import 'package:bsev/stream_create.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -10,7 +11,7 @@ typedef ValueWidgetBuilder<T> = Widget Function(
     BuildContext context, ValueSnapshot<T> snapshot);
 
 class StreamListener<T> extends StatelessWidget {
-  final Stream stream;
+  final StreamCreate<T> stream;
   final ValueWidgetBuilder<T> builder;
   final Widget Function(BuildContext) contentEmptyBuilder;
 
@@ -21,7 +22,7 @@ class StreamListener<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<T>(
-      stream: stream,
+      stream: stream.get,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return builder(context, ValueSnapshot(snapshot.data));
@@ -37,6 +38,7 @@ class StreamListener<T> extends StatelessWidget {
         : Container(
             width: 0.0,
             height: 0.0,
+            color: Colors.transparent,
           );
   }
 }
