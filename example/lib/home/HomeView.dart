@@ -63,7 +63,7 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _buildProgressStream(BlocCommunication<HomeStreams> communication) {
-    return communication.streams.showProgress.builder((data) {
+    return communication.streams.showProgress.builder<bool>((data) {
       if (data) {
         return Center(
           child: CircularProgressIndicator(),
