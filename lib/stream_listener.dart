@@ -24,10 +24,12 @@ class StreamListener<T> extends StatelessWidget {
     return StreamBuilder<T>(
       stream: stream.get,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return builder(context, ValueSnapshot(snapshot.data));
-        }
-        return _buildEmpty(context);
+        return AnimatedSwitcher(
+          duration: Duration(milliseconds: 200),
+          child: snapshot.hasData
+              ? builder(context, ValueSnapshot(snapshot.data))
+              : _buildEmpty(context),
+        );
       },
     );
   }
@@ -35,10 +37,6 @@ class StreamListener<T> extends StatelessWidget {
   Widget _buildEmpty(BuildContext context) {
     return contentEmptyBuilder != null
         ? contentEmptyBuilder(context)
-        : Container(
-            width: 0.0,
-            height: 0.0,
-            color: Colors.transparent,
-          );
+        : SizedBox.shrink();
   }
 }
