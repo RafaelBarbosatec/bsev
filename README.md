@@ -104,7 +104,9 @@ class HomeView extends StatelessWidget{
       
           return Scaffold(
             appBar: AppBar(),
-            body: _buildBody(communication.streams),
+            body: communication.streams.count.builder<int>((value) {
+                return Text(value.toString());
+            }),
             floatingActionButton: FloatingActionButton(
                 onPressed: (){
                   communication.dispatcher(IncrementEvent());
@@ -115,14 +117,6 @@ class HomeView extends StatelessWidget{
       }
     );
     
-  }
-    
-  Widget _buildBody(HomeStreams homeStreams) {
-
-    return streams.count.builder<int>((value) {
-        return Text(value.toString());
-    });
-
   }
   
 }
