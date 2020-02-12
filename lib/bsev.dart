@@ -13,6 +13,7 @@ export 'package:bsev/bloc_base.dart';
 export 'package:bsev/bloc_communication.dart';
 export 'package:bsev/bloc_view.dart';
 export 'package:bsev/events_base.dart';
+export 'package:bsev/extensions.dart';
 export 'package:bsev/injector.dart';
 export 'package:bsev/stream_base.dart';
 export 'package:bsev/stream_create.dart';

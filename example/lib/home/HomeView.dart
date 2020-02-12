@@ -40,43 +40,38 @@ class HomeView extends StatelessWidget {
       onRefresh: () {
         return _refresh(communication.dispatcher);
       },
-      child: StreamListener<List<Cripto>>(
-        stream: communication.streams.cryptoCoins,
-        builder: (BuildContext context, ValueSnapshot<List<Cripto>> snapshot) {
-          return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) {
-                if (index >= snapshot.data.length - 1) {
-                  _callLoad(true, communication.dispatcher);
-                }
+      child: communication.streams.cryptoCoins.builder<List<Cripto>>((data) {
+        return ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              if (index >= data.length - 1) {
+                _callLoad(true, communication.dispatcher);
+              }
 
-                return CryptoWidget(
-                  item: snapshot.data[index],
-                  onClick: (item) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SecondView()),
-                    );
-                  },
-                );
-              });
-        },
-      ),
+              return CryptoWidget(
+                item: data[index],
+                onClick: (item) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SecondView()),
+                  );
+                },
+              );
+            });
+      }),
     );
   }
 
   Widget _buildProgressStream(BlocCommunication<HomeStreams> communication) {
-    return StreamListener<bool>(
-        stream: communication.streams.showProgress,
-        builder: (_, ValueSnapshot<bool> snapshot) {
-          if (snapshot.data) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Container();
-          }
-        });
+    return communication.streams.showProgress.builder((data) {
+      if (data) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else {
+        return Container();
+      }
+    });
   }
 
   Future<Null> _refresh(dispatcher) async {

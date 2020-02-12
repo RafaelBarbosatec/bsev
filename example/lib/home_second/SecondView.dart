@@ -14,20 +14,13 @@ class SecondView extends StatelessWidget {
             title: Text("Second example"),
           ),
           body: Center(
-            child: StreamListener<int>(
-                stream: communication.streams.count,
-                contentEmptyBuilder: (context) {
-                  return Center(
-                    child: Text(
-                      "Empty",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  );
-                },
-                builder: (_, snapshot) {
-                  var msg = snapshot.data.toString();
-                  return Text(msg);
-                }),
+            child: communication.streams.count.builder<int>((msg) {
+              return Text(msg.toString());
+            }, buildEmpty: (context) {
+              return Center(
+                child: Text("Empty"),
+              );
+            }),
           ),
           floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
