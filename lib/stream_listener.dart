@@ -14,8 +14,16 @@ class StreamListener<T> extends StatelessWidget {
   final StreamCreate<T> stream;
   final ValueWidgetBuilder<T> builder;
   final Widget Function(BuildContext) contentEmptyBuilder;
+  final bool animate;
+  final AnimatedSwitcherTransitionBuilder transitionBuilder;
 
-  StreamListener({Key key, this.stream, this.builder, this.contentEmptyBuilder})
+  StreamListener(
+      {Key key,
+      this.stream,
+      this.builder,
+      this.contentEmptyBuilder,
+      this.animate = true,
+      this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder})
       : assert(stream != null, builder != null),
         super(key: key);
 
@@ -25,7 +33,8 @@ class StreamListener<T> extends StatelessWidget {
       stream: stream.get,
       builder: (context, snapshot) {
         return AnimatedSwitcher(
-          duration: Duration(milliseconds: 200),
+          duration: Duration(milliseconds: animate ? 300 : 0),
+          transitionBuilder: transitionBuilder,
           child: snapshot.hasData
               ? builder(context, ValueSnapshot(snapshot.data))
               : _buildEmpty(context),
