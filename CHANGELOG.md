@@ -1,3 +1,10 @@
+## [1.0.0] - 16/02/2020
+
+### Breaking Changes: 
+- 'eventReceiver: (context, event, dispatcher)' in Bsev Widget to 'eventReceiver: (event, communication)';
+- 'builder: (context, dispatcher, streams)' in Bsev Widget to 'builder: (context,communication)';
+- add extension in BaseStreams called 'builder' or use StremListener to build your view.
+
 ## [0.9.3] - 8/02/2020
 
 * add getDependency
