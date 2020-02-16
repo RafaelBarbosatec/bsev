@@ -7,7 +7,7 @@ class HomeBloc extends BlocBase<HomeStreams> {
   final CryptoRepository api;
 
   int _page = 0;
-  List<Cripto> _list;
+  List<Cripto> _list = List();
   static const limit = 20;
 
   HomeBloc(this.api);
