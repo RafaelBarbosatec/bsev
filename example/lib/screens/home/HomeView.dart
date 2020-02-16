@@ -68,7 +68,7 @@ class HomeView extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       } else {
-        return Container();
+        return SizedBox.shrink();
       }
     });
   }

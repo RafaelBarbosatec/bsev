@@ -18,6 +18,11 @@ class SecondView extends StatelessWidget {
               return Center(
                 child: Text("Empty"),
               );
+            }, transitionBuilder: (child, animate) {
+              return ScaleTransition(
+                scale: animate,
+                child: child,
+              );
             }),
           ),
           floatingActionButton: FloatingActionButton(
