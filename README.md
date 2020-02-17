@@ -97,17 +97,19 @@ class HomeView extends StatelessWidget{
     
     return Bsev<HomeBloc,HomeStreams>(
       dataToBloc: "any data", //optional initial data to bloc
-      eventReceiver: (context, event, dispatcher){ //optional
+      eventReceiver: (event, communication){ //optional
         // performs action received by the bloc
       },
-      builder: (context, dispatcher, streams){
+      builder: (context,communication){
       
           return Scaffold(
             appBar: AppBar(),
-            body: _buildBody(streams),
+            body: communication.streams.count.builder<int>((value) {
+                return Text(value.toString());
+            }),
             floatingActionButton: FloatingActionButton(
                 onPressed: (){
-                  dispatcher(IncrementEvent());
+                  communication.dispatcher(IncrementEvent());
                 }
             ),
           );
@@ -115,19 +117,6 @@ class HomeView extends StatelessWidget{
       }
     );
     
-  }
-    
-  Widget _buildBody(HomeStreams streams) {
-
-    return StreamListener<int>(
-      stream: streams.count.get,
-      builder: (_,snapshot){
-        return Center(
-          child: Text(snapshot.data.toString())
-        )
-      }
-    );
-
   }
   
 }
@@ -148,13 +137,52 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
     //registerSingleton((i) => CryptoRepository(i.getDependency()));
 
     //Example get dependency anywhere
-    var dependency = getDependency<CryptoRepository>();
+    //var dependency = getDependency<CryptoRepository>();
     
   }
 ```
 Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
 
-More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+More complex example is found [here](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+
+# Testing HomeBloc
+```dart
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  HomeBloc _homeBloc;
+  HomeStreams _homeStreams;
+
+  setUp(() {
+    _homeStreams = HomeStreams();
+    _homeBloc = HomeBloc()..streams = _homeStreams;
+  });
+
+  tearDown(() {
+    _homeBloc?.dispose();
+  });
+  
+  test('initial streams', () {
+    expect(_homeStreams.count.value, 0);
+  });
+  
+  test('increment value', () {
+    _homeBloc.eventReceiver(IncrementEvent());
+    expect(_homeStreams.count.value, 1);
+  });
+
+  test('increment value 3 times', () {
+    _homeBloc.eventReceiver(IncrementEvent());
+    _homeBloc.eventReceiver(IncrementEvent());
+    _homeBloc.eventReceiver(IncrementEvent());
+    expect(_homeStreams.count.value, 3);
+  });
+  
+}
+```
+
+Test example with asynchronous call: [here](https://github.com/RafaelBarbosatec/bsev/blob/develop/example/test/home_bloc_test.dart)
+
 
 ### Used packages
 

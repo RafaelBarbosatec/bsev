@@ -1,8 +1,7 @@
 import 'package:bsev/flavors.dart';
 import 'package:bsev_demo/di/initDependencies.dart';
+import 'package:bsev_demo/screens/home/HomeView.dart';
 import 'package:flutter/material.dart';
-
-import 'home/HomeView.dart';
 
 void main() => runApp(MyApp());
 

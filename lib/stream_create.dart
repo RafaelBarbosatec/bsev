@@ -2,7 +2,14 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 
-class StreamCreate<T> {
+abstract class StreamCreate<T> {
+  Stream<T> get;
+  Function(T) set;
+  T value;
+  void close() {}
+}
+
+class StreamControllerCreate<T> extends StreamCreate<T> {
   final StreamController<T> controller = StreamController<T>();
 
   Stream<T> get get => controller.stream;
@@ -14,7 +21,7 @@ class StreamCreate<T> {
   }
 }
 
-class PublishSubjectCreate<T> {
+class PublishSubjectCreate<T> extends StreamCreate<T> {
   final subject = PublishSubject<T>();
 
   Stream<T> get get => subject.stream;
@@ -26,7 +33,7 @@ class PublishSubjectCreate<T> {
   }
 }
 
-class BehaviorSubjectCreate<T> {
+class BehaviorSubjectCreate<T> extends StreamCreate<T> {
   BehaviorSubject<T> subject;
 
   BehaviorSubjectCreate({T initValue}) {
@@ -47,7 +54,7 @@ class BehaviorSubjectCreate<T> {
   }
 }
 
-class ReplaySubjectCreate<T> {
+class ReplaySubjectCreate<T> extends StreamCreate<T> {
   final subject = ReplaySubject<T>();
 
   Stream<T> get get => subject.stream;

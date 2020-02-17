@@ -13,6 +13,7 @@ export 'package:bsev/bloc_base.dart';
 export 'package:bsev/bloc_communication.dart';
 export 'package:bsev/bloc_view.dart';
 export 'package:bsev/events_base.dart';
+export 'package:bsev/extensions.dart';
 export 'package:bsev/injector.dart';
 export 'package:bsev/stream_base.dart';
 export 'package:bsev/stream_create.dart';
@@ -31,8 +32,7 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
   final ReceiveEventCallBack<S> eventReceiver;
 
   AsyncWidgetBuilder<StreamsBase> _builderInner;
-  Function(EventsBase event, BlocCommunication<StreamsBase> communication)
-      _eventReceiverInner;
+  ReceiveEventCallBack<StreamsBase> _eventReceiverInner;
 
   Bsev({Key key, @required this.builder, this.eventReceiver, this.dataToBloc})
       : super(key: key) {
@@ -43,14 +43,10 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
   _BsevState<B, S> createState() => _BsevState<B, S>();
 
   void _confBuilders() {
-    _builderInner = (BuildContext context, BlocCommunication communication) {
-      return builder(context, communication);
-    };
+    _builderInner = (context, communication) => builder(context, communication);
     if (eventReceiver != null) {
       _eventReceiverInner =
-          (EventsBase event, BlocCommunication communication) {
-        eventReceiver(event, communication);
-      };
+          (event, communication) => eventReceiver(event, communication);
     }
   }
 }
