@@ -143,7 +143,7 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ```
 Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
 
-More complex example is found here: [example](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+More complex example is found [here](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
 
 # Testing HomeBloc
 ```
@@ -181,7 +181,7 @@ void main() {
 }
 ```
 
-Test example with asynchronous call: [example](https://github.com/RafaelBarbosatec/bsev/blob/develop/example/test/home_bloc_test.dart)
+Test example with asynchronous call: [here](https://github.com/RafaelBarbosatec/bsev/blob/develop/example/test/home_bloc_test.dart)
 
 
 ### Used packages
