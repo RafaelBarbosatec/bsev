@@ -146,7 +146,7 @@ Questions about how to use the injector consult [documentation](https://pub.dev/
 More complex example is found [here](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
 
 # Testing HomeBloc
-```
+```dart
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
