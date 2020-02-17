@@ -143,7 +143,46 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ```
 Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
 
-More complex example is found here: [exemplo](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+More complex example is found here: [example](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
+
+# Testing HomeBloc
+```
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  HomeBloc _homeBloc;
+  HomeStreams _homeStreams;
+
+  setUp(() {
+    _homeStreams = HomeStreams();
+    _homeBloc = HomeBloc()..streams = _homeStreams;
+  });
+
+  tearDown(() {
+    _homeBloc?.dispose();
+  });
+  
+  test('initial streams', () {
+    expect(_homeStreams.count.value, 0);
+  });
+  
+  test('increment value', () {
+    _homeBloc.eventReceiver(IncrementEvent());
+    expect(_homeStreams.count.value, 1);
+  });
+
+  test('increment value 3 times', () {
+    _homeBloc.eventReceiver(IncrementEvent());
+    _homeBloc.eventReceiver(IncrementEvent());
+    _homeBloc.eventReceiver(IncrementEvent());
+    expect(_homeStreams.count.value, 3);
+  });
+  
+}
+```
+
+Test example with asynchronous call: [example](https://github.com/RafaelBarbosatec/bsev/blob/develop/example/test/home_bloc_test.dart)
+
 
 ### Used packages
 
