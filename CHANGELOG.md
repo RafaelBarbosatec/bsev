@@ -1,3 +1,7 @@
+## [1.0.1] - 21/02/2020
+
+* export rxdart
+
 ## [1.0.0] - 16/02/2020
 
 ### Breaking Changes: 
