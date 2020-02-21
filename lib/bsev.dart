@@ -18,6 +18,7 @@ export 'package:bsev/injector.dart';
 export 'package:bsev/stream_base.dart';
 export 'package:bsev/stream_create.dart';
 export 'package:bsev/stream_listener.dart';
+export 'package:rxdart/rxdart.dart';
 
 typedef AsyncWidgetBuilder<S> = Widget Function(
     BuildContext context, BlocCommunication<S> communication);
