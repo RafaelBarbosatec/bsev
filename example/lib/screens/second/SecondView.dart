@@ -1,5 +1,5 @@
 import 'package:bsev/bsev.dart';
-import 'package:bsev_demo/screens/second_screen/bloc/bloc.dart';
+import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 class SecondView extends StatelessWidget {

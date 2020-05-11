@@ -2,7 +2,7 @@ import 'package:bsev/bsev.dart';
 import 'package:bsev/flavors.dart';
 import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
-import 'package:bsev_demo/screens/second_screen/bloc/bloc.dart';
+import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 import 'package:bsev_demo/support/conection/con.dart';
 
 initDependencies() {

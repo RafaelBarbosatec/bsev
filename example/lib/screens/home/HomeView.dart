@@ -2,7 +2,7 @@ import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 import 'package:bsev_demo/screens/home/widgets/CriptoWidget.dart';
-import 'package:bsev_demo/screens/second_screen/SecondView.dart';
+import 'package:bsev_demo/screens/second/SecondView.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
