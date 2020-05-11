@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 abstract class StreamCreate<T> {
   Stream<T> get;
-  Function(T) set;
+  void set(T event);
   T value;
   void close() {}
 }
@@ -14,7 +14,9 @@ class StreamControllerCreate<T> extends StreamCreate<T> {
 
   Stream<T> get get => controller.stream;
 
-  Function(T) get set => controller.sink.add;
+  void set(T event) {
+    if (!controller.isClosed) controller.sink.add(event);
+  }
 
   void close() {
     controller.close();
@@ -26,7 +28,9 @@ class PublishSubjectCreate<T> extends StreamCreate<T> {
 
   Stream<T> get get => subject.stream;
 
-  Function(T) get set => subject.add;
+  void set(T event) {
+    if (!subject.isClosed) subject.add(event);
+  }
 
   void close() {
     subject.close();
@@ -45,7 +49,9 @@ class BehaviorSubjectCreate<T> extends StreamCreate<T> {
 
   Stream<T> get get => subject.stream;
 
-  Function(T) get set => subject.add;
+  void set(T event) {
+    if (!subject.isClosed) subject.add(event);
+  }
 
   T get value => subject.value;
 
@@ -59,7 +65,9 @@ class ReplaySubjectCreate<T> extends StreamCreate<T> {
 
   Stream<T> get get => subject.stream;
 
-  Function(T) get set => subject.add;
+  void set(T event) {
+    if (!subject.isClosed) subject.add(event);
+  }
 
   List<T> get values => subject.values;
 

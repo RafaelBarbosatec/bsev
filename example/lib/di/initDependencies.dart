@@ -18,9 +18,9 @@ injectBloc() {
 }
 
 injectRepository() {
-  registerDependency((i) => CryptoRepository(i.getDependency()));
+  registerSingleton((i) => CryptoRepository(i.getDependency()));
 
-  registerDependency<Con>((i) {
+  registerSingleton<Con>((i) {
     String url;
 
     switch (Flavors().getFlavor()) {

@@ -1,3 +1,8 @@
+## [1.0.2] - 11/05/2020
+
+* update rxdart
+* add safe set in StreamCreate
+
 ## [1.0.1] - 21/02/2020
 
 * export rxdart
