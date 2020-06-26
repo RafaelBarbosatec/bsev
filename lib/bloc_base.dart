@@ -7,6 +7,7 @@ abstract class BlocBase<T extends StreamsBase> {
   T streams;
   dynamic data;
   Dispatcher _dispatcher;
+  bool isSingleton = false;
   final String uuid = "${generateId()}-bloc";
 
   void dispatchView(EventsBase event) {
@@ -26,6 +27,6 @@ abstract class BlocBase<T extends StreamsBase> {
   void eventReceiver(EventsBase event);
 
   void dispose() {
-    streams.dispose();
+    if (!isSingleton) streams.dispose();
   }
 }

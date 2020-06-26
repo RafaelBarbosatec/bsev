@@ -5,10 +5,18 @@ import 'package:bsev/stream_create.dart';
 
 abstract class Dispatcher {
   void registerBSEV(BlocBase bloc, BlocView view);
-  void unRegisterBloc(BlocBase bloc);
+  void unRegisterBloc(BlocBase bloc, BlocView view);
   void dispatch(BlocView view, EventsBase event);
   void dispatchToBlocs<T extends BlocBase>(EventsBase event);
   void dispatchToView(BlocBase bloc, EventsBase event);
+}
+
+class CommunicationBlocView {
+  final String uuidBloc;
+  final String uuidView;
+  final PublishSubjectCreate stream;
+
+  CommunicationBlocView(this.uuidBloc, this.uuidView, this.stream);
 }
 
 class DispatcherStream implements Dispatcher {
@@ -17,8 +25,7 @@ class DispatcherStream implements Dispatcher {
 
   Map _blocCollection = Map<String, PublishSubjectCreate>();
   Map<Type, List<String>> _blocsToUuids = Map<Type, List<String>>();
-  Map<String, String> _viewToBloc = Map<String, String>();
-  Map _viewCollection = Map<String, PublishSubjectCreate>();
+  List<CommunicationBlocView> _viewCollection = List();
 
   factory DispatcherStream() {
     return _singleton;
@@ -36,36 +43,49 @@ class DispatcherStream implements Dispatcher {
     }
 
     //registerView
+
     try {
-      if (_viewCollection[bloc.uuid] == null) {
-        _viewCollection[bloc.uuid] = PublishSubjectCreate<EventsBase>();
-        _viewCollection[bloc.uuid].get.listen(view.eventReceiver);
+      if (_viewCollection.firstWhere((element) => element.uuidView == view.uuid,
+              orElse: () => null) ==
+          null) {
+        final communication = CommunicationBlocView(
+          bloc.uuid,
+          view.uuid,
+          PublishSubjectCreate<EventsBase>(),
+        );
+        communication.stream.get.listen(view.eventReceiver);
+        _viewCollection.add(communication);
       }
-      _addViewToBloc(bloc, view);
+//      _addViewToBloc(bloc, view);
     } catch (e) {
       print("$LOG ERROR: $e");
     }
   }
 
-  void unRegisterBloc(BlocBase bloc) {
-    if (_blocCollection[bloc.uuid] != null) {
+  void unRegisterBloc(BlocBase bloc, BlocView view) {
+    if (_blocCollection[bloc.uuid] != null && !bloc.isSingleton) {
       _removeUuidListBloc(bloc);
-      _removeViewToBloc(bloc);
       _blocCollection[bloc.uuid].close();
       _blocCollection.remove(bloc.uuid);
+      bloc.dispose();
     }
 
-    if (_viewCollection[bloc.uuid] != null) {
-      _viewCollection[bloc.uuid].close();
-      _viewCollection.remove(bloc.uuid);
+    var communication = _viewCollection.firstWhere(
+        (element) => element.uuidView == view.uuid,
+        orElse: () => null);
+
+    if (communication != null) {
+      communication.stream.close();
+      _viewCollection.remove(communication);
     }
   }
 
   void dispatch(BlocView view, EventsBase event) {
-    var uuidBloc = _viewToBloc[view.uuid];
-
-    if (uuidBloc != null) {
-      _blocCollection[uuidBloc].set(event);
+    var communication = _viewCollection.firstWhere(
+        (element) => element.uuidView == view.uuid,
+        orElse: () => null);
+    if (communication != null) {
+      _blocCollection[communication.uuidBloc].set(event);
     } else {
       print("$LOG ERROR: Bloc to $view not found.");
     }
@@ -89,14 +109,13 @@ class DispatcherStream implements Dispatcher {
   }
 
   void dispatchToView(BlocBase bloc, EventsBase event) {
-    var publish = _viewCollection[bloc.uuid];
-
-    if (publish != null) {
-      publish.set(event);
-    } else {
-      print(
-          "$LOG ERROR: View of the ${bloc.runtimeType}/${bloc.uuid} not found.");
-    }
+    _viewCollection
+        .where(
+      (element) => element.uuidBloc == bloc.uuid,
+    )
+        .forEach((element) {
+      element.stream.set(event);
+    });
   }
 
   void _addUuidListBloc(BlocBase bloc) {
@@ -110,16 +129,5 @@ class DispatcherStream implements Dispatcher {
 
   void _removeUuidListBloc(BlocBase bloc) {
     _blocsToUuids[bloc.runtimeType].remove(bloc.uuid);
-  }
-
-  void _addViewToBloc(BlocBase bloc, BlocView view) {
-    if (_viewToBloc.containsValue(bloc.uuid)) {
-      _viewToBloc.removeWhere((key, value) => value == bloc.uuid);
-    }
-    _viewToBloc[view.uuid] = bloc.uuid;
-  }
-
-  void _removeViewToBloc(BlocBase bloc) {
-    _viewToBloc.removeWhere((key, value) => value == bloc.uuid);
   }
 }
