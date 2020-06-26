@@ -43,7 +43,6 @@ class DispatcherStream implements Dispatcher {
     }
 
     //registerView
-
     try {
       if (_viewCollection.firstWhere((element) => element.uuidView == view.uuid,
               orElse: () => null) ==
@@ -56,7 +55,6 @@ class DispatcherStream implements Dispatcher {
         communication.stream.get.listen(view.eventReceiver);
         _viewCollection.add(communication);
       }
-//      _addViewToBloc(bloc, view);
     } catch (e) {
       print("$LOG ERROR: $e");
     }
