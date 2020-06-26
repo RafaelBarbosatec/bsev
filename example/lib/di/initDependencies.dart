@@ -13,7 +13,7 @@ initDependencies() {
 injectBloc() {
   registerBloc<HomeBloc, HomeStreams>(
       (i) => HomeBloc(i.get()), () => HomeStreams());
-  registerSingletonBloc<SecondBloc, SecondStreams>(
+  registerBloc<SecondBloc, SecondStreams>(
       (i) => SecondBloc(), () => SecondStreams());
 }
 
