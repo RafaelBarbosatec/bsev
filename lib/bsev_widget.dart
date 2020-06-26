@@ -48,7 +48,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   B _bloc;
   BlocCommunication<S> _blocCommunication;
-  final Dispatcher _myDispatcher = DispatcherStream();
+  final Dispatcher _dispatcher = DispatcherStream();
 
   @override
   void eventReceiver(EventsBase event) {
@@ -64,9 +64,9 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
     if (_bloc.streams == null) {
       _bloc.streams = getDependency<S>();
     }
-    _myDispatcher.registerBSEV(_bloc, this);
+    _dispatcher.registerBSEV(_bloc, this);
     _blocCommunication = BlocCommunication<S>(
-      (event) => _myDispatcher.dispatch(this, event),
+      (event) => _dispatcher.dispatch(this, event),
       _bloc.streams,
     );
     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
@@ -84,7 +84,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   @override
   void dispose() {
-    _myDispatcher.unRegisterBloc(_bloc, this);
+    _dispatcher.unRegisterBloc(_bloc, this);
     super.dispose();
   }
 }

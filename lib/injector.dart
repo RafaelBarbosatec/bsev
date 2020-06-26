@@ -13,11 +13,11 @@ registerBloc<T extends BlocBase, S extends StreamsBase>(
   getIt.registerFactory<T>(() => blocBuilder(getIt));
 }
 
-registerSingletonBloc<T extends BlocBase, S extends StreamsBase>(
-    BlocBuilder<T> blocBuilder, BlocStreamBuilder streamBuilder) {
-  getIt.registerLazySingleton<S>(() => streamBuilder());
-  getIt.registerLazySingleton<T>(() => blocBuilder(getIt)..isSingleton = true);
-}
+//registerSingletonBloc<T extends BlocBase, S extends StreamsBase>(
+//    BlocBuilder<T> blocBuilder, BlocStreamBuilder streamBuilder) {
+//  getIt.registerLazySingleton<S>(() => streamBuilder());
+//  getIt.registerLazySingleton<T>(() => blocBuilder(getIt)..isSingleton = true);
+//}
 
 registerDependency<T>(DependencyBuilder<T> builder, {String dependencyName}) {
   getIt.registerFactory(
