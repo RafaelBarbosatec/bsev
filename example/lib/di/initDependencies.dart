@@ -12,13 +12,13 @@ initDependencies() {
 
 injectBloc() {
   registerBloc<HomeBloc, HomeStreams>(
-      (i) => HomeBloc(i.getDependency()), () => HomeStreams());
+      (i) => HomeBloc(i.get()), () => HomeStreams());
   registerBloc<SecondBloc, SecondStreams>(
       (i) => SecondBloc(), () => SecondStreams());
 }
 
 injectRepository() {
-  registerSingleton((i) => CryptoRepository(i.getDependency()));
+  registerSingleton((i) => CryptoRepository(i.get()));
 
   registerSingleton<Con>((i) {
     String url;

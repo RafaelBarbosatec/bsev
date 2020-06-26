@@ -6,7 +6,8 @@ import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
 import 'package:bsev/util.dart';
 import 'package:flutter/widgets.dart';
-import 'package:injector/injector.dart';
+
+import 'injector.dart';
 
 typedef AsyncWidgetBuilder<S> = Widget Function(
     BuildContext context, BlocCommunication<S> communication);
@@ -58,9 +59,11 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   @override
   void initState() {
-    _bloc = Injector.appInstance.getDependency<B>();
+    _bloc = getDependency<B>();
     _bloc.data = widget.dataToBloc;
-    _bloc.streams = Injector.appInstance.getDependency<S>();
+    if (_bloc.streams == null) {
+      _bloc.streams = getDependency<S>();
+    }
     _myDispatcher.registerBSEV(_bloc, this);
     _blocCommunication = BlocCommunication<S>(
         (event) => _myDispatcher.dispatch(this, event), _bloc.streams);

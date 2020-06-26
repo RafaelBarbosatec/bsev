@@ -10,8 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  rxdart: ^0.24.0
-  injector: ^1.0.8
+  rxdart: ^0.24.1
+  get_it: ^4.0.2
 
 dev_dependencies:
   flutter_test:
