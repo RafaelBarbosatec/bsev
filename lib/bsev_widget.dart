@@ -48,7 +48,6 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
 
   B _bloc;
   BlocCommunication<S> _blocCommunication;
-  final Dispatcher _dispatcher = DispatcherStream();
 
   @override
   void eventReceiver(EventsBase event) {
@@ -61,30 +60,25 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
   void initState() {
     _bloc = getDependency<B>();
     _bloc.data = widget.dataToBloc;
-    if (_bloc.streams == null) {
-      _bloc.streams = getDependency<S>();
-    }
-    _dispatcher.registerBSEV(_bloc, this);
+    _bloc.streams = getDependency<S>();
+    _bloc.setView(this);
+    _bloc.setDispatcher(GlobalBlocDispatcher());
     _blocCommunication = BlocCommunication<S>(
-      (event) => _dispatcher.dispatch(this, event),
+      _bloc.eventReceiver,
       _bloc.streams,
     );
-    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _bloc.initView);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return widget._builderInner(context, _blocCommunication);
-  }
-
-  void _afterLayout(_) {
-    _bloc.initView();
-  }
-
-  @override
-  void dispose() {
-    _dispatcher.unRegisterBloc(_bloc, this);
-    super.dispose();
   }
 }
