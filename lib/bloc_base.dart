@@ -34,7 +34,7 @@ abstract class BlocBase<T extends StreamsBase> {
   void eventReceiver(EventsBase event);
 
   void dispose() {
-    _dispatcher.unRegisterBloc(this);
+    _dispatcher?.unRegisterBloc(this);
     streams.dispose();
   }
 }

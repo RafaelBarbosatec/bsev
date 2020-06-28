@@ -1,8 +1,8 @@
 import 'package:bsev/bsev.dart';
-import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
+import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
-import 'package:bsev_demo/screens/home/widgets/CriptoWidget.dart';
-import 'package:bsev_demo/screens/second/SecondView.dart';
+import 'package:bsev_demo/screens/home/widgets/pripto_widget.dart';
+import 'package:bsev_demo/screens/second/second_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -39,7 +39,7 @@ class HomeView extends StatelessWidget {
         communication.dispatcher(HomeEventLoad());
         return Future.value();
       },
-      child: communication.streams.cryptoCoins.builder<List<Cripto>>((data) {
+      child: communication.streams.pokemonList.builder<List<Pokemon>>((data) {
         return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget {
                 communication.dispatcher(HomeEventLoad()..isMore = true);
               }
 
-              return CryptoWidget(
+              return PokemonWidget(
                 item: data[index],
                 onClick: (item) {
                   Navigator.push(

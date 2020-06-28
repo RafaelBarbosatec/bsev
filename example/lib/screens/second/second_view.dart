@@ -13,20 +13,7 @@ class SecondView extends StatelessWidget {
           ),
           body: Center(
             child: communication.streams.count.builder<int>((msg) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(msg.toString()),
-                  RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SecondView()),
-                      );
-                    },
-                  )
-                ],
-              );
+              return Text(msg.toString());
             }, buildEmpty: (context) {
               return Center(
                 child: Text("Empty"),

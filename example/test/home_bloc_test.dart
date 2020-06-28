@@ -1,19 +1,19 @@
-import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
-import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
+import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
+import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockCryptoRepository extends Mock implements CryptoRepository {}
+class MockPokemonRepository extends Mock implements PokemonRepository {}
 
 void main() {
-  MockCryptoRepository _mockCryptoRepository;
+  MockPokemonRepository _mockCryptoRepository;
 
   HomeBloc _homeBloc;
   HomeStreams _homeSreams;
 
   setUp(() {
-    _mockCryptoRepository = MockCryptoRepository();
+    _mockCryptoRepository = MockPokemonRepository();
     _homeSreams = HomeStreams();
     _homeBloc = HomeBloc(_mockCryptoRepository)..streams = _homeSreams;
   });
@@ -23,52 +23,76 @@ void main() {
   });
 
   test('initial streams', () {
-    expect(_homeSreams.cryptoCoins.value, null);
+    expect(_homeSreams.pokemonList.value, null);
     expect(_homeSreams.showProgress.value, false);
   });
 
   test('initial bloc loadCripto', () {
-    List<Cripto> mockList = [Cripto(), Cripto(), Cripto(), Cripto(), Cripto()];
+    List<Pokemon> mockList = [
+      Pokemon(),
+      Pokemon(),
+      Pokemon(),
+      Pokemon(),
+      Pokemon()
+    ];
 
     final expectedShowProgress = [
       true,
       false,
     ];
 
-    final expectedCryptoCoins = [
+    final expectedPokemonList = [
       null,
       mockList,
     ];
 
-    when(_mockCryptoRepository.load(0, HomeBloc.limit))
-        .thenAnswer((_) => Future.value(mockList));
+    when(
+      _mockCryptoRepository.getPokemons(page: 0, limit: HomeBloc.limit),
+    ).thenAnswer((_) => Future.value(mockList));
 
     _homeBloc.initView();
 
     expectLater(
-        _homeSreams.showProgress.get, emitsInOrder(expectedShowProgress));
+      _homeSreams.showProgress.get,
+      emitsInOrder(expectedShowProgress),
+    );
 
-    expectLater(_homeSreams.cryptoCoins.get, emitsInOrder(expectedCryptoCoins));
+    expectLater(
+      _homeSreams.pokemonList.get,
+      emitsInOrder(expectedPokemonList),
+    );
   });
 
-  test('loadMore Cripto', () {
-    List<Cripto> mockList = [Cripto(), Cripto(), Cripto(), Cripto(), Cripto()];
+  test('loadMore Pokemon', () {
+    List<Pokemon> mockList = [
+      Pokemon(),
+      Pokemon(),
+      Pokemon(),
+      Pokemon(),
+      Pokemon()
+    ];
 
     final expectedShowProgress = [true, false];
 
-    final expectedCryptoCoins = [
+    final expectedPokemonList = [
       null,
       mockList,
     ];
 
-    when(_mockCryptoRepository.load(1, HomeBloc.limit))
-        .thenAnswer((_) => Future.value(mockList));
+    when(
+      _mockCryptoRepository.getPokemons(page: 1, limit: HomeBloc.limit),
+    ).thenAnswer((_) => Future.value(mockList));
 
     _homeBloc.eventReceiver(HomeEventLoad()..isMore = true);
 
     expectLater(
-        _homeSreams.showProgress.get, emitsInOrder(expectedShowProgress));
+      _homeSreams.showProgress.get,
+      emitsInOrder(expectedShowProgress),
+    );
 
-    expectLater(_homeSreams.cryptoCoins.get, emitsInOrder(expectedCryptoCoins));
+    expectLater(
+      _homeSreams.pokemonList.get,
+      emitsInOrder(expectedPokemonList),
+    );
   });
 }

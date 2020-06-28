@@ -1,6 +1,6 @@
 import 'package:bsev/flavors.dart';
 import 'package:bsev_demo/di/initDependencies.dart';
-import 'package:bsev_demo/screens/second/SecondView.dart';
+import 'package:bsev_demo/screens/home/home_view.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SecondView(),
+      home: HomeView(),
     );
   }
 }

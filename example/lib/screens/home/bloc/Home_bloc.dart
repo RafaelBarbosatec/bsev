@@ -1,13 +1,13 @@
 import 'package:bsev/bsev.dart';
-import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
-import 'package:bsev_demo/repository/cripto_repository/model/Cripto.dart';
+import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
+import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 
 class HomeBloc extends BlocBase<HomeStreams> {
-  final CryptoRepository api;
+  final PokemonRepository api;
 
   int _page = 0;
-  List<Cripto> _list = List();
+  List<Pokemon> _list = List();
   static const limit = 20;
 
   HomeBloc(this.api);
@@ -24,7 +24,7 @@ class HomeBloc extends BlocBase<HomeStreams> {
     }
   }
 
-  void loadCrypto(bool isMore) {
+  void loadCrypto(bool isMore) async {
     if (streams.showProgress.value) {
       return;
     }
@@ -35,21 +35,21 @@ class HomeBloc extends BlocBase<HomeStreams> {
       _page = 0;
     }
 
-    streams.showProgress.set(true);
-
-    api.load(_page, limit).then((crypto) {
+    try {
+      streams.showProgress.set(true);
+      final response = await api.getPokemons(page: _page, limit: limit);
       if (isMore) {
-        _list.addAll(crypto);
+        _list.addAll(response);
       } else {
-        _list = crypto;
+        _list = response;
       }
-
-      streams.cryptoCoins.set(_list);
+      streams.pokemonList.set(_list);
       streams.showProgress.set(false);
-    }).catchError((error) {
+    } catch (e) {
       streams.showProgress.set(false);
       dispatchView(
-          HomeEventShowError()..msg = "Unable conection to load information");
-    });
+        HomeEventShowError()..msg = "Unable conection to load information",
+      );
+    }
   }
 }

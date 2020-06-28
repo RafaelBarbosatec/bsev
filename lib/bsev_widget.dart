@@ -67,7 +67,7 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
       _bloc.eventReceiver,
       _bloc.streams,
     );
-    WidgetsBinding.instance.addPostFrameCallback((_) => _bloc.initView);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _bloc.initView());
     super.initState();
   }
 
