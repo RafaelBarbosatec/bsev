@@ -50,17 +50,18 @@ import 'package:bsev/bsev.dart';
 
 class HomeBloc extends BlocBase<HomeStreams>{
 
-  //If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
-  //dispatchToBloc<OtherBloc>(MsgEvent());
-  
-  //If you need to send an event to the view:
-  //dispatchView(MyEvent());
-  
+  // If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
+  // dispatchToBloc<OtherBloc>(MsgEvent());
+
   // If you need send event to all BloCs
-  //dispatchAll(MyEvent());
+  // dispatchToAllBlocs(MyEvent());
+  
+  // If you need to send an event to the view:
+  // dispatchView(MyEvent());
 
   @override
   void initView() {
+  // execute something when view is ready.
   }
   
   @override
@@ -126,20 +127,20 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ``` dart
   MyApp(){
 
-    registerBloc<HomeBloc, HomeStreams>((i) => HomeBloc(), () => HomeStreams());
+    registerBloc<HomeBloc, HomeStreams>((i) => HomeBloc(i.get()), () => HomeStreams());
 
     //Example of the register any things.
-    //registerDependency((i) => CryptoRepository(i.getDependency()));
+    //registerDependency((i) => CryptoRepository(i.get()));
 
     //Example of the register any things Singleton.
-    //registerSingleton((i) => CryptoRepository(i.getDependency()));
+    //registerSingletonDependency((i) => CryptoRepository(i.get()));
 
     //Example get dependency anywhere
     //var dependency = getDependency<CryptoRepository>();
     
   }
 ```
-Questions about how to use the injector consult [documentation](https://pub.dev/packages/injector).
+Questions about how to use the get_it consult [documentation](https://pub.dev/packages/get_it).
 
 More complex example is found [here](https://github.com/RafaelBarbosatec/bsev/tree/master/example)
 
@@ -187,7 +188,7 @@ Test example with asynchronous call: [here](https://github.com/RafaelBarbosatec/
 Packages | pub
 --------- | ------
 rxdart     | [![Pub](https://img.shields.io/pub/v/rxdart.svg)](https://pub.dartlang.org/packages/rxdart)
-injector    | [![Pub](https://img.shields.io/pub/v/injector.svg)](https://pub.dartlang.org/packages/injector)
+get_it    | [![Pub](https://img.shields.io/pub/v/get_it.svg)](https://pub.dev/packages/get_it)
 
 ### User cases
 

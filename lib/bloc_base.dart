@@ -18,6 +18,10 @@ abstract class BlocBase<T extends StreamsBase> {
     _dispatcher?.dispatchToBlocs<T>(event);
   }
 
+  void dispatchToAllBlocs(EventsBase event) {
+    _dispatcher?.dispatchToBlocs<BlocBase>(event);
+  }
+
   void setDispatcher(Dispatcher dispatcher) {
     _dispatcher = dispatcher;
     _dispatcher?.registerBloc(this);
