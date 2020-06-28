@@ -4,7 +4,6 @@ import 'package:bsev/bloc_view.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
-import 'package:bsev/util.dart';
 import 'package:flutter/widgets.dart';
 
 import 'injector.dart';
@@ -43,9 +42,6 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
 
 class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
     implements BlocView<EventsBase> {
-  @override
-  String uuid = "${generateId()}-view";
-
   B _bloc;
   BlocCommunication<S> _blocCommunication;
 

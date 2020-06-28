@@ -1,7 +1,6 @@
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
-import 'package:bsev/util.dart';
 
 import 'bloc_view.dart';
 
@@ -10,7 +9,6 @@ abstract class BlocBase<T extends StreamsBase> {
   dynamic data;
   Dispatcher _dispatcher;
   BlocView _view;
-  final String uuid = "${generateId()}-bloc";
 
   void dispatchView(EventsBase event) {
     _view?.eventReceiver(event);
