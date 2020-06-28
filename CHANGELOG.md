@@ -1,3 +1,10 @@
+## [1.0.3] - 28/06/2020
+
+* update rxdart.
+* replace injector with getIt.
+* Update example.
+* simplifies package.
+
 ## [1.0.2] - 11/05/2020
 
 * update rxdart
