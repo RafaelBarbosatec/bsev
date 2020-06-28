@@ -4,7 +4,6 @@ import 'package:bsev/bloc_view.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
-import 'package:bsev/util.dart';
 import 'package:flutter/widgets.dart';
 
 import 'injector.dart';
@@ -43,16 +42,12 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
 
 class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
     implements BlocView<EventsBase> {
-  @override
-  String uuid = "${generateId()}-view";
-
   B _bloc;
   BlocCommunication<S> _blocCommunication;
-  final Dispatcher _myDispatcher = DispatcherStream();
 
   @override
   void eventReceiver(EventsBase event) {
-    if (widget._eventReceiverInner != null) {
+    if (widget._eventReceiverInner != null && mounted) {
       widget._eventReceiverInner(event, _blocCommunication);
     }
   }
@@ -61,29 +56,25 @@ class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
   void initState() {
     _bloc = getDependency<B>();
     _bloc.data = widget.dataToBloc;
-    if (_bloc.streams == null) {
-      _bloc.streams = getDependency<S>();
-    }
-    _myDispatcher.registerBSEV(_bloc, this);
+    _bloc.streams = getDependency<S>();
+    _bloc.setView(this);
+    _bloc.setDispatcher(GlobalBlocDispatcher());
     _blocCommunication = BlocCommunication<S>(
-        (event) => _myDispatcher.dispatch(this, event), _bloc.streams);
-    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+      _bloc.eventReceiver,
+      _bloc.streams,
+    );
+    WidgetsBinding.instance.addPostFrameCallback((_) => _bloc.initView());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return widget._builderInner(context, _blocCommunication);
-  }
-
-  void _afterLayout(_) {
-    _bloc.initView();
-  }
-
-  @override
-  void dispose() {
-    _myDispatcher.unRegisterBloc(_bloc);
-    _bloc.dispose();
-    super.dispose();
   }
 }

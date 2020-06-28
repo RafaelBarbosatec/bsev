@@ -1,6 +1,6 @@
 import 'package:bsev/bsev.dart';
 import 'package:bsev/flavors.dart';
-import 'package:bsev_demo/repository/cripto_repository/CriptoRepository.dart';
+import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 import 'package:bsev_demo/support/conection/con.dart';
@@ -18,20 +18,20 @@ injectBloc() {
 }
 
 injectRepository() {
-  registerSingleton((i) => CryptoRepository(i.get()));
+  registerSingletonDependency((i) => PokemonRepository(i.get()));
 
-  registerSingleton<Con>((i) {
+  registerSingletonDependency<Con>((i) {
     String url;
 
     switch (Flavors().getFlavor()) {
       case Flavor.PROD:
-        url = "https://api.coinmarketcap.com/v1/ticker/";
+        url = "http://104.131.18.84/";
         break;
       case Flavor.HML:
-        url = "https://api.coinmarketcap.com/v1/ticker/";
+        url = "http://104.131.18.84/";
         break;
       case Flavor.DEBUG:
-        url = "https://api.coinmarketcap.com/v1/ticker/";
+        url = "http://104.131.18.84/";
         break;
     }
 

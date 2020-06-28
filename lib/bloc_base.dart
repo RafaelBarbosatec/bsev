@@ -1,24 +1,34 @@
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 import 'package:bsev/stream_base.dart';
-import 'package:bsev/util.dart';
+
+import 'bloc_view.dart';
 
 abstract class BlocBase<T extends StreamsBase> {
   T streams;
   dynamic data;
   Dispatcher _dispatcher;
-  final String uuid = "${generateId()}-bloc";
+  BlocView _view;
 
   void dispatchView(EventsBase event) {
-    _dispatcher?.dispatchToView(this, event);
+    _view?.eventReceiver(event);
   }
 
   void dispatchToBloc<T extends BlocBase>(EventsBase event) {
     _dispatcher?.dispatchToBlocs<T>(event);
   }
 
+  void dispatchToAllBlocs(EventsBase event) {
+    _dispatcher?.dispatchToBlocs<BlocBase>(event);
+  }
+
   void setDispatcher(Dispatcher dispatcher) {
     _dispatcher = dispatcher;
+    _dispatcher?.registerBloc(this);
+  }
+
+  void setView(BlocView view) {
+    _view = view;
   }
 
   void initView();
@@ -26,6 +36,7 @@ abstract class BlocBase<T extends StreamsBase> {
   void eventReceiver(EventsBase event);
 
   void dispose() {
+    _dispatcher?.unRegisterBloc(this);
     streams.dispose();
   }
 }
