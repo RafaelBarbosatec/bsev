@@ -20,13 +20,11 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           key: scaffoldStateKey,
           appBar: AppBar(),
-          body: Container(
-            child: Stack(
-              children: <Widget>[
-                _buildListStream(communication),
-                _buildProgressStream(communication.streams)
-              ],
-            ),
+          body: Stack(
+            children: <Widget>[
+              _buildListStream(communication),
+              _buildProgressStream(communication.streams)
+            ],
           ),
         );
       },
