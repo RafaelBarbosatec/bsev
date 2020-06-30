@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               if (index >= data.length - 1) {
-                communication.dispatcher(HomeEventLoad()..isMore = true);
+                communication.dispatcher(HomeEventLoad(isMore: true));
               }
 
               return PokemonWidget(

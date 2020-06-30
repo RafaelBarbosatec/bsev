@@ -1,9 +1,13 @@
 import 'package:bsev/bsev.dart';
 
 class HomeEventLoad extends EventsBase {
-  bool isMore = false;
+  final bool isMore;
+
+  HomeEventLoad({this.isMore = false});
 }
 
 class HomeEventShowError extends EventsBase {
-  String msg;
+  final String msg;
+
+  HomeEventShowError(this.msg);
 }

@@ -24,7 +24,7 @@ class HomeBloc extends BlocBase<HomeStreams> {
     }
   }
 
-  void loadCrypto(bool isMore) async {
+  void loadCrypto(bool isMore) {
     if (streams.showProgress.value) {
       return;
     }
@@ -35,21 +35,28 @@ class HomeBloc extends BlocBase<HomeStreams> {
       _page = 0;
     }
 
-    try {
-      streams.showProgress.set(true);
-      final response = await api.getPokemons(page: _page, limit: limit);
-      if (isMore) {
-        _list.addAll(response);
-      } else {
-        _list = response;
-      }
-      streams.pokemonList.set(_list);
-      streams.showProgress.set(false);
-    } catch (e) {
-      streams.showProgress.set(false);
-      dispatchView(
-        HomeEventShowError()..msg = "Unable conection to load information",
-      );
-    }
+    streams.showProgress.set(true);
+
+    api
+        .getPokemons(page: _page, limit: limit)
+        .then(isMore ? _addInList : _populateList)
+        .whenComplete(() => streams.showProgress.set(false))
+        .catchError(_resolveError);
+  }
+
+  _populateList(List<Pokemon> response) {
+    _list = response;
+    streams.pokemonList.set(_list);
+  }
+
+  _addInList(List<Pokemon> response) {
+    _list.addAll(response);
+    streams.pokemonList.set(_list);
+  }
+
+  _resolveError(onError) {
+    dispatchView(
+      HomeEventShowError("Unable conection to load information"),
+    );
   }
 }

@@ -83,7 +83,7 @@ void main() {
       _mockCryptoRepository.getPokemons(page: 1, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
-    _homeBloc.eventReceiver(HomeEventLoad()..isMore = true);
+    _homeBloc.eventReceiver(HomeEventLoad(isMore: true));
 
     expectLater(
       _homeSreams.showProgress.get,
