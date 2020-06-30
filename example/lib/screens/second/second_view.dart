@@ -15,10 +15,12 @@ class SecondView extends StatelessWidget {
             child: communication.streams.count.builder<int>((msg) {
               return Text(msg.toString());
             }, buildEmpty: (context) {
+              // example add empty widget
               return Center(
                 child: Text("Empty"),
               );
             }, transitionBuilder: (child, animate) {
+              // example custom transaction empty to content
               return ScaleTransition(
                 scale: animate,
                 child: child,
@@ -26,10 +28,11 @@ class SecondView extends StatelessWidget {
             }),
           ),
           floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                communication.dispatcher(SecondEventIncrement());
-              }),
+            child: Icon(Icons.add),
+            onPressed: () {
+              communication.dispatcher(SecondEventIncrement());
+            },
+          ),
         );
       },
     );
