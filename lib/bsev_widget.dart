@@ -34,8 +34,9 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
   void _confBuilders() {
     _builderInner = (context, communication) => builder(context, communication);
     if (eventReceiver != null) {
-      _eventReceiverInner =
-          (event, communication) => eventReceiver(event, communication);
+      _eventReceiverInner = (event, communication) {
+        return eventReceiver(event, communication);
+      };
     }
   }
 }

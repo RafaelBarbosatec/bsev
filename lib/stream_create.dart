@@ -6,7 +6,7 @@ abstract class StreamCreate<T> {
   Stream<T> get;
   void set(T event);
   T value;
-  void close() {}
+  void close();
 }
 
 class StreamControllerCreate<T> extends StreamCreate<T> {

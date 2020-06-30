@@ -18,7 +18,6 @@ class CommunicationBlocView {
 }
 
 class GlobalBlocDispatcher implements Dispatcher {
-  static const LOG = "(Dispatcher)";
   static final GlobalBlocDispatcher _singleton =
       GlobalBlocDispatcher._internal();
 
