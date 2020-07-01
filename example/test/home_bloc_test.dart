@@ -10,12 +10,13 @@ void main() {
   MockPokemonRepository _mockCryptoRepository;
 
   HomeBloc _homeBloc;
-  HomeCommunication _homeSreams;
+  HomeCommunication _homeCommunication;
 
   setUp(() {
     _mockCryptoRepository = MockPokemonRepository();
-    _homeSreams = HomeCommunication();
-    _homeBloc = HomeBloc(_mockCryptoRepository)..communication = _homeSreams;
+    _homeCommunication = HomeCommunication();
+    _homeBloc = HomeBloc(_mockCryptoRepository)
+      ..setCommunication(_homeCommunication);
   });
 
   tearDown(() {
@@ -23,8 +24,8 @@ void main() {
   });
 
   test('initial streams', () {
-    expect(_homeSreams.pokemonList.value, null);
-    expect(_homeSreams.showProgress.value, false);
+    expect(_homeCommunication.pokemonList.value, null);
+    expect(_homeCommunication.showProgress.value, false);
   });
 
   test('initial bloc loadCripto', () {
@@ -53,12 +54,12 @@ void main() {
     _homeBloc.initView();
 
     expectLater(
-      _homeSreams.showProgress.get,
+      _homeCommunication.showProgress.get,
       emitsInOrder(expectedShowProgress),
     );
 
     expectLater(
-      _homeSreams.pokemonList.get,
+      _homeCommunication.pokemonList.get,
       emitsInOrder(expectedPokemonList),
     );
   });
@@ -83,15 +84,15 @@ void main() {
       _mockCryptoRepository.getPokemons(page: 1, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
-    _homeBloc.eventReceiver(HomeEventLoad(isMore: true));
+    _homeCommunication.dispatcher(HomeEventLoad(isMore: true));
 
     expectLater(
-      _homeSreams.showProgress.get,
+      _homeCommunication.showProgress.get,
       emitsInOrder(expectedShowProgress),
     );
 
     expectLater(
-      _homeSreams.pokemonList.get,
+      _homeCommunication.pokemonList.get,
       emitsInOrder(expectedPokemonList),
     );
   });

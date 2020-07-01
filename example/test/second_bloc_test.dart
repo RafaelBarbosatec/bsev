@@ -10,11 +10,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   SecondBloc _secondBloc;
-  SecondCommunication _secondStreams;
+  SecondCommunication _secondCommunication;
 
   setUp(() {
-    _secondStreams = SecondCommunication();
-    _secondBloc = SecondBloc()..communication = _secondStreams;
+    _secondCommunication = SecondCommunication();
+    _secondBloc = SecondBloc()..setCommunication(_secondCommunication);
   });
 
   tearDown(() {
@@ -22,18 +22,18 @@ void main() {
   });
 
   test('initial streams', () {
-    expect(_secondStreams.count.value, null);
+    expect(_secondCommunication.count.value, null);
   });
 
   test('add value', () {
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    expect(_secondStreams.count.value, 1);
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    expect(_secondCommunication.count.value, 1);
   });
 
   test('add value 3 times', () {
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    expect(_secondStreams.count.value, 3);
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    expect(_secondCommunication.count.value, 3);
   });
 }
