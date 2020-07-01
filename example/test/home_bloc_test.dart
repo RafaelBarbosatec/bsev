@@ -10,11 +10,11 @@ void main() {
   MockPokemonRepository _mockCryptoRepository;
 
   HomeBloc _homeBloc;
-  HomeStreams _homeSreams;
+  HomeCommunication _homeSreams;
 
   setUp(() {
     _mockCryptoRepository = MockPokemonRepository();
-    _homeSreams = HomeStreams();
+    _homeSreams = HomeCommunication();
     _homeBloc = HomeBloc(_mockCryptoRepository)..communication = _homeSreams;
   });
 

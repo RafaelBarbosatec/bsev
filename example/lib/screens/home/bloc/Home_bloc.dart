@@ -3,7 +3,7 @@ import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
 import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 
-class HomeBloc extends BlocBase<HomeStreams> {
+class HomeBloc extends BlocBase<HomeCommunication> {
   final PokemonRepository api;
 
   int _page = 0;

@@ -1,7 +1,7 @@
 import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 
-class SecondBloc extends BlocBase<SecondStreams> {
+class SecondBloc extends BlocBase<SecondCommunication> {
   @override
   void eventReceiver(EventsBase event) {
     if (event is SecondEventIncrement) {

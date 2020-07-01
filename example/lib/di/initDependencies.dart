@@ -11,10 +11,10 @@ initDependencies() {
 }
 
 injectBloc() {
-  registerBloc<HomeBloc, HomeStreams>(
-      (i) => HomeBloc(i.get()), () => HomeStreams());
-  registerBloc<SecondBloc, SecondStreams>(
-      (i) => SecondBloc(), () => SecondStreams());
+  registerBloc<HomeBloc, HomeCommunication>(
+      (i) => HomeBloc(i.get()), () => HomeCommunication());
+  registerBloc<SecondBloc, SecondCommunication>(
+      (i) => SecondBloc(), () => SecondCommunication());
 }
 
 injectRepository() {

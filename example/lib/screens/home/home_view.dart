@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Bsev<HomeBloc, HomeStreams>(
+    return Bsev<HomeBloc, HomeCommunication>(
       eventReceiver: (event, communication) {
         if (event is HomeEventShowError) {
           showSnackBar(event.msg, communication.dispatcher);
@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildListStream(HomeStreams communication) {
+  Widget _buildListStream(HomeCommunication communication) {
     return RefreshIndicator(
       onRefresh: () {
         communication.dispatcher(HomeEventLoad());
@@ -59,7 +59,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildProgressStream(HomeStreams streams) {
+  Widget _buildProgressStream(HomeCommunication streams) {
     return streams.showProgress.builder<bool>((data) {
       if (data) {
         return Center(

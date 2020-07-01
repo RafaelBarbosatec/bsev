@@ -10,10 +10,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   SecondBloc _secondBloc;
-  SecondStreams _secondStreams;
+  SecondCommunication _secondStreams;
 
   setUp(() {
-    _secondStreams = SecondStreams();
+    _secondStreams = SecondCommunication();
     _secondBloc = SecondBloc()..communication = _secondStreams;
   });
 

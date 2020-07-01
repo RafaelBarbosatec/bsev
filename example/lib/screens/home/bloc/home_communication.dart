@@ -1,7 +1,7 @@
 import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
 
-class HomeStreams extends CommunicationBase {
+class HomeCommunication extends CommunicationBase {
   var pokemonList = BehaviorSubjectCreate<List<Pokemon>>();
   var showProgress = BehaviorSubjectCreate<bool>(initValue: false);
 
