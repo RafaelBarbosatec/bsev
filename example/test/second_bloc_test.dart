@@ -14,7 +14,7 @@ void main() {
 
   setUp(() {
     _secondStreams = SecondStreams();
-    _secondBloc = SecondBloc()..streams = _secondStreams;
+    _secondBloc = SecondBloc()..communication = _secondStreams;
   });
 
   tearDown(() {

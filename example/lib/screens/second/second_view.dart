@@ -12,7 +12,7 @@ class SecondView extends StatelessWidget {
             title: Text("Second example"),
           ),
           body: Center(
-            child: communication.streams.count.builder<int>((msg) {
+            child: communication.count.builder<int>((msg) {
               return Text(msg.toString());
             }, buildEmpty: (context) {
               // example add empty widget

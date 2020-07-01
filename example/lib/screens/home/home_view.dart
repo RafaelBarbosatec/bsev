@@ -23,7 +23,7 @@ class HomeView extends StatelessWidget {
           body: Stack(
             children: <Widget>[
               _buildListStream(communication),
-              _buildProgressStream(communication.streams)
+              _buildProgressStream(communication)
             ],
           ),
         );
@@ -31,13 +31,13 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildListStream(BlocCommunication<HomeStreams> communication) {
+  Widget _buildListStream(HomeStreams communication) {
     return RefreshIndicator(
       onRefresh: () {
         communication.dispatcher(HomeEventLoad());
         return Future.value();
       },
-      child: communication.streams.pokemonList.builder<List<Pokemon>>((data) {
+      child: communication.pokemonList.builder<List<Pokemon>>((data) {
         return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {

@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     _mockCryptoRepository = MockPokemonRepository();
     _homeSreams = HomeStreams();
-    _homeBloc = HomeBloc(_mockCryptoRepository)..streams = _homeSreams;
+    _homeBloc = HomeBloc(_mockCryptoRepository)..communication = _homeSreams;
   });
 
   tearDown(() {

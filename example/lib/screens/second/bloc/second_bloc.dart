@@ -5,7 +5,7 @@ class SecondBloc extends BlocBase<SecondStreams> {
   @override
   void eventReceiver(EventsBase event) {
     if (event is SecondEventIncrement) {
-      streams.count.set((streams.count.value ?? 0) + 1);
+      communication.count.set((communication.count.value ?? 0) + 1);
     }
   }
 

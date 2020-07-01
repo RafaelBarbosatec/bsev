@@ -25,7 +25,7 @@ class HomeBloc extends BlocBase<HomeStreams> {
   }
 
   void loadCrypto(bool isMore) {
-    if (streams.showProgress.value) {
+    if (communication.showProgress.value) {
       return;
     }
 
@@ -35,23 +35,23 @@ class HomeBloc extends BlocBase<HomeStreams> {
       _page = 0;
     }
 
-    streams.showProgress.set(true);
+    communication.showProgress.set(true);
 
     api
         .getPokemons(page: _page, limit: limit)
         .then(isMore ? _addInList : _populateList)
-        .whenComplete(() => streams.showProgress.set(false))
+        .whenComplete(() => communication.showProgress.set(false))
         .catchError(_resolveError);
   }
 
   _populateList(List<Pokemon> response) {
     _list = response;
-    streams.pokemonList.set(_list);
+    communication.pokemonList.set(_list);
   }
 
   _addInList(List<Pokemon> response) {
     _list.addAll(response);
-    streams.pokemonList.set(_list);
+    communication.pokemonList.set(_list);
   }
 
   _resolveError(onError) {
