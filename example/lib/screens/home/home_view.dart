@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
     return Bsev<HomeBloc, HomeCommunication>(
       eventReceiver: (event, communication) {
         if (event is HomeEventShowError) {
-          showSnackBar(event.msg, communication.dispatcher);
+          showSnackBar(event.msg, communication);
         }
       },
       builder: (context, communication) {
@@ -71,14 +71,14 @@ class HomeView extends StatelessWidget {
     });
   }
 
-  void showSnackBar(String msg, dispatcher) {
+  void showSnackBar(String msg, HomeCommunication communication) {
     scaffoldStateKey.currentState.showSnackBar(SnackBar(
       content: Text(msg),
       duration: Duration(seconds: 10),
       action: SnackBarAction(
         label: 'Try Again',
         onPressed: () {
-          dispatcher(HomeEventLoad());
+          communication.dispatcher(HomeEventLoad());
         },
       ),
     ));
