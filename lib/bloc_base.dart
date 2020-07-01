@@ -1,42 +1,32 @@
-import 'package:bsev/dispatcher.dart';
+import 'package:bsev/communication_base.dart';
 import 'package:bsev/events_base.dart';
-import 'package:bsev/stream_base.dart';
 
-import 'bloc_view.dart';
-
-abstract class BlocBase<T extends StreamsBase> {
-  T streams;
+abstract class BlocBase<T extends CommunicationBase> {
+  T communication;
   dynamic data;
-  Dispatcher _dispatcher;
-  BlocView _view;
-
-  void dispatchView(EventsBase event) {
-    _view?.eventReceiver(event);
-  }
-
-  void dispatchToBloc<T extends BlocBase>(EventsBase event) {
-    _dispatcher?.dispatchToBlocs<T>(event);
-  }
-
-  void dispatchToAllBlocs(EventsBase event) {
-    _dispatcher?.dispatchToBlocs<BlocBase>(event);
-  }
-
-  void setDispatcher(Dispatcher dispatcher) {
-    _dispatcher = dispatcher;
-    _dispatcher?.registerBloc(this);
-  }
-
-  void setView(BlocView view) {
-    _view = view;
-  }
 
   void initView();
 
   void eventReceiver(EventsBase event);
 
+  void dispatchView(EventsBase event) {
+    return communication?.dispatchView(event);
+  }
+
+  void dispatchToBloc<T extends BlocBase>(EventsBase event) {
+    communication?.dispatchToBloc<T>(event);
+  }
+
+  void dispatchToAllBlocs(EventsBase event) {
+    return communication?.dispatchToAllBlocs(event);
+  }
+
+  void setCommunication(CommunicationBase streams) {
+    this.communication = streams;
+    this.communication.setBloc(this);
+  }
+
   void dispose() {
-    _dispatcher?.unRegisterBloc(this);
-    streams.dispose();
+    return communication.dispose();
   }
 }

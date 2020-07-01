@@ -3,7 +3,7 @@ import 'package:bsev/bloc_view.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 
-abstract class StreamsBase {
+abstract class CommunicationBase {
   BlocBase _bloc;
   BlocView _view;
   final Dispatcher _dispatcherBlocs = GlobalBlocDispatcher();
