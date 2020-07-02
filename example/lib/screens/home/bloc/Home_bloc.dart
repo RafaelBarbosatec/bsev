@@ -3,7 +3,7 @@ import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
 import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 
-class HomeBloc extends BlocBase<HomeStreams> {
+class HomeBloc extends BlocBase<HomeCommunication> {
   final PokemonRepository api;
 
   int _page = 0;
@@ -24,8 +24,8 @@ class HomeBloc extends BlocBase<HomeStreams> {
     }
   }
 
-  void loadCrypto(bool isMore) async {
-    if (streams.showProgress.value) {
+  void loadCrypto(bool isMore) {
+    if (communication.showProgress.value) {
       return;
     }
 
@@ -35,21 +35,28 @@ class HomeBloc extends BlocBase<HomeStreams> {
       _page = 0;
     }
 
-    try {
-      streams.showProgress.set(true);
-      final response = await api.getPokemons(page: _page, limit: limit);
-      if (isMore) {
-        _list.addAll(response);
-      } else {
-        _list = response;
-      }
-      streams.pokemonList.set(_list);
-      streams.showProgress.set(false);
-    } catch (e) {
-      streams.showProgress.set(false);
-      dispatchView(
-        HomeEventShowError()..msg = "Unable conection to load information",
-      );
-    }
+    communication.showProgress.set(true);
+
+    api
+        .getPokemons(page: _page, limit: limit)
+        .then(isMore ? _addInList : _populateList)
+        .whenComplete(() => communication.showProgress.set(false))
+        .catchError(_resolveError);
+  }
+
+  _populateList(List<Pokemon> response) {
+    _list = response;
+    communication.pokemonList.set(_list);
+  }
+
+  _addInList(List<Pokemon> response) {
+    _list.addAll(response);
+    communication.pokemonList.set(_list);
+  }
+
+  _resolveError(onError) {
+    dispatchView(
+      HomeEventShowError("Unable conection to load information"),
+    );
   }
 }

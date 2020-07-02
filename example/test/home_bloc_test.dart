@@ -9,22 +9,21 @@ class MockPokemonRepository extends Mock implements PokemonRepository {}
 void main() {
   MockPokemonRepository _mockCryptoRepository;
 
-  HomeBloc _homeBloc;
-  HomeStreams _homeSreams;
+  HomeCommunication _homeCommunication;
 
   setUp(() {
     _mockCryptoRepository = MockPokemonRepository();
-    _homeSreams = HomeStreams();
-    _homeBloc = HomeBloc(_mockCryptoRepository)..streams = _homeSreams;
+    _homeCommunication = HomeCommunication();
+    _homeCommunication.setBloc(HomeBloc(_mockCryptoRepository));
   });
 
   tearDown(() {
-    _homeBloc?.dispose();
+    _homeCommunication?.dispose();
   });
 
   test('initial streams', () {
-    expect(_homeSreams.pokemonList.value, null);
-    expect(_homeSreams.showProgress.value, false);
+    expect(_homeCommunication.pokemonList.value, null);
+    expect(_homeCommunication.showProgress.value, false);
   });
 
   test('initial bloc loadCripto', () {
@@ -50,15 +49,15 @@ void main() {
       _mockCryptoRepository.getPokemons(page: 0, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
-    _homeBloc.initView();
+    _homeCommunication.initView();
 
     expectLater(
-      _homeSreams.showProgress.get,
+      _homeCommunication.showProgress.get,
       emitsInOrder(expectedShowProgress),
     );
 
     expectLater(
-      _homeSreams.pokemonList.get,
+      _homeCommunication.pokemonList.get,
       emitsInOrder(expectedPokemonList),
     );
   });
@@ -83,15 +82,15 @@ void main() {
       _mockCryptoRepository.getPokemons(page: 1, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
-    _homeBloc.eventReceiver(HomeEventLoad()..isMore = true);
+    _homeCommunication.dispatcher(HomeEventLoad(isMore: true));
 
     expectLater(
-      _homeSreams.showProgress.get,
+      _homeCommunication.showProgress.get,
       emitsInOrder(expectedShowProgress),
     );
 
     expectLater(
-      _homeSreams.pokemonList.get,
+      _homeCommunication.pokemonList.get,
       emitsInOrder(expectedPokemonList),
     );
   });

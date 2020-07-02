@@ -1,3 +1,8 @@
+## [2.0.0] - 01/07/2020 - BREAKING CHANGES
+
+* Unifies Streams and Communication.
+* create buildBsevCommunication<BlocBase, CommunicationBase>()
+
 ## [1.0.3] - 28/06/2020
 
 * update rxdart.

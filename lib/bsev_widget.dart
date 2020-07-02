@@ -1,27 +1,24 @@
 import 'package:bsev/bloc_base.dart';
-import 'package:bsev/bloc_communication.dart';
-import 'package:bsev/bloc_view.dart';
-import 'package:bsev/dispatcher.dart';
+import 'package:bsev/communication_base.dart';
 import 'package:bsev/events_base.dart';
-import 'package:bsev/stream_base.dart';
+import 'package:bsev/util.dart';
 import 'package:flutter/widgets.dart';
 
-import 'injector.dart';
-
 typedef AsyncWidgetBuilder<S> = Widget Function(
-    BuildContext context, BlocCommunication<S> communication);
+    BuildContext context, S communication);
 
-typedef ReceiveEventCallBack<S> = Function(
-    EventsBase event, BlocCommunication<S> communication);
+typedef ReceiveEventCallBack = Function(
+    EventsBase event, CommunicationBase communication);
 
 // ignore: must_be_immutable
-class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
+class Bsev<B extends BlocBase, S extends CommunicationBase>
+    extends StatefulWidget {
   final dynamic dataToBloc;
   final AsyncWidgetBuilder<S> builder;
-  final ReceiveEventCallBack<S> eventReceiver;
+  final ReceiveEventCallBack eventReceiver;
 
-  AsyncWidgetBuilder<StreamsBase> _builderInner;
-  ReceiveEventCallBack<StreamsBase> _eventReceiverInner;
+  AsyncWidgetBuilder<CommunicationBase> _builderInner;
+  ReceiveEventCallBack _eventReceiverInner;
 
   Bsev({Key key, @required this.builder, this.eventReceiver, this.dataToBloc})
       : super(key: key) {
@@ -33,48 +30,38 @@ class Bsev<B extends BlocBase, S extends StreamsBase> extends StatefulWidget {
 
   void _confBuilders() {
     _builderInner = (context, communication) => builder(context, communication);
-    if (eventReceiver != null) {
-      _eventReceiverInner =
-          (event, communication) => eventReceiver(event, communication);
-    }
+    _eventReceiverInner = (event, communication) {
+      if (eventReceiver != null) eventReceiver(event, communication);
+    };
   }
 }
 
-class _BsevState<B extends BlocBase, S extends StreamsBase> extends State<Bsev>
-    implements BlocView<EventsBase> {
-  B _bloc;
-  BlocCommunication<S> _blocCommunication;
-
-  @override
-  void eventReceiver(EventsBase event) {
-    if (widget._eventReceiverInner != null && mounted) {
-      widget._eventReceiverInner(event, _blocCommunication);
-    }
-  }
+class _BsevState<B extends BlocBase, S extends CommunicationBase>
+    extends State<Bsev> {
+  S _communication;
 
   @override
   void initState() {
-    _bloc = getDependency<B>();
-    _bloc.data = widget.dataToBloc;
-    _bloc.streams = getDependency<S>();
-    _bloc.setView(this);
-    _bloc.setDispatcher(GlobalBlocDispatcher());
-    _blocCommunication = BlocCommunication<S>(
-      _bloc.eventReceiver,
-      _bloc.streams,
+    _communication = buildBsevCommunication<B, S>(
+      dataToBloc: widget.dataToBloc,
+      eventReceiver: widget._eventReceiverInner,
     );
-    WidgetsBinding.instance.addPostFrameCallback((_) => _bloc.initView());
     super.initState();
   }
 
   @override
   void dispose() {
-    _bloc.dispose();
+    if (!_communication.isSingleton) {
+      _communication.dispose();
+    } else {
+      _communication.removeEventReceiver(widget._eventReceiverInner);
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget._builderInner(context, _blocCommunication);
+    _communication.initView();
+    return widget._builderInner(context, _communication);
   }
 }

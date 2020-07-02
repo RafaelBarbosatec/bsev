@@ -1,3 +1,3 @@
-export 'package:bsev_demo/screens/second/bloc/decond_events.dart';
 export 'package:bsev_demo/screens/second/bloc/second_bloc.dart';
-export 'package:bsev_demo/screens/second/bloc/second_streams.dart';
+export 'package:bsev_demo/screens/second/bloc/second_communication.dart';
+export 'package:bsev_demo/screens/second/bloc/second_events.dart';

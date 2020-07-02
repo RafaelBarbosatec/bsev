@@ -9,31 +9,30 @@ import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  SecondBloc _secondBloc;
-  SecondStreams _secondStreams;
+  SecondCommunication _secondCommunication;
 
   setUp(() {
-    _secondStreams = SecondStreams();
-    _secondBloc = SecondBloc()..streams = _secondStreams;
+    _secondCommunication = SecondCommunication();
+    _secondCommunication.setBloc(SecondBloc());
   });
 
   tearDown(() {
-    _secondBloc?.dispose();
+    _secondCommunication?.dispose();
   });
 
   test('initial streams', () {
-    expect(_secondStreams.count.value, null);
+    expect(_secondCommunication.count.value, null);
   });
 
   test('add value', () {
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    expect(_secondStreams.count.value, 1);
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    expect(_secondCommunication.count.value, 1);
   });
 
   test('add value 3 times', () {
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    _secondBloc.eventReceiver(SecondEventIncrement());
-    expect(_secondStreams.count.value, 3);
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    _secondCommunication.dispatcher(SecondEventIncrement());
+    expect(_secondCommunication.count.value, 3);
   });
 }

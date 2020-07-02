@@ -11,10 +11,14 @@ initDependencies() {
 }
 
 injectBloc() {
-  registerBloc<HomeBloc, HomeStreams>(
-      (i) => HomeBloc(i.get()), () => HomeStreams());
-  registerBloc<SecondBloc, SecondStreams>(
-      (i) => SecondBloc(), () => SecondStreams());
+  registerBloc<HomeBloc, HomeCommunication>(
+    (i) => HomeBloc(i.get()),
+    () => HomeCommunication(),
+  );
+  registerBloc<SecondBloc, SecondCommunication>(
+    (i) => SecondBloc(),
+    () => SecondCommunication(),
+  );
 }
 
 injectRepository() {
@@ -22,7 +26,6 @@ injectRepository() {
 
   registerSingletonDependency<Con>((i) {
     String url;
-
     switch (Flavors().getFlavor()) {
       case Flavor.PROD:
         url = "http://104.131.18.84/";

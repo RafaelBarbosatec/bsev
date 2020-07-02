@@ -1,14 +1,11 @@
 import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 
-class SecondBloc extends BlocBase<SecondStreams> {
-  int count = 0;
-
+class SecondBloc extends BlocBase<SecondCommunication> {
   @override
   void eventReceiver(EventsBase event) {
     if (event is SecondEventIncrement) {
-      count++;
-      streams.count.set(count);
+      communication.count.set((communication.count.value ?? 0) + 1);
     }
   }
 

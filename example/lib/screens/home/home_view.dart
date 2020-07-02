@@ -10,41 +10,40 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Bsev<HomeBloc, HomeStreams>(
+    return Bsev<HomeBloc, HomeCommunication>(
       eventReceiver: (event, communication) {
         if (event is HomeEventShowError) {
-          showSnackBar(event.msg, communication.dispatcher);
+          showSnackBar(event.msg, communication);
         }
       },
       builder: (context, communication) {
         return Scaffold(
           key: scaffoldStateKey,
           appBar: AppBar(),
-          body: Container(
-            child: Stack(
-              children: <Widget>[
-                _buildListStream(communication),
-                _buildProgressStream(communication.streams)
-              ],
-            ),
+          body: Stack(
+            children: <Widget>[
+              _buildListStream(communication),
+              _buildProgressStream(communication)
+            ],
           ),
         );
       },
     );
   }
 
-  Widget _buildListStream(BlocCommunication<HomeStreams> communication) {
+  Widget _buildListStream(HomeCommunication communication) {
     return RefreshIndicator(
       onRefresh: () {
         communication.dispatcher(HomeEventLoad());
         return Future.value();
       },
-      child: communication.streams.pokemonList.builder<List<Pokemon>>((data) {
-        return ListView.builder(
+      child: communication.pokemonList.builder<List<Pokemon>>(
+        (data) {
+          return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
               if (index >= data.length - 1) {
-                communication.dispatcher(HomeEventLoad()..isMore = true);
+                communication.dispatcher(HomeEventLoad(isMore: true));
               }
 
               return PokemonWidget(
@@ -56,33 +55,39 @@ class HomeView extends StatelessWidget {
                   );
                 },
               );
-            });
-      }),
+            },
+          );
+        },
+      ),
     );
   }
 
-  Widget _buildProgressStream(HomeStreams streams) {
-    return streams.showProgress.builder<bool>((data) {
-      if (data) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else {
-        return SizedBox.shrink();
-      }
-    });
+  Widget _buildProgressStream(HomeCommunication streams) {
+    return streams.showProgress.builder<bool>(
+      (data) {
+        if (data) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return SizedBox.shrink();
+        }
+      },
+    );
   }
 
-  void showSnackBar(String msg, dispatcher) {
-    scaffoldStateKey.currentState.showSnackBar(SnackBar(
-      content: Text(msg),
-      duration: Duration(seconds: 10),
-      action: SnackBarAction(
-        label: 'Try Again',
-        onPressed: () {
-          dispatcher(HomeEventLoad());
-        },
+  void showSnackBar(String msg, HomeCommunication communication) {
+    scaffoldStateKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        duration: Duration(seconds: 10),
+        action: SnackBarAction(
+          label: 'Try Again',
+          onPressed: () {
+            communication.dispatcher(HomeEventLoad());
+          },
+        ),
       ),
-    ));
+    );
   }
 }

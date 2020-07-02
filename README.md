@@ -9,14 +9,14 @@ With bsev you will use the Bloc pattern in a simple, reactive and organized way.
 # Usage
 To use this plugin, add `bsev` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-We should initially create the class that represents our `Streams` and `Events`:
+We should initially create the class `Communication` and `Events`:
 
 #### Streams
 
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeStreams extends StreamsBase{
+class HomeCommunication extends CommunicationBase{
 
   var count = BehaviorSubjectCreate<Int>(initValue: 0);
   //var count = StreamCreate<Int>();
@@ -26,6 +26,7 @@ class HomeStreams extends StreamsBase{
   @override
   void dispose() {
     count.close();
+    super.dispose();
   }
 
 }
@@ -48,7 +49,7 @@ Now we can create our `Bloc`, class that will be centralized the business rule.
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeBloc extends BlocBase<HomeStreams>{
+class HomeBloc extends BlocBase<HomeCommunication>{
 
   // If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
   // dispatchToBloc<OtherBloc>(MsgEvent());
@@ -70,7 +71,7 @@ class HomeBloc extends BlocBase<HomeStreams>{
   // called when the Bloc receives an event
   
     if(event is IncrementEvent){
-      streams.count.set(streams.count.value + 1)
+      communication.count.set(streams.count.value + 1)
     }
     
   }
@@ -94,7 +95,7 @@ class HomeView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     
-    return Bsev<HomeBloc,HomeStreams>(
+    return Bsev<HomeBloc,HomeCommunication>(
       dataToBloc: "any data", //optional initial data to bloc
       eventReceiver: (event, communication){ //optional
         // performs action received by the bloc
@@ -103,7 +104,7 @@ class HomeView extends StatelessWidget{
       
           return Scaffold(
             appBar: AppBar(),
-            body: communication.streams.count.builder<int>((value) {
+            body: communication.count.builder<int>((value) {
                 return Text(value.toString());
             }),
             floatingActionButton: FloatingActionButton(
@@ -127,7 +128,10 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 ``` dart
   MyApp(){
 
-    registerBloc<HomeBloc, HomeStreams>((i) => HomeBloc(i.get()), () => HomeStreams());
+    registerBloc<HomeBloc, HomeCommunication>((i) => HomeBloc(i.get()), () => HomeCommunication());
+
+    //if you want singleton
+    //registerSingletonBloc<HomeBloc, HomeCommunication>((i) => HomeBloc(i.get()), () => HomeCommunication());
 
     //Example of the register any things.
     //registerDependency((i) => CryptoRepository(i.get()));
@@ -149,32 +153,31 @@ More complex example is found [here](https://github.com/RafaelBarbosatec/bsev/tr
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  HomeBloc _homeBloc;
-  HomeStreams _homeStreams;
+  HomeCommunication _homeCommunication;
 
   setUp(() {
-    _homeStreams = HomeStreams();
-    _homeBloc = HomeBloc()..streams = _homeStreams;
+    _homeCommunication = HomeCommunication();
+    _homeCommunication.setBloc(HomeBloc());
   });
 
   tearDown(() {
-    _homeBloc?.dispose();
+    _homeCommunication?.dispose();
   });
   
   test('initial streams', () {
-    expect(_homeStreams.count.value, 0);
+    expect(_homeCommunication.count.value, 0);
   });
   
   test('increment value', () {
-    _homeBloc.eventReceiver(IncrementEvent());
-    expect(_homeStreams.count.value, 1);
+    _homeCommunication.dispatcher(IncrementEvent());
+    expect(_homeCommunication.count.value, 1);
   });
 
   test('increment value 3 times', () {
-    _homeBloc.eventReceiver(IncrementEvent());
-    _homeBloc.eventReceiver(IncrementEvent());
-    _homeBloc.eventReceiver(IncrementEvent());
-    expect(_homeStreams.count.value, 3);
+    _homeCommunication.dispatcher(IncrementEvent());
+    _homeCommunication.dispatcher(IncrementEvent());
+    _homeCommunication.dispatcher(IncrementEvent());
+    expect(_homeCommunication.count.value, 3);
   });
   
 }

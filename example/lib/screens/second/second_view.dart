@@ -5,20 +5,22 @@ import 'package:flutter/material.dart';
 class SecondView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Bsev<SecondBloc, SecondStreams>(
+    return Bsev<SecondBloc, SecondCommunication>(
       builder: (_, communication) {
         return Scaffold(
           appBar: AppBar(
             title: Text("Second example"),
           ),
           body: Center(
-            child: communication.streams.count.builder<int>((msg) {
+            child: communication.count.builder<int>((msg) {
               return Text(msg.toString());
             }, buildEmpty: (context) {
+              // example add empty widget
               return Center(
                 child: Text("Empty"),
               );
             }, transitionBuilder: (child, animate) {
+              // example custom transaction empty to content
               return ScaleTransition(
                 scale: animate,
                 child: child,
@@ -26,10 +28,11 @@ class SecondView extends StatelessWidget {
             }),
           ),
           floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                communication.dispatcher(SecondEventIncrement());
-              }),
+            child: Icon(Icons.add),
+            onPressed: () {
+              communication.dispatcher(SecondEventIncrement());
+            },
+          ),
         );
       },
     );
