@@ -2,8 +2,8 @@ import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
 
 class HomeCommunication extends CommunicationBase {
-  var pokemonList = BehaviorSubjectCreate<List<Pokemon>>();
-  var showProgress = BehaviorSubjectCreate<bool>(initValue: false);
+  final pokemonList = BehaviorSubjectCreate<List<Pokemon>>();
+  final showProgress = BehaviorSubjectCreate<bool>(initValue: false);
 
   @override
   void dispose() {

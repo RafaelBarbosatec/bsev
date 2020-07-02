@@ -9,18 +9,16 @@ class MockPokemonRepository extends Mock implements PokemonRepository {}
 void main() {
   MockPokemonRepository _mockCryptoRepository;
 
-  HomeBloc _homeBloc;
   HomeCommunication _homeCommunication;
 
   setUp(() {
     _mockCryptoRepository = MockPokemonRepository();
     _homeCommunication = HomeCommunication();
-    _homeBloc = HomeBloc(_mockCryptoRepository)
-      ..setCommunication(_homeCommunication);
+    _homeCommunication.setBloc(HomeBloc(_mockCryptoRepository));
   });
 
   tearDown(() {
-    _homeBloc?.dispose();
+    _homeCommunication?.dispose();
   });
 
   test('initial streams', () {
@@ -51,7 +49,7 @@ void main() {
       _mockCryptoRepository.getPokemons(page: 0, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
-    _homeBloc.initView();
+    _homeCommunication.initView();
 
     expectLater(
       _homeCommunication.showProgress.get,

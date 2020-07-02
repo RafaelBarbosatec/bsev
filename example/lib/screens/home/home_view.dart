@@ -37,8 +37,9 @@ class HomeView extends StatelessWidget {
         communication.dispatcher(HomeEventLoad());
         return Future.value();
       },
-      child: communication.pokemonList.builder<List<Pokemon>>((data) {
-        return ListView.builder(
+      child: communication.pokemonList.builder<List<Pokemon>>(
+        (data) {
+          return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
               if (index >= data.length - 1) {
@@ -54,33 +55,39 @@ class HomeView extends StatelessWidget {
                   );
                 },
               );
-            });
-      }),
+            },
+          );
+        },
+      ),
     );
   }
 
   Widget _buildProgressStream(HomeCommunication streams) {
-    return streams.showProgress.builder<bool>((data) {
-      if (data) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else {
-        return SizedBox.shrink();
-      }
-    });
+    return streams.showProgress.builder<bool>(
+      (data) {
+        if (data) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return SizedBox.shrink();
+        }
+      },
+    );
   }
 
   void showSnackBar(String msg, HomeCommunication communication) {
-    scaffoldStateKey.currentState.showSnackBar(SnackBar(
-      content: Text(msg),
-      duration: Duration(seconds: 10),
-      action: SnackBarAction(
-        label: 'Try Again',
-        onPressed: () {
-          communication.dispatcher(HomeEventLoad());
-        },
+    scaffoldStateKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        duration: Duration(seconds: 10),
+        action: SnackBarAction(
+          label: 'Try Again',
+          onPressed: () {
+            communication.dispatcher(HomeEventLoad());
+          },
+        ),
       ),
-    ));
+    );
   }
 }

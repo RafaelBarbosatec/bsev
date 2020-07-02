@@ -9,16 +9,15 @@ import 'package:bsev_demo/screens/second/bloc/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  SecondBloc _secondBloc;
   SecondCommunication _secondCommunication;
 
   setUp(() {
     _secondCommunication = SecondCommunication();
-    _secondBloc = SecondBloc()..setCommunication(_secondCommunication);
+    _secondCommunication.setBloc(SecondBloc());
   });
 
   tearDown(() {
-    _secondBloc?.dispose();
+    _secondCommunication?.dispose();
   });
 
   test('initial streams', () {
