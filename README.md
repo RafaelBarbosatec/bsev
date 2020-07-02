@@ -130,6 +130,9 @@ As our `Bloc` and our `StreamsBase` will be injected automatically, we should co
 
     registerBloc<HomeBloc, HomeCommunication>((i) => HomeBloc(i.get()), () => HomeCommunication());
 
+    //if you want singleton
+    //registerSingletonBloc<HomeBloc, HomeCommunication>((i) => HomeBloc(i.get()), () => HomeCommunication());
+
     //Example of the register any things.
     //registerDependency((i) => CryptoRepository(i.get()));
 
