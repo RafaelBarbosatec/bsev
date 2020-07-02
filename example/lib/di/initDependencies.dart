@@ -15,7 +15,7 @@ injectBloc() {
     (i) => HomeBloc(i.get()),
     () => HomeCommunication(),
   );
-  registerSingletonBloc<SecondBloc, SecondCommunication>(
+  registerBloc<SecondBloc, SecondCommunication>(
     (i) => SecondBloc(),
     () => SecondCommunication(),
   );
