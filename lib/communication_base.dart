@@ -1,23 +1,28 @@
 import 'package:bsev/bloc_base.dart';
-import 'package:bsev/bloc_view.dart';
+import 'package:bsev/bsev_widget.dart';
 import 'package:bsev/dispatcher.dart';
 import 'package:bsev/events_base.dart';
 
+typedef EventReceiver = void Function(EventsBase event);
+
 abstract class CommunicationBase {
   BlocBase _bloc;
-  BlocView _view;
+  final List<ReceiveEventCallBack> _eventReceivers = List();
   final Dispatcher _dispatcherBlocs = GlobalBlocDispatcher();
-  void setView(BlocView view) {
-    _view = view;
+  bool _calledInitView = false;
+
+  void addEventReceiver(ReceiveEventCallBack eventReceiver) {
+    _eventReceivers.add(eventReceiver);
   }
 
   void setBloc(BlocBase bloc) {
     _bloc = bloc;
+    _bloc.communication = this;
     _dispatcherBlocs?.registerBloc(_bloc);
   }
 
   void dispatchView(EventsBase event) {
-    _view?.eventReceiver(event);
+    _eventReceivers.forEach((element) => element(event, this));
   }
 
   void dispatcher(EventsBase event) {
@@ -32,7 +37,15 @@ abstract class CommunicationBase {
     _dispatcherBlocs?.dispatchToBlocs<BlocBase>(event);
   }
 
+  void initView() {
+    if (!_calledInitView) {
+      _calledInitView = true;
+      _bloc.initView();
+    }
+  }
+
   void dispose() {
+    _eventReceivers.clear();
     _dispatcherBlocs?.unRegisterBloc(_bloc);
   }
 }

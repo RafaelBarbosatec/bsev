@@ -20,13 +20,4 @@ abstract class BlocBase<T extends CommunicationBase> {
   void dispatchToAllBlocs(EventsBase event) {
     return communication?.dispatchToAllBlocs(event);
   }
-
-  void setCommunication(CommunicationBase streams) {
-    this.communication = streams;
-    this.communication.setBloc(this);
-  }
-
-  void dispose() {
-    return communication.dispose();
-  }
 }

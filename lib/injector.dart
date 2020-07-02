@@ -5,10 +5,10 @@ final getIt = GetIt.instance;
 
 typedef T BlocBuilder<T extends BlocBase>(GetIt injector);
 typedef T DependencyBuilder<T>(GetIt injector);
-typedef T BlocStreamBuilder<T extends CommunicationBase>();
+typedef T CommunicationBuilder<T extends CommunicationBase>();
 
 registerBloc<T extends BlocBase, S extends CommunicationBase>(
-    BlocBuilder<T> blocBuilder, BlocStreamBuilder streamBuilder) {
+    BlocBuilder<T> blocBuilder, CommunicationBuilder streamBuilder) {
   getIt.registerFactory<S>(() => streamBuilder());
   getIt.registerFactory<T>(() => blocBuilder(getIt));
 }

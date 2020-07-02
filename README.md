@@ -150,16 +150,15 @@ More complex example is found [here](https://github.com/RafaelBarbosatec/bsev/tr
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  HomeBloc _homeBloc;
   HomeCommunication _homeCommunication;
 
   setUp(() {
     _homeCommunication = HomeCommunication();
-    _homeBloc = HomeBloc()..setCommunication(_homeCommunication);
+    _homeCommunication.setBloc(HomeBloc());
   });
 
   tearDown(() {
-    _homeBloc?.dispose();
+    _homeCommunication?.dispose();
   });
   
   test('initial streams', () {
