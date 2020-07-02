@@ -10,9 +10,14 @@ abstract class CommunicationBase {
   final List<ReceiveEventCallBack> _eventReceivers = List();
   final Dispatcher _dispatcherBlocs = GlobalBlocDispatcher();
   bool _calledInitView = false;
+  bool isSingleton = false;
 
   void addEventReceiver(ReceiveEventCallBack eventReceiver) {
     _eventReceivers.add(eventReceiver);
+  }
+
+  void removeEventReceiver(ReceiveEventCallBack eventReceiver) {
+    _eventReceivers.remove(eventReceiver);
   }
 
   void setBloc(BlocBase bloc) {
@@ -48,4 +53,6 @@ abstract class CommunicationBase {
     _eventReceivers.clear();
     _dispatcherBlocs?.unRegisterBloc(_bloc);
   }
+
+  bool get blocInitialized => _bloc != null;
 }

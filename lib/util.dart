@@ -8,7 +8,14 @@ S buildBsevCommunication<B extends BlocBase, S extends CommunicationBase>({
   ReceiveEventCallBack eventReceiver,
 }) {
   final _communication = getDependency<S>();
-  _communication.setBloc(getDependency<B>()..data = dataToBloc);
-  if (eventReceiver != null) _communication.addEventReceiver(eventReceiver);
+
+  if (!_communication.blocInitialized) {
+    _communication.setBloc(
+      getDependency<B>()..data = dataToBloc,
+    );
+  }
+  if (eventReceiver != null) {
+    _communication.addEventReceiver(eventReceiver);
+  }
   return _communication;
 }

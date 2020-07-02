@@ -20,6 +20,7 @@ class _SecondViewStatefulState extends State<SecondViewStateful> {
 
   @override
   void dispose() {
+    // if you registered the bloc as a singleton, remember not to do Dispose.
     communication.dispose();
     super.dispose();
   }

@@ -7,10 +7,18 @@ typedef T BlocBuilder<T extends BlocBase>(GetIt injector);
 typedef T DependencyBuilder<T>(GetIt injector);
 typedef T CommunicationBuilder<T extends CommunicationBase>();
 
-registerBloc<T extends BlocBase, S extends CommunicationBase>(
-    BlocBuilder<T> blocBuilder, CommunicationBuilder streamBuilder) {
-  getIt.registerFactory<S>(() => streamBuilder());
-  getIt.registerFactory<T>(() => blocBuilder(getIt));
+registerBloc<B extends BlocBase, C extends CommunicationBase>(
+    BlocBuilder<B> blocBuilder, CommunicationBuilder communicationBuilder) {
+  getIt.registerFactory<C>(() => communicationBuilder());
+  getIt.registerFactory<B>(() => blocBuilder(getIt));
+}
+
+registerSingletonBloc<B extends BlocBase, C extends CommunicationBase>(
+    BlocBuilder<B> blocBuilder, CommunicationBuilder communicationBuilder) {
+  getIt.registerLazySingleton<C>(
+    () => communicationBuilder()..isSingleton = true,
+  );
+  getIt.registerLazySingleton<B>(() => blocBuilder(getIt));
 }
 
 registerDependency<T>(DependencyBuilder<T> builder, {String dependencyName}) {

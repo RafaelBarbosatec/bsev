@@ -51,7 +51,11 @@ class _BsevState<B extends BlocBase, S extends CommunicationBase>
 
   @override
   void dispose() {
-    _communication.dispose();
+    if (!_communication.isSingleton) {
+      _communication.dispose();
+    } else {
+      _communication.removeEventReceiver(widget._eventReceiverInner);
+    }
     super.dispose();
   }
 
