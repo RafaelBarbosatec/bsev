@@ -14,7 +14,7 @@ class _SecondViewStatefulState extends State<SecondViewStateful> {
 
   @override
   void initState() {
-    communication = buildCommunication<SecondBloc, SecondCommunication>();
+    communication = Bsev.buildCommunication<SecondBloc, SecondCommunication>();
     communication.init();
     super.initState();
   }

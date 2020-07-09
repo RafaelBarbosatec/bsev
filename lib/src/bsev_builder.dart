@@ -1,14 +1,18 @@
 import 'package:bsev/src/bloc.dart';
+import 'package:bsev/src/bsev.dart';
 import 'package:bsev/src/communication.dart';
 import 'package:bsev/src/events_base.dart';
-import 'package:bsev/src/util.dart';
 import 'package:flutter/widgets.dart';
 
 typedef AsyncWidgetBuilder<S extends Communication> = Widget Function(
-    BuildContext context, S communication);
+  BuildContext context,
+  S communication,
+);
 
 typedef ReceiveEventCallBack<S extends Communication> = Function(
-    EventsBase event, S communication);
+  EventsBase event,
+  S communication,
+);
 
 // ignore: must_be_immutable
 class BsevBuilder<B extends Bloc, S extends Communication>
@@ -17,7 +21,7 @@ class BsevBuilder<B extends Bloc, S extends Communication>
   final AsyncWidgetBuilder<S> builder;
   final ReceiveEventCallBack<S> eventReceiver;
 
-  AsyncWidgetBuilder<Communication> _builderInner;
+  AsyncWidgetBuilder _builderInner;
   ReceiveEventCallBack _eventReceiverInner;
 
   BsevBuilder({
@@ -41,32 +45,32 @@ class BsevBuilder<B extends Bloc, S extends Communication>
 
 class _BsevBuilderState<B extends Bloc, S extends Communication>
     extends State<BsevBuilder> {
-  S _communication;
+  Communication communication;
 
   @override
   void initState() {
-    _communication = buildCommunication<B, S>(
+    communication = Bsev.buildCommunication<B, S>(
       dataToBloc: widget.dataToBloc,
       eventReceiver: widget._eventReceiverInner,
     );
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _communication.init();
+      communication.init();
     });
   }
 
   @override
   void dispose() {
-    if (_communication.isSingleton) {
-      _communication.removeEventReceiver(widget._eventReceiverInner);
+    if (communication.isSingleton) {
+      communication.removeEventReceiver(widget._eventReceiverInner);
     } else {
-      _communication.dispose();
+      communication.dispose();
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget._builderInner(context, _communication);
+    return widget._builderInner(context, communication);
   }
 }
