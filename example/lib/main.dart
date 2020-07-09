@@ -1,4 +1,4 @@
-import 'package:bsev/src/flavors.dart';
+import 'package:bsev/bsev.dart';
 import 'package:bsev_demo/di/initDependencies.dart';
 import 'package:bsev_demo/screens/home/home_view.dart';
 import 'package:flutter/material.dart';
