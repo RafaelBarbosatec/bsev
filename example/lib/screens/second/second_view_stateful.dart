@@ -14,7 +14,8 @@ class _SecondViewStatefulState extends State<SecondViewStateful> {
 
   @override
   void initState() {
-    communication = buildBsevCommunication<SecondBloc, SecondCommunication>();
+    communication = Bsev.buildCommunication<SecondBloc, SecondCommunication>();
+    communication.init();
     super.initState();
   }
 
@@ -27,7 +28,6 @@ class _SecondViewStatefulState extends State<SecondViewStateful> {
 
   @override
   Widget build(BuildContext context) {
-    communication.initView();
     return Scaffold(
       appBar: AppBar(
         title: Text("Example without Bsev"),

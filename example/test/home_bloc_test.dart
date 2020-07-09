@@ -46,10 +46,10 @@ void main() {
     ];
 
     when(
-      _mockCryptoRepository.getPokemons(page: 0, limit: HomeBloc.limit),
+      _mockCryptoRepository.getPokemonList(page: 0, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
-    _homeCommunication.initView();
+    _homeCommunication.init();
 
     expectLater(
       _homeCommunication.showProgress.get,
@@ -79,7 +79,7 @@ void main() {
     ];
 
     when(
-      _mockCryptoRepository.getPokemons(page: 1, limit: HomeBloc.limit),
+      _mockCryptoRepository.getPokemonList(page: 1, limit: HomeBloc.limit),
     ).thenAnswer((_) => Future.value(mockList));
 
     _homeCommunication.dispatcher(HomeEventLoad(isMore: true));

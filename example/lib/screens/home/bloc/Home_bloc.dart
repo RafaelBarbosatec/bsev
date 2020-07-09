@@ -3,7 +3,7 @@ import 'package:bsev_demo/repository/pokemon/model/pokemon.dart';
 import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 
-class HomeBloc extends BlocBase<HomeCommunication> {
+class HomeBloc extends Bloc<HomeCommunication> {
   final PokemonRepository api;
 
   int _page = 0;
@@ -13,7 +13,7 @@ class HomeBloc extends BlocBase<HomeCommunication> {
   HomeBloc(this.api);
 
   @override
-  void initView() {
+  void init() {
     loadCrypto(false);
   }
 
@@ -38,7 +38,7 @@ class HomeBloc extends BlocBase<HomeCommunication> {
     communication.showProgress.set(true);
 
     api
-        .getPokemons(page: _page, limit: limit)
+        .getPokemonList(page: _page, limit: limit)
         .then(isMore ? _addInList : _populateList)
         .whenComplete(() => communication.showProgress.set(false))
         .catchError(_resolveError);

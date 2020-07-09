@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class SecondView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Bsev<SecondBloc, SecondCommunication>(
+    return BsevBuilder<SecondBloc, SecondCommunication>(
       builder: (_, communication) {
         return Scaffold(
           appBar: AppBar(

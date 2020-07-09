@@ -16,7 +16,7 @@ We should initially create the class `Communication` and `Events`:
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeCommunication extends CommunicationBase{
+class HomeCommunication extends Communication{
 
   var count = BehaviorSubjectCreate<Int>(initValue: 0);
   //var count = StreamCreate<Int>();
@@ -49,7 +49,7 @@ Now we can create our `Bloc`, class that will be centralized the business rule.
 ``` dart
 import 'package:bsev/bsev.dart';
 
-class HomeBloc extends BlocBase<HomeCommunication>{
+class HomeBloc extends Bloc<HomeCommunication>{
 
   // If you need to communicate with some instantiated BloC, regardless of whether part of your tree of widgets can use:
   // dispatchToBloc<OtherBloc>(MsgEvent());
@@ -61,7 +61,7 @@ class HomeBloc extends BlocBase<HomeCommunication>{
   // dispatchView(MyEvent());
 
   @override
-  void initView() {
+  void init() {
   // execute something when view is ready.
   }
   
@@ -95,7 +95,7 @@ class HomeView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     
-    return Bsev<HomeBloc,HomeCommunication>(
+    return BsevBuilder<HomeBloc,HomeCommunication>(
       dataToBloc: "any data", //optional initial data to bloc
       eventReceiver: (event, communication){ //optional
         // performs action received by the bloc

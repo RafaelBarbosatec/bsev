@@ -1,3 +1,9 @@
+## [2.1.0] - 09/07/2020
+
+* BREAKING CHANGES: Rename `CommunicationBase` to `Communication`
+* BREAKING CHANGES: Rename `BlocBase` to `Bloc`
+* BREAKING CHANGES: Rename `initView` to `init` in Bloc
+
 ## [2.0.0] - 01/07/2020 - BREAKING CHANGES
 
 * Unifies Streams and Communication.

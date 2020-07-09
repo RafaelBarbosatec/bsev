@@ -10,24 +10,24 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Bsev<HomeBloc, HomeCommunication>(
-      eventReceiver: (event, communication) {
-        if (event is HomeEventShowError) {
-          showSnackBar(event.msg, communication);
-        }
-      },
-      builder: (context, communication) {
-        return Scaffold(
-          key: scaffoldStateKey,
-          appBar: AppBar(),
-          body: Stack(
+    return Scaffold(
+      key: scaffoldStateKey,
+      appBar: AppBar(),
+      body: BsevBuilder<HomeBloc, HomeCommunication>(
+        eventReceiver: (event, communication) {
+          if (event is HomeEventShowError) {
+            showSnackBar(event.msg, communication);
+          }
+        },
+        builder: (context, communication) {
+          return Stack(
             children: <Widget>[
               _buildListStream(communication),
               _buildProgressStream(communication)
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
