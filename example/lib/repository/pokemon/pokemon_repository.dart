@@ -6,10 +6,9 @@ class PokemonRepository {
 
   PokemonRepository(this._con);
 
-  Future<List<Pokemon>> getPokemons({int page = 0, int limit}) {
+  Future<List<Pokemon>> getPokemonList({int page = 0, int limit}) {
     String paramLimit = '';
     if (limit != null) paramLimit = '&limit=$limit';
-
     return _con.get('pokemon?page=$page$paramLimit').then((response) =>
         response['data']
             .map<Pokemon>((item) => Pokemon.fromJson(item))

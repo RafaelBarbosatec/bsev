@@ -1,5 +1,5 @@
 import 'package:bsev/bsev.dart';
-import 'package:bsev/flavors.dart';
+import 'package:bsev/src/flavors.dart';
 import 'package:bsev_demo/repository/pokemon/pokemon_repository.dart';
 import 'package:bsev_demo/screens/home/bloc/bloc.dart';
 import 'package:bsev_demo/screens/second/bloc/bloc.dart';

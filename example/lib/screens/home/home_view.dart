@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Bsev<HomeBloc, HomeCommunication>(
+    return BsevBuilder<HomeBloc, HomeCommunication>(
       eventReceiver: (event, communication) {
         if (event is HomeEventShowError) {
           showSnackBar(event.msg, communication);
