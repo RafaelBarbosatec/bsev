@@ -1,7 +1,7 @@
 name: bsev
 description: Useful to aid in the use of BloC pattern with dependency injection
 
-version: 2.1.0
+version: 2.1.0+1
 
 homepage: https://github.com/RafaelBarbosatec/bsev
 
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   rxdart: ^0.24.1
-  get_it: ^4.0.2
+  get_it: ^4.0.4
 
 dev_dependencies:
   flutter_test:

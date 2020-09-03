@@ -1,3 +1,6 @@
+## [2.1.0+1] - 03/09/2020
+* DISCONTINUED
+
 ## [2.1.0] - 09/07/2020
 
 * BREAKING CHANGES: Rename `CommunicationBase` to `Communication`
