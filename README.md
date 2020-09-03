@@ -1,5 +1,9 @@
 [![pub package](https://img.shields.io/pub/v/bsev.svg)](https://pub.dartlang.org/packages/bsev)
 
+# [DISCONTINUED]
+
+Our efforts are directed to the new package [Cubes](https://pub.dev/packages/cubes).
+
 # BSEV (BloC,Streams,Events,View)
 
 Set of packages and utilitarian functions that help in the use of BloC pattern with dependency injection.
